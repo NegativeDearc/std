@@ -2,7 +2,9 @@ const state = {
   /* control the navigation drawer */
   ifDrawer: false,
   /* control the dark model */
-  ifDark: false
+  ifDark: false,
+  /* show completed task */
+  showAll: false
 }
 
 export default state

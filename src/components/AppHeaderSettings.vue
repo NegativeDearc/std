@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-btn flat icon color="indigo" v-on:click.stop="settings = true">
+    <v-btn flat icon dark color="indigo" v-on:click.stop="settings = true">
       <v-icon>settings</v-icon>
     </v-btn>
 
@@ -32,17 +32,19 @@
               </v-flex>
               <v-flex xs2 sm2 md2>
                 <v-switch
-                  v-model="ex11"
+                  v-model="$store.state.ifDark"
                   color="red"
                   hide-details
                 ></v-switch>
               </v-flex>
               <v-flex xs10 sm10 md10>
-                <v-subheader>HIDE ITEMS HAD DONE</v-subheader>
+                <v-subheader>SHOW ITEMS HAD DONE</v-subheader>
               </v-flex>
               <v-flex xs2 sm2 md2>
                 <v-switch
                   color="green"
+                  hide-details
+                  v-model="$store.state.showAll"
                 ></v-switch>
               </v-flex>
 

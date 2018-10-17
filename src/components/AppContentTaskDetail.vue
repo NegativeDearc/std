@@ -25,7 +25,7 @@
             <v-toolbar-title>新的任务</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn dark flat v-on:click.native="task = false">保存</v-btn>
+              <v-btn dark flat v-on:click.native="submitForm">保存</v-btn>
             </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
@@ -36,6 +36,7 @@
                   <v-text-field
                     label="任务"
                     prepend-icon="assignment"
+                    v-model="taskName"
                   >
                   </v-text-field>
                 </v-list-tile>
@@ -44,6 +45,7 @@
                   <v-text-field
                     label="任务的描述"
                     prepend-icon="subject"
+                    v-model="taskDescription"
                   >
                   </v-text-field>
                 </v-list-tile>
@@ -56,6 +58,7 @@
                     persistent-hint
                     prepend-icon="repeat"
                     return-object
+                    v-model="taskRepeatInterval"
                   >
                     <template
                       slot="item"
@@ -85,7 +88,7 @@
                           ref="menu"
                           :close-on-content-click="false"
                           v-model="menu2"
-                          :return-value.sync="time"
+                          :return-value.sync="taskTimeSlot"
                           lazy
                           transition="scale-transition"
                           offset-y
@@ -93,20 +96,20 @@
                         >
                           <v-text-field
                             slot="activator"
-                            v-model="time"
+                            v-model="taskTimeSlot"
                             prepend-icon="access_time"
                             readonly
                           ></v-text-field>
                           <v-time-picker
                             v-if="menu2"
-                            v-model="time"
+                            v-model="taskTimeSlot"
                             full-width
                             color="green lighten-1"
                             format="24hr"
                             min="8:30"
                             max="21:00"
                             :allowed-minutes="allowedStep"
-                            @change="$refs.menu.save(time)"
+                            @change="$refs.menu.save(taskTimeSlot)"
                           ></v-time-picker>
                         </v-menu>
                       </v-layout>
@@ -122,16 +125,16 @@
                         lazy
                         transition="scale-transition"
                         offset-y
-                        full-width="true"
+                        full-width
                       >
                         <v-text-field
                           slot="activator"
-                          v-model="dateFormatted"
+                          v-model="taskDueDate"
                           hint="MM/DD/YYYY format"
                           persistent-hint
                           prepend-icon="event"
                           header-color="green lighten-1"
-                          @blur="date = parseDate(dateFormatted)"
+                          @blur="date = parseDate(taskDueDate)"
                         ></v-text-field>
                         <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
                       </v-menu>
@@ -150,6 +153,7 @@
                     hide-selected
                     multiple
                     single-line
+                    v-model="taskTags"
                   ></v-autocomplete>
                 </v-list-tile>
               </v-list>
@@ -172,40 +176,52 @@ export default {
         {itemId: 2, itemText: '每个工作日', itemAvatar: 'notifications_active'},
         {itemId: 3, itemText: '每周', itemAvatar: 'notifications'}
       ],
+      taskName: null,
+      taskDescription: null,
+      taskTags: null,
+      taskRepeatInterval: null,
+      taskTimeSlot: null,
+      taskDueDate: null,
+      date: null,
+
       tags: ['Quality', 'Cost', 'Safety', 'People'],
       task: false,
-      time: null,
-      menu2: false,
-      modal2: false,
-      date: null,
-      dateFormatted: null,
-      menu1: false
+      menu1: false,
+      menu2: false
     }
   },
   computed: {
-    computedDateFormatted () {
+    computedtaskDueDate () {
       return this.formatDate(this.date)
     }
   },
-
   watch: {
     date (val) {
-      this.dateFormatted = this.formatDate(this.date)
+      this.taskDueDate = this.formatDate(this.date)
     }
   },
   methods: {
     allowedStep: (m) => m % 10 === 0,
     formatDate (date) {
       if (!date) return null
-
       const [year, month, day] = date.split('-')
       return `${month}/${day}/${year}`
     },
     parseDate (date) {
       if (!date) return null
-
       const [month, day, year] = date.split('/')
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    },
+    submitForm () {
+      let _formDate = {
+        taskName: this.taskName,
+        taskDescription: this.taskDescription,
+        taskTags: this.taskTags,
+        taskRepeatInterval: this.taskRepeatInterval ? this.taskRepeatInterval.itemId : this.taskRepeatInterval,
+        taskTimeSlot: this.taskTimeSlot,
+        taskDueDateParsed: this.date
+      }
+      console.log(_formDate)
     }
   }
 }

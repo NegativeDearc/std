@@ -1,7 +1,7 @@
 {
   "name": "std",
-  "version": "1.0.0",
-  "description": "A Vue.js project",
+  "version": "0.0.2",
+  "description": "A To-do project made by Vue.js ",
   "author": "chenxei",
   "private": true,
   "scripts": {
