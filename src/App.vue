@@ -1,28 +1,14 @@
 <template>
   <div id="app">
-    <v-app>
-      <AppSideBar/>
-      <AppHeader></AppHeader>
-      <AppContent/>
-      <AppFooter/>
-    </v-app>
+    <transition name="slide">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader'
-import AppFooter from '@/components/AppFooter'
-import AppContent from '@/components/AppContent'
-import AppSideBar from '@/components/AppSideBar'
-
 export default {
-  name: 'App',
-  components: {
-    AppSideBar,
-    AppHeader,
-    AppFooter,
-    AppContent
-  }
+  name: 'App'
 }
 </script>
 

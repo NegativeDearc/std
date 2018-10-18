@@ -1,6 +1,6 @@
 {
   "name": "std",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A To-do project made by Vue.js ",
   "author": "chenxei",
   "private": true,
@@ -13,6 +13,8 @@
   "dependencies": {
     "material-design-icons-iconfont": "^3.0.3",
     "vue": "^2.5.2",
+    "vue-moment": "^4.0.0",
+    "vue-router": "^3.0.1",
     "vuetify": "^1.2.9",
     "vuex": "^3.0.1"
   },

@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import AppHeaderLogin from '@/components/AppHeaderLogin'
-import AppHeaderSettings from '@/components/AppHeaderSettings'
+import AppHeaderLogin from '@/components/index/AppHeaderLogin'
+import AppHeaderSettings from '@/components/index/AppHeaderSettings'
 
 export default {
   name: 'AppHeader',

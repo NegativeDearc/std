@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AppContentTaskDetail from '@/components/AppContentTaskDetail'
+import AppContentTaskDetail from '@/components/index/AppContentTaskDetail'
 
 export default {
   name: 'AppFooter',
