@@ -17,9 +17,10 @@ const router = new Router({
       ]
     },
     {
-      path: '/task/:id',
+      path: '/task/:taskId',
       name: 'task',
-      component: AppTask
+      component: AppTask,
+      props: true
     }
   ]
 })

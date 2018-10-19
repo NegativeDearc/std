@@ -1,5 +1,10 @@
 <template>
-  <v-navigation-drawer v-model="$store.state.ifDrawer" app left temporary>
+  <v-navigation-drawer
+    app
+    v-model="$store.state.ifDrawer"
+    left
+    temporary
+  >
     <v-list>
       <v-list-tile>
         <v-list-tile-action>

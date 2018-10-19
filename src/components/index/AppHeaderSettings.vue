@@ -70,6 +70,9 @@ export default {
     return {
       settings: false
     }
+  },
+  mounted: function () {
+    console.log(this.settings)
   }
 }
 </script>

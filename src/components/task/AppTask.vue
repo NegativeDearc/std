@@ -13,7 +13,10 @@ import AppTaskFooter from '@/components/task/AppTaskFooter'
 
 export default {
   name: 'AppTask',
-  components: {AppTaskToolbar, AppTaskContent, AppTaskFooter}
+  components: {AppTaskToolbar, AppTaskContent, AppTaskFooter},
+  mounted: function () {
+    console.log(this.$router.currentRoute.params)
+  }
 }
 </script>
 

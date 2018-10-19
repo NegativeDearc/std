@@ -20,7 +20,6 @@
                   <v-list-tile
                     v-bind:key="todo.id"
                     v-bind:style="[isDelay(todo.dueDate, todo.status)?dueDateTaskStyleDelay:'']"
-                    v-bind:to="{ name: 'task', params: { id: todo.id }}"
                   >
                     <v-list-tile-action>
                       <v-checkbox
@@ -31,6 +30,7 @@
                     </v-list-tile-action>
                     <v-list-tile-content
                       v-bind:style="[!todo.status?completedTaskStyle:'']"
+                      v-on:click="goToTask(todo.id)"
                     >
                       <v-list-tile-title>{{ todo.title }}</v-list-tile-title>
                       <v-list-tile-sub-title>{{ todo.description }}</v-list-tile-sub-title>
@@ -80,6 +80,10 @@ export default {
   methods: {
     isDelay: function (dueDate, taskStatus) {
       if (taskStatus) return new Date(dueDate) <= new Date()
+    },
+    goToTask: function (_id) {
+      console.log(_id)
+      this.$router.push({name: 'task', params: { taskId: _id }})
     }
   }
 }
