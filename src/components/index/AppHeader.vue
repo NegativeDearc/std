@@ -2,7 +2,7 @@
   <v-toolbar
     app
   >
-    <v-toolbar-side-icon v-on:click.stop="$store.commit('unDrawer') "></v-toolbar-side-icon>
+    <v-toolbar-side-icon v-on:click.stop="$store.commit('UNDRAWER') "></v-toolbar-side-icon>
     <v-autocomplete
       :loading="loading"
       :items="items"
@@ -17,20 +17,20 @@
       solo-inverted
     ></v-autocomplete>
     <v-toolbar-items>
-      <AppHeaderLogin/>
+      <AppHeaderDash/>
       <AppHeaderSettings/>
     </v-toolbar-items>
   </v-toolbar>
 </template>
 
 <script>
-import AppHeaderLogin from '@/components/index/AppHeaderLogin'
+import AppHeaderDash from '@/components/index/AppHeaderDash'
 import AppHeaderSettings from '@/components/index/AppHeaderSettings'
 
 export default {
   name: 'AppHeader',
   components: {
-    AppHeaderLogin,
+    AppHeaderDash,
     AppHeaderSettings
   }
 }

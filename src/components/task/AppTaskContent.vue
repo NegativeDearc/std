@@ -195,7 +195,7 @@ export default {
         this.taskTags = _data.taskTags ? _data.taskTags.split(',') : null
         this.taskRepeatInterval = _data.isLoop
         this.taskTimeSlot = _data.RemindAt
-        this.taskDueDate = new Date(_data.dueDate)
+        this.taskDueDate = this.$moment(_data.dueDate).format('DD/MM/YYYY')
         console.log(this.$data)
       })
   }

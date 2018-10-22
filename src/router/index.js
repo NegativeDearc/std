@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import AppContent from '@/components/index/AppContent'
 import AppIndex from '@/components/index/AppIndex'
 import AppTask from '@/components/task/AppTask'
+import AppLogin from '@/components/index/AppLogin'
 
 Vue.use(Router)
 
@@ -13,16 +14,42 @@ const router = new Router({
       component: AppIndex,
       name: 'index',
       children: [
-        { path: '', component: AppContent }
-      ]
+        { path: '', component: AppContent, meta: { requiresAuth: true } }
+      ],
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/login',
+      component: AppLogin
     },
     {
       path: '/task/:taskId',
       name: 'task',
       component: AppTask,
-      props: true
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!window.localStorage.getItem('userId')) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }// 把要跳转的地址作为参数传到下一步
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() // 确保一定要调用 next()
+  }
 })
 
 export default router

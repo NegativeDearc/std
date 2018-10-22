@@ -85,6 +85,12 @@ export default {
       console.log(_id)
       this.$router.push({name: 'task', params: { taskId: _id }})
     }
+  },
+  mounted: function () {
+    this.axios.get('http://localhost:4000/api/task/user/28028031')
+      .then(data => {
+        console.log(data)
+      })
   }
 }
 </script>

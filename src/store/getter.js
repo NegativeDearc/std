@@ -1,8 +1,11 @@
 import state from '@/store/state'
 
 const getters = {
-  getIfDrawer: function () {
-    console.log(state.ifDrawer)
+  GET_IF_DRAWER: function () {
+    return state.ifDrawer
+  },
+  GET_USER_ID: function () {
+    return window.localStorage.getItem('userId')
   }
 }
 
