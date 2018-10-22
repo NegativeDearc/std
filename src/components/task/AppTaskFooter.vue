@@ -3,16 +3,17 @@
     <v-layout row wrap>
       <v-subheader>1111</v-subheader>
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon color="red">delete_sweep</v-icon>
-      </v-btn>
+      <AppTaskDelete/>
     </v-layout>
   </v-footer>
 </template>
 
 <script>
+import AppTaskDelete from '@/components/task/AppTaskDelete'
+
 export default {
-  name: 'AppTaskFooter'
+  name: 'AppTaskFooter',
+  components: {AppTaskDelete}
 }
 </script>
 

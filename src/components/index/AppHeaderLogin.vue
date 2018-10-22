@@ -16,39 +16,30 @@
           <v-btn icon dark v-on:click.native="dialog = false">
             <v-icon dark>close</v-icon>
           </v-btn>
-          <v-toolbar-title>Login</v-toolbar-title>
+          <v-toolbar-title>登陆</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark flat v-on:click.native="dialog = false">Save</v-btn>
+            <v-btn dark flat v-on:click.native="dialog = false">提交</v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <v-card-text>
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-text-field
-              v-model="username"
-              :rules="nameRules"
-              :counter="10"
-              label="Name"
+              v-model="userId"
+              :counter="8"
+              label="工号"
               required
             ></v-text-field>
             <v-text-field
               v-model="password"
-              :rules="emailRules"
-              label="E-mail"
+              type="password"
+              label="密码"
               required
             ></v-text-field>
             <v-checkbox
-              v-model="checkbox"
-              label="Keep Me Login In the Next ? Days"
+              v-model="rememberMe"
+              label="记住我"
             ></v-checkbox>
-
-            <v-btn
-              :disabled="!valid"
-              v-on:click="submit"
-            >
-              submit
-            </v-btn>
-            <v-btn v-on:click="clear">clear</v-btn>
           </v-form>
         </v-card-text>
 

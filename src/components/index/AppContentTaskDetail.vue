@@ -166,6 +166,7 @@
 </template>
 
 <script>
+// todo some validate for the form
 export default {
   name: 'AppContentTaskDetail',
   data () {
@@ -213,20 +214,29 @@ export default {
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     },
     submitForm () {
-      let _formDate = {
-        taskName: this.taskName,
+      let _formData = {
+        taskName: this.taskName ? this.taskName : null,
         taskDescription: this.taskDescription,
-        taskTags: this.taskTags,
+        taskTags: this.taskTags ? this.taskTags.toString() : null,
         taskRepeatInterval: this.taskRepeatInterval ? this.taskRepeatInterval.itemId : this.taskRepeatInterval,
         taskTimeSlot: this.taskTimeSlot,
         taskDueDateParsed: this.date
       }
-      console.log(_formDate)
+      this.axios.post(
+        // use global state after login
+        'http://localhost:4000/api/task/user/28028031', {
+          data: _formData
+        }
+      ).then(data => {
+        console.log(data)
+        this.$data.task = false
+      }).catch(function (err) {
+        alert(err)
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-
 </style>

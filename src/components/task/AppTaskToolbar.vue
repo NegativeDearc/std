@@ -3,7 +3,7 @@
     <v-toolbar-side-icon v-on:click="back">
       <v-icon>chevron_left</v-icon>
     </v-toolbar-side-icon>
-    <v-toolbar-title>{{}}</v-toolbar-title>
+    <v-toolbar-title></v-toolbar-title>
   </v-toolbar>
 </template>
 

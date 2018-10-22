@@ -184,6 +184,20 @@ export default {
       const [month, day, year] = date.split('/')
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     }
+  },
+  mounted: function () {
+    this.axios.get('http://localhost:4000/api/task/' + this.$router.currentRoute.params.taskId)
+      .then(data => {
+        let _data = data.data
+        console.log(data.data)
+        this.taskName = _data.taskTitle
+        this.taskDescription = _data.taskDescription
+        this.taskTags = _data.taskTags ? _data.taskTags.split(',') : null
+        this.taskRepeatInterval = _data.isLoop
+        this.taskTimeSlot = _data.RemindAt
+        this.taskDueDate = new Date(_data.dueDate)
+        console.log(this.$data)
+      })
   }
 }
 </script>

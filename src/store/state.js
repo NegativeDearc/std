@@ -4,7 +4,9 @@ const state = {
   /* control the dark model */
   ifDark: false,
   /* show completed task */
-  showAll: false
+  showAll: false,
+  /* login state */
+  userId: null
 }
 
 export default state
