@@ -1,12 +1,12 @@
 const state = {
   /* control the navigation drawer */
-  ifDrawer: false,
+  IFDRAWER: false,
   /* control the dark model */
-  ifDark: false,
+  ISDARK: false,
   /* show completed task */
-  showAll: false,
+  SHOWALL: true,
   /* login state */
-  userId: null,
+  USERID: null,
   TASKS: null
 }
 

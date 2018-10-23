@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     app
-    v-model="$store.state.ifDrawer"
+    v-model="$store.state.IFDRAWER"
     left
     temporary
   >

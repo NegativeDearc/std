@@ -10,6 +10,7 @@
                 label="任务"
                 prepend-icon="assignment"
                 v-model="taskName"
+                :disabled="taskIsDone"
               >
               </v-text-field>
             </v-list-tile>
@@ -19,6 +20,7 @@
                 label="任务的描述"
                 prepend-icon="subject"
                 v-model="taskDescription"
+                :disabled="taskIsDone"
               >
               </v-text-field>
             </v-list-tile>
@@ -32,6 +34,7 @@
                 prepend-icon="repeat"
                 return-object
                 v-model="taskRepeatInterval"
+                :disabled="taskIsDone"
               >
                 <template
                   slot="item"
@@ -66,6 +69,7 @@
                       transition="scale-transition"
                       offset-y
                       full-width
+                      :disabled="taskIsDone"
                     >
                       <v-text-field
                         slot="activator"
@@ -99,6 +103,7 @@
                     transition="scale-transition"
                     offset-y
                     full-width
+                    :disabled="taskIsDone"
                   >
                     <v-text-field
                       slot="activator"
@@ -127,6 +132,7 @@
                 multiple
                 single-line
                 v-model="taskTags"
+                :disabled="taskIsDone"
               ></v-autocomplete>
             </v-list-tile>
           </v-list>
@@ -155,6 +161,7 @@ export default {
       taskTimeSlot: null,
       taskDueDate: null,
       date: null,
+      taskIsDone: null,
 
       tags: ['Quality', 'Cost', 'Safety', 'People'],
       task: false,
@@ -189,6 +196,7 @@ export default {
     this.axios.get('http://localhost:4000/api/task/' + this.$router.currentRoute.params.taskId)
       .then(data => {
         let _data = data.data
+        this.taskIsDone = _data.isDone
         this.taskName = _data.taskTitle
         this.taskDescription = _data.taskDescription
         this.taskTags = _data.taskTags ? _data.taskTags.split(',') : null

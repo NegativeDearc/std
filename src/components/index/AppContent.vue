@@ -16,7 +16,7 @@
                 two-line
                 dense
               >
-                <template v-for="todo in $store.state.TASKS">
+                <template v-for="todo in $store.getters.GET_TASK">
                   <v-list-tile
                     v-bind:key="todo.id"
                     v-bind:style="[isDelay(todo.dueDate, todo.isDone)?dueDateTaskStyleDelay:'']"
@@ -24,14 +24,14 @@
                     <v-list-tile-action>
                       <v-checkbox
                         v-bind:key="todo.id"
-                        v-on:click.stop="$store.commit('CHANGE_DONE_STATUS', todo.id)"
+                        v-on:click.stop="$store.dispatch('CHANGE_DONE_STATUS', todo.id)"
                         v-model="todo.isDone"
-                        on-icon="panorama_fish_eye"
-                        off-icon="check_circle_outline"
+                        off-icon="panorama_fish_eye"
+                        on-icon="check_circle_outline"
                       ></v-checkbox>
                     </v-list-tile-action>
                     <v-list-tile-content
-                      v-bind:style="[!todo.isDone?completedTaskStyle:'']"
+                      v-bind:style="[todo.isDone?completedTaskStyle:'']"
                       v-on:click="goToTask(todo.id)"
                     >
                       <v-list-tile-title>{{ todo.taskTitle }}</v-list-tile-title>
@@ -77,7 +77,7 @@ export default {
   },
   methods: {
     isDelay: function (dueDate, taskStatus) {
-      if (taskStatus) return new Date(dueDate) <= new Date()
+      if (!taskStatus) return new Date(dueDate) <= new Date()
     },
     goToTask: function (_id) {
       console.log('=> DIRECT TO LINK /task/' + _id)
@@ -85,7 +85,7 @@ export default {
     }
   },
   mounted: function () {
-    this.$store.commit('GET_TASKS_OF_ALL')
+    this.$store.dispatch('GET_TASKS_OF_ALL')
     this.toDos = this.$store.state.TASKS
   }
 }

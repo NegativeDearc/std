@@ -32,7 +32,7 @@
               </v-flex>
               <v-flex xs2 sm2 md2>
                 <v-switch
-                  v-model="$store.state.ifDark"
+                  v-model="$store.state.IFDARK"
                   color="red"
                   hide-details
                 ></v-switch>
@@ -44,7 +44,8 @@
                 <v-switch
                   color="green"
                   hide-details
-                  v-model="$store.state.showAll"
+                  v-model="$store.state.SHOWALL"
+                  v-on:click="$store.commit('HIDE_NOT_DONE_TASK')"
                 ></v-switch>
               </v-flex>
 
@@ -70,9 +71,6 @@ export default {
     return {
       settings: false
     }
-  },
-  mounted: function () {
-    console.log(this.settings)
   }
 }
 </script>

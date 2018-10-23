@@ -220,18 +220,11 @@ export default {
         taskTags: this.taskTags ? this.taskTags.toString() : null,
         taskRepeatInterval: this.taskRepeatInterval ? this.taskRepeatInterval.itemId : this.taskRepeatInterval,
         taskTimeSlot: this.taskTimeSlot,
-        taskDueDateParsed: this.date
+        taskDueDateParsed: this.date,
+        createBy: this.$store.getters.GET_USER_ID
       }
-      this.axios.post(
-        // use global state after login
-        'http://localhost:4000/api/task/user/28028031', {
-          data: _formData
-        }
-      ).then(data => {
-        this.$data.task = false
-      }).catch(function (err) {
-        alert(err)
-      })
+      this.$store.dispatch('CREATE_NEW_TASK', _formData)
+      this.task = false
     }
   }
 }
