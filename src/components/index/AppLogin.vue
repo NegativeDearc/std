@@ -28,7 +28,7 @@
                 hint="输入您的密码"
                 required
               ></v-text-field>
-              <v-btn block depressed color="primary" v-on:click="login">登陆</v-btn>
+              <v-btn block depressed color="primary" v-on:click.stop="login">登陆</v-btn>
             </v-form>
           </v-card-text>
           <div style="flex: 1 1 auto;"></div>

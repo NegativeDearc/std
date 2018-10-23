@@ -25,14 +25,9 @@ export default {
   },
   methods: {
     isDelete: function () {
-      this.axios.delete('http://localhost:4000/api/task/' + this.$router.currentRoute.params.taskId)
-        .then(data => {
-          console.log(data)
-          this.$router.back()
-        }).catch(err => {
-          alert(err)
-          this.dialog = false
-        })
+      this.$store.commit('DELETE_ONE_TASK', this.$router.currentRoute.params.taskId)
+      this.dialog = false
+      this.$router.back()
     }
   }
 }

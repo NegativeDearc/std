@@ -3,7 +3,8 @@
     <v-toolbar-side-icon v-on:click="back">
       <v-icon>chevron_left</v-icon>
     </v-toolbar-side-icon>
-    <v-toolbar-title></v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn flat outline color="success">更新</v-btn>
   </v-toolbar>
 </template>
 
@@ -12,7 +13,7 @@ export default {
   name: 'AppTaskToolbar',
   methods: {
     back: function () {
-      window.history.back()
+      this.$router.back()
     }
   }
 }

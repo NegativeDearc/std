@@ -12,7 +12,6 @@ const router = new Router({
     {
       path: '/',
       component: AppIndex,
-      name: 'index',
       children: [
         { path: '', component: AppContent, meta: { requiresAuth: true } }
       ],

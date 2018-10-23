@@ -29,6 +29,14 @@ import AppHeaderSettings from '@/components/index/AppHeaderSettings'
 
 export default {
   name: 'AppHeader',
+  data () {
+    return {
+      select: '',
+      loading: '',
+      search: '',
+      items: []
+    }
+  },
   components: {
     AppHeaderDash,
     AppHeaderSettings

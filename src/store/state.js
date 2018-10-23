@@ -6,7 +6,8 @@ const state = {
   /* show completed task */
   showAll: false,
   /* login state */
-  userId: null
+  userId: null,
+  TASKS: null
 }
 
 export default state

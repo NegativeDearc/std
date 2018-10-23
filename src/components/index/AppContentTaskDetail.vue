@@ -228,7 +228,6 @@ export default {
           data: _formData
         }
       ).then(data => {
-        console.log(data)
         this.$data.task = false
       }).catch(function (err) {
         alert(err)

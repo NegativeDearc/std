@@ -21,7 +21,7 @@
         </v-toolbar>
         <v-card-text>
           <v-container>
-            <span class="display-1">Welcome {{ '' }}</span>
+            <span class="display-1">Welcome {{ $store.getters.GET_USER_ID }}</span>
 
           </v-container>
           <v-divider></v-divider>

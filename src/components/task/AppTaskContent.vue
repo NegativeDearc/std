@@ -189,14 +189,12 @@ export default {
     this.axios.get('http://localhost:4000/api/task/' + this.$router.currentRoute.params.taskId)
       .then(data => {
         let _data = data.data
-        console.log(data.data)
         this.taskName = _data.taskTitle
         this.taskDescription = _data.taskDescription
         this.taskTags = _data.taskTags ? _data.taskTags.split(',') : null
         this.taskRepeatInterval = _data.isLoop
         this.taskTimeSlot = _data.RemindAt
         this.taskDueDate = this.$moment(_data.dueDate).format('DD/MM/YYYY')
-        console.log(this.$data)
       })
   }
 }

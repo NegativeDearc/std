@@ -6,11 +6,11 @@ const actions = {
     axios.post('http://localhost:4000/api/auth/login', data)
       .then(res => {
         if (res.status === 200) {
-          console.log(res)
+          console.log('=> LOG IN SUCCESS OF USER: ' + res.data.loginUserId)
           context.commit('SET_USER_ID', res.data.loginUserId)
         }
       }).catch(err => {
-        console.log(err)
+        console.log('=> LOGIN FAILED WITH ERROR: ' + err)
         alert(err)
       })
   },
