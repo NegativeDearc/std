@@ -11,6 +11,7 @@
                 prepend-icon="assignment"
                 v-model="taskName"
                 :disabled="taskIsDone"
+                v-on:input="onChangeUpdate('taskTitle', $event)"
               >
               </v-text-field>
             </v-list-tile>
@@ -21,6 +22,7 @@
                 prepend-icon="subject"
                 v-model="taskDescription"
                 :disabled="taskIsDone"
+                v-on:input="onChangeUpdate('taskDescription', $event)"
               >
               </v-text-field>
             </v-list-tile>
@@ -35,6 +37,7 @@
                 return-object
                 v-model="taskRepeatInterval"
                 :disabled="taskIsDone"
+                v-on:input="slowOnChangeUpdate('isLoop', $event)"
               >
                 <template
                   slot="item"
@@ -87,6 +90,7 @@
                         max="21:00"
                         :allowed-minutes="allowedStep"
                         @change="$refs.menu.save(taskTimeSlot)"
+                        v-on:input="onChangeUpdate('remindAt', $event)"
                       ></v-time-picker>
                     </v-menu>
                   </v-layout>
@@ -114,7 +118,8 @@
                       header-color="green lighten-1"
                       @blur="date = parseDate(taskDueDate)"
                     ></v-text-field>
-                    <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
+                    <v-date-picker v-model="date" no-title @input="menu1 = false" v-on:input="onChangeUpdate('dueDate', $event)"
+                    ></v-date-picker>
                   </v-menu>
                 </v-list-tile>
               </v-flex>
@@ -133,6 +138,7 @@
                 single-line
                 v-model="taskTags"
                 :disabled="taskIsDone"
+                v-on:input="onChangeUpdate('taskTags', $event)"
               ></v-autocomplete>
             </v-list-tile>
           </v-list>
@@ -190,6 +196,32 @@ export default {
       if (!date) return null
       const [month, day, year] = date.split('/')
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    },
+    onChangeUpdate: function (key, event) {
+      var _id = this.$router.currentRoute.params.taskId
+      var _updateValue
+      switch (key) {
+        case 'taskTitle':
+          _updateValue = { taskTitle: event }
+          break
+        case 'taskDescription':
+          _updateValue = { taskDescription: event }
+          break
+        case 'isLoop':
+          _updateValue = { isLoop: event.itemId }
+          break
+        case 'remindAt':
+          _updateValue = { remindAt: event }
+          break
+        case 'dueDate':
+          _updateValue = { dueDate: event }
+          break
+        case 'taskTags':
+          _updateValue = { taskTags: event ? event.toString() : null }
+      }
+      console.log('=> CHANGING', key, 'TO', _updateValue)
+      // todo: use debound from lodash to reduce api pressure
+      this.$store.dispatch('UPDATE_ONE_TASK', [_id, _updateValue])
     }
   },
   mounted: function () {
@@ -201,7 +233,7 @@ export default {
         this.taskDescription = _data.taskDescription
         this.taskTags = _data.taskTags ? _data.taskTags.split(',') : null
         this.taskRepeatInterval = _data.isLoop
-        this.taskTimeSlot = _data.RemindAt
+        this.taskTimeSlot = _data.remindAt
         this.taskDueDate = this.$moment(_data.dueDate).format('DD/MM/YYYY')
       })
   }

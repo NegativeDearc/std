@@ -42,9 +42,9 @@
                       <v-list-tile-action-text>{{ todo.dueDate|moment('from') }}</v-list-tile-action-text>
                       <div style="display: inline-block">
                         <v-icon v-if="todo.isLoop" color="#F44336">restore</v-icon>
-                        <span v-if="todo.RemindAt">
+                        <span v-if="todo.remindAt">
                           <v-icon color="#2196F3">notifications_active</v-icon>
-                          <span>{{ todo.RemindAt}}</span>
+                          <span>{{ todo.remindAt}}</span>
                         </span>
                       </div>
                     </v-list-tile-action>

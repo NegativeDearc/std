@@ -4,7 +4,6 @@
       <v-icon>chevron_left</v-icon>
     </v-toolbar-side-icon>
     <v-spacer></v-spacer>
-    <v-btn flat outline color="success">更新</v-btn>
   </v-toolbar>
 </template>
 

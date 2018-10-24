@@ -27,6 +27,15 @@ const actions = {
         console.log('=> ENCOUNTER ERR: ' + err)
       })
   },
+  UPDATE_ONE_TASK: function (context, [id, updateValue]) {
+    console.log(id, updateValue)
+    axios.post('http://localhost:4000/api/task/' + id, updateValue)
+      .then(data => {
+        console.log('=> UPDATE DATA TO..', updateValue)
+      }).catch(err => {
+        console.log(('=> ENCOUNTER ERR WHEN TRYING UPDATE TO ', err))
+      })
+  },
   CHANGE_DONE_STATUS: function (context, id) {
     context.commit('CHANGE_DONE_STATUS_BY_ID', id)
     var updatedTask = context.getters.GET_TASK_BY_ID(id)
