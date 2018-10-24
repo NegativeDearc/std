@@ -40,19 +40,24 @@ const actions = {
       .catch(err => { console.log('=> ENCOUNTER ERROR: ' + err) })
   },
   DELETE_ONE_TASK: function (context, id) {
-    axios.delete('http://localhost:4000/api/task/' + id)
-      .then(data => {
-        console.log('=> DELETING TASK...' + data.data)
-      }).catch(err => {
-        alert(err)
-      })
+    return new Promise((resolve) => {
+      resolve(
+        axios.delete('http://localhost:4000/api/task/' + id)
+          .then(data => {
+            console.log('=> DELETING TASK...' + data.data)
+          }).catch(err => {
+            alert(err)
+          })
+      )
+    })
   },
-  UPDATE_AFTER_DELETE: function (context, id) {
-    // combine two asynchronous actions together
-    context.dispatch('DELETE_ONE_TASK', id)
-      .then(() => {
-        context.dispatch('GET_TASKS_OF_ALL')
-      })
+  async UPDATE_AFTER_DELETE (context, id) {
+    /*
+     combine two asynchronous actions together MUST use async/await to control sequence
+     first delete task then update data in stores
+      */
+    await context.dispatch('DELETE_ONE_TASK', id)
+    context.dispatch('GET_TASKS_OF_ALL')
   },
   CREATE_NEW_TASK: function (context, form) {
     axios.post('http://localhost:4000/api/task/user/' + window.localStorage.getItem('userId'), form)

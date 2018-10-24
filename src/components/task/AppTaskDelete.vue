@@ -27,7 +27,6 @@ export default {
     isDelete: function () {
       this.$store.dispatch('UPDATE_AFTER_DELETE', this.$router.currentRoute.params.taskId)
       this.dialog = false
-      // todo: fix data can't be refreshed when deleted one record  异步操作 顺序问题导致无法刷新数据
       this.$router.back()
     }
   }
