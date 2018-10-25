@@ -6,6 +6,7 @@ import Vuetify from 'vuetify'
 import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueMoment from 'vue-moment'
 import store from './store/index'
 import router from './router'
 import 'vuetify/dist/vuetify.min.css'
@@ -15,13 +16,11 @@ Vue.config.productionTip = false
 Vue.use(Vuetify)
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
-Vue.use(require('vue-moment'))
+Vue.use(VueMoment)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
   store,
   router,
-  components: { App },
-  template: '<App/>'
-})
+  render: h => h(App)
+}).$mount('#app')
