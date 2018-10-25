@@ -144,6 +144,22 @@
           </v-list>
         </v-form>
       </v-card-text>
+
+      <v-snackbar
+        v-model="snackbar"
+        color="info"
+        multi-line
+        :timeout="1000"
+      >
+        更新成功
+        <v-btn
+          dark
+          flat
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
     </v-card>
   </v-content>
 </template>
@@ -172,7 +188,8 @@ export default {
       tags: ['Quality', 'Cost', 'Safety', 'People'],
       task: false,
       menu1: false,
-      menu2: false
+      menu2: false,
+      snackbar: null
     }
   },
   computed: {
@@ -222,6 +239,7 @@ export default {
       console.log('=> CHANGING', key, 'TO', _updateValue)
       // todo: use debound from lodash to reduce api pressure
       this.$store.dispatch('UPDATE_ONE_TASK', [_id, _updateValue])
+      this.snackbar = true
     }
   },
   mounted: function () {
