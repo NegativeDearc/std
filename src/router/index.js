@@ -21,7 +21,10 @@ const router = new Router({
     },
     {
       path: '/login',
-      component: AppLogin
+      component: AppLogin,
+      meta: {
+        requiresAuth: false
+      }
     },
     {
       path: '/task/:taskId',
@@ -44,6 +47,7 @@ router.beforeEach((to, from, next) => {
         query: { redirect: to.fullPath }// 把要跳转的地址作为参数传到下一步
       })
     } else {
+      console.log('=> ALREADY LOGGED IN, DIRECT TO', to.fullPath)
       next()
     }
   } else {

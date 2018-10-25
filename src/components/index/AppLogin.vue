@@ -28,7 +28,7 @@
                 hint="输入您的密码"
                 required
               ></v-text-field>
-              <v-btn block depressed color="primary" v-on:click.stop="login">登陆</v-btn>
+              <v-btn block depressed color="primary" v-on:click="login">登陆</v-btn>
             </v-form>
           </v-card-text>
           <div style="flex: 1 1 auto;"></div>
@@ -55,8 +55,21 @@ export default {
   },
   methods: {
     login: function () {
-      this.$store.dispatch('LOGIN', {userId: this.userId, password: this.password})
-      this.$router.push('/')
+      let _data = { userId: this.userId, password: this.password }
+      if (!localStorage.getItem('userId')) {
+        this.axios.post('http://localhost:4000/api/auth/login', _data)
+          .then(res => {
+            if (res.status === 200) {
+              this.$store.commit('SET_USER_ID', res.data.loginUserId)
+              console.log('=> LOG IN SUCCESS OF USER: ' + localStorage.getItem('userId'))
+              let _path = this.$route.query.redirect || '/'
+              this.$router.push({ path: _path })
+            }
+          }).catch(err => {
+            console.log('=> LOGIN FAILED WITH ERROR: ' + err)
+            alert(err)
+          })
+      }
     }
   }
 }
