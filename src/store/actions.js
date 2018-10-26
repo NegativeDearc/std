@@ -39,9 +39,13 @@ const actions = {
   },
   CHANGE_DONE_STATUS: function (context, id) {
     context.commit('CHANGE_DONE_STATUS_BY_ID', id)
-    var updatedTask = context.getters.GET_TASK_BY_ID(id)
+    let updatedTask = context.getters.GET_TASK_BY_ID(id)
     // sync with database
     console.info('=> UPDATING TASK ID ' + id, 'VALUE isDone TO ' + updatedTask.isDone)
+    // update finishAt when isDone is true
+    updatedTask.isDone
+      ? updatedTask.finishedAt = new Date()
+      : updatedTask.finishedAt = null
     axios.put('http://localhost:4000/api/task/' + id, updatedTask)
       .then(data => {
         // context.dispatch('GET_TASKS_OF_ALL')

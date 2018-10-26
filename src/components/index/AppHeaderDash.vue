@@ -56,7 +56,7 @@
           <v-card-actions>
             <v-btn block depressed color="real" dark v-on:click="logout">
               <v-icon>power_settings_new</v-icon>
-              &nbsp;LOG OUT
+              &nbsp;登出
             </v-btn>
           </v-card-actions>
         </v-card-text>

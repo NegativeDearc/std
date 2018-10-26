@@ -87,6 +87,17 @@ export default {
   mounted: function () {
     this.$store.dispatch('GET_TASKS_OF_ALL')
     this.toDos = this.$store.state.TASKS
+  },
+  sockets: {
+    connect: function () {
+      console.log('*** => websocket connected')
+    },
+    oneLineCounter: function (data) {
+      console.log(data)
+    },
+    remindAlarm: function (data) {
+      console.log(data)
+    }
   }
 }
 </script>

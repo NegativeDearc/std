@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import AppContent from '@/components/index/AppContent'
-import AppIndex from '@/components/index/AppIndex'
-import AppTask from '@/components/task/AppTask'
-import AppLogin from '@/components/index/AppLogin'
+import AppContent from '../components/index/AppContent'
+import AppIndex from '../components/index/AppIndex'
+import AppTask from '../components/task/AppTask'
+import AppLogin from '../components/index/AppLogin'
 
 Vue.use(Router)
 

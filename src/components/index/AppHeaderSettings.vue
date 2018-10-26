@@ -11,54 +11,88 @@
       transition="dialog-bottom-transition"
       scrollable
     >
-      <v-card tile>
+      <v-card>
         <v-toolbar dark color="indigo">
           <v-btn icon dark v-on:click.native="settings = false">
             <v-icon>close</v-icon>
           </v-btn>
-          <v-toolbar-title>Settings</v-toolbar-title>
+          <v-toolbar-title>设置</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark flat v-on:click.native="settings = false">Save</v-btn>
+            <v-btn dark flat v-on:click.native="settings = false">保存</v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        <v-card-text>
           <v-container fluid>
-            <v-layout row wrap
-                      align-baseline="true"
-            >
-              <v-flex xs10 sm10 md10>
-                <v-subheader>APPLY FOR DARK MODEL</v-subheader>
-              </v-flex>
-              <v-flex xs2 sm2 md2>
-                <v-switch
-                  v-model="$store.state.IFDARK"
-                  color="red"
-                  hide-details
-                ></v-switch>
-              </v-flex>
-              <v-flex xs10 sm10 md10>
-                <v-subheader>SHOW ITEMS HAD DONE</v-subheader>
-              </v-flex>
-              <v-flex xs2 sm2 md2>
-                <v-switch
-                  color="green"
-                  hide-details
-                  v-model="$store.state.SHOWALL"
-                  v-on:click="$store.commit('HIDE_NOT_DONE_TASK')"
-                ></v-switch>
-              </v-flex>
+            <v-list two-line>
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon color="black">brightness_4</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>应用深黑模式</v-list-tile-title>
+                  <v-list-tile-sub-title>使你变得更酷</v-list-tile-sub-title>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                  <v-switch
+                    v-model="$store.state.IFDARK"
+                    color="red"
+                    hide-details
+                  ></v-switch>
+                </v-list-tile-action>
 
-              <v-flex xs10 sm10 md10>
-                <v-subheader>SORT BY</v-subheader>
-              </v-flex>
-              <v-flex xs2 sm2 md2>
-              </v-flex>
-            </v-layout>
+              </v-list-tile>
+              <v-divider></v-divider>
 
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon color="green">visibility</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>展示已完成项</v-list-tile-title>
+                  <v-list-tile-sub-title>使画面更加简洁</v-list-tile-sub-title>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                  <v-switch
+                    color="green"
+                    hide-details
+                    v-model="$store.state.SHOWALL"
+                    v-on:click="$store.commit('HIDE_NOT_DONE_TASK')"
+                  ></v-switch>
+                </v-list-tile-action>
+
+              </v-list-tile>
+              <v-divider></v-divider>
+
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon color="blue">looks_one</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>项目排序原则</v-list-tile-title>
+                  <v-list-tile-sub-title>使顺序更贴近习惯</v-list-tile-sub-title>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                  <v-menu offset-y left>
+                    <v-btn
+                      slot="activator"
+                      color="primary"
+                    >
+                      截止日期
+                    </v-btn>
+                    <v-list tile>
+                      <v-list-tile>
+                        <v-list-tile-title>截止日期</v-list-tile-title>
+                      </v-list-tile>
+                    </v-list>
+                  </v-menu>
+                </v-list-tile-action>
+
+              </v-list-tile>
+              <v-divider></v-divider>
+            </v-list>
           </v-container>
-        </v-card-text>
         <div style="flex: 1 1 auto;"></div>
+        <v-footer></v-footer>
       </v-card>
     </v-dialog>
   </v-layout>
@@ -69,7 +103,12 @@ export default {
   name: 'AppHeaderSettings',
   data () {
     return {
-      settings: false
+      settings: false,
+      sortBy: [
+        { text: 'list', callback: () => console.log('list') },
+        { text: 'favorite', callback: () => console.log('favorite') },
+        { text: 'delete', callback: () => console.log('delete') }
+      ]
     }
   }
 }

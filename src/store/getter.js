@@ -1,4 +1,4 @@
-import state from '@/store/state'
+import state from '../store/state'
 
 const getters = {
   /**

@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import AppHeader from '@/components/index/AppHeader'
-import AppFooter from '@/components/index/AppFooter'
-import AppSideBar from '@/components/index/AppSideBar'
+import AppHeader from '../index/AppHeader'
+import AppFooter from '../index/AppFooter'
+import AppSideBar from '../index/AppSideBar'
 
 export default {
   name: 'AppIndex',

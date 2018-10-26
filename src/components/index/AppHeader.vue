@@ -13,7 +13,7 @@
       flat
       hide-no-data
       hide-details
-      label="Searching Your To Do"
+      label="任意搜索"
       solo-inverted
     ></v-autocomplete>
     <v-toolbar-items>
@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import AppHeaderDash from '@/components/index/AppHeaderDash'
-import AppHeaderSettings from '@/components/index/AppHeaderSettings'
+import AppHeaderDash from '../index/AppHeaderDash'
+import AppHeaderSettings from '../index/AppHeaderSettings'
 
 export default {
   name: 'AppHeader',

@@ -5,11 +5,11 @@ const mutations = {
   },
   SET_USER_ID: function (state, data) {
     state.USERID = data
-    window.localStorage.setItem('userId', data)
+    localStorage.setItem('userId', data)
   },
   REMOVE_USER_ID: function (state) {
     state.USERID = null
-    window.localStorage.removeItem('userId')
+    localStorage.removeItem('userId')
   },
   HIDE_NOT_DONE_TASK: function (state) {
     state.SHOWALL = !state.SHOWALL
