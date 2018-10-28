@@ -19,24 +19,31 @@ const actions = {
     // console.log(window.localStorage.getItem('userId'))
     context.commit('REMOVE_USER_ID')
   },
+
   GET_TASKS_OF_ALL: function (context) {
-    axios.get('http://localhost:4000/api/task/user/' + window.localStorage.getItem('userId'))
-      .then(data => {
-        console.info('=> GETTING TASKS OF ALL OF USER ' + window.localStorage.getItem('userId'))
-        context.commit('SET_TASKS_LIST', data.data)
-      }).catch(err => {
-        console.log('=> ENCOUNTER ERR: ' + err)
-      })
+    return new Promise(resolve => {
+      resolve(
+        axios.get('http://localhost:4000/api/task/user/' + localStorage.getItem('userId'))
+          .then(data => {
+            console.info('=> GETTING TASKS OF ALL OF USER ' + localStorage.getItem('userId'))
+            context.commit('SET_TASKS_LIST', data.data)
+          }).catch(err => {
+            console.log('=> ENCOUNTER ERR: ' + err)
+          })
+      )
+    })
   },
+
   UPDATE_ONE_TASK: function (context, [id, updateValue]) {
     console.log(id, updateValue)
     axios.post('http://localhost:4000/api/task/' + id, updateValue)
-      .then(data => {
+      .then(() => {
         console.log('=> UPDATE DATA TO..', updateValue)
       }).catch(err => {
         console.log(('=> ENCOUNTER ERR WHEN TRYING UPDATE TO ', err))
       })
   },
+
   CHANGE_DONE_STATUS: function (context, id) {
     context.commit('CHANGE_DONE_STATUS_BY_ID', id)
     let updatedTask = context.getters.GET_TASK_BY_ID(id)
@@ -44,15 +51,19 @@ const actions = {
     console.info('=> UPDATING TASK ID ' + id, 'VALUE isDone TO ' + updatedTask.isDone)
     // update finishAt when isDone is true
     updatedTask.isDone
-      ? updatedTask.finishedAt = new Date()
-      : updatedTask.finishedAt = null
+      ? updatedTask.punchTime = new Date()
+      : updatedTask.punchTime = null
+
     axios.put('http://localhost:4000/api/task/' + id, updatedTask)
       .then(data => {
-        // context.dispatch('GET_TASKS_OF_ALL')
-        if (data.status === 200) { console.info('=> UPDATING SUCCESS') }
+        if (data.status === 200) {
+          console.info('=> UPDATING SUCCESS')
+          context.dispatch('GET_TASKS_OF_ALL')
+        }
       })
       .catch(err => { console.log('=> ENCOUNTER ERROR: ' + err) })
   },
+
   DELETE_ONE_TASK: function (context, id) {
     return new Promise((resolve) => {
       resolve(
@@ -65,6 +76,7 @@ const actions = {
       )
     })
   },
+
   async UPDATE_AFTER_DELETE (context, id) {
     /*
      combine two asynchronous actions together MUST use async/await to control sequence
@@ -73,6 +85,7 @@ const actions = {
     await context.dispatch('DELETE_ONE_TASK', id)
     context.dispatch('GET_TASKS_OF_ALL')
   },
+
   CREATE_NEW_TASK: function (context, form) {
     axios.post('http://localhost:4000/api/task/user/' + window.localStorage.getItem('userId'), form)
       .then(data => {

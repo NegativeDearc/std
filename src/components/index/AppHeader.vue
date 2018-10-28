@@ -6,14 +6,13 @@
     <v-autocomplete
       :loading="loading"
       :items="items"
-      :search-input.sync="search"
+      :search-input.sync="input"
       v-model="select"
-      cache-items
+      label="Search for anything..."
       class="mx-3"
       flat
       hide-no-data
       hide-details
-      label="任意搜索"
       solo-inverted
     ></v-autocomplete>
     <v-toolbar-items>
@@ -32,14 +31,29 @@ export default {
   data () {
     return {
       select: '',
-      loading: '',
-      search: '',
-      items: []
+      loading: false,
+      items: [],
+      input: ''
     }
   },
   components: {
     AppHeaderDash,
     AppHeaderSettings
+  },
+  watch: {
+    input (val) {
+      this.loading = true
+      this.axios.post('http://localhost:4000/api/search', {
+        userId: localStorage.getItem('userId'),
+        queryString: this.input
+      })
+        .then(data => {
+          this.items = data.data
+          console.log(this.items)
+        })
+        .catch(err => { console.error('==> SEARCH ERR', err) })
+        .finally(this.loading = false)
+    }
   }
 }
 </script>
