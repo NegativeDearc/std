@@ -22,7 +22,6 @@
         <v-card-text>
           <v-container>
             <span class="display-1">Welcome {{ $store.getters.GET_USER_ID }}</span>
-
           </v-container>
           <v-divider></v-divider>
           <v-container>
@@ -52,16 +51,14 @@
             </v-progress-circular>
           </v-container>
           <v-divider></v-divider>
-          <v-container></v-container>
-          <v-card-actions>
-            <v-btn block depressed color="real" dark v-on:click="logout">
-              <v-icon>power_settings_new</v-icon>
-              &nbsp;登出
-            </v-btn>
-          </v-card-actions>
         </v-card-text>
         <div style="flex: 1 1 auto;"></div>
-        <v-footer></v-footer>
+        <v-footer app><!-- why use app? -->
+          <v-btn block depressed dark v-on:click="logout">
+            <v-icon>power_settings_new</v-icon>
+            &nbsp;登出
+          </v-btn>
+        </v-footer>
       </v-card>
     </v-dialog>
   </v-layout>

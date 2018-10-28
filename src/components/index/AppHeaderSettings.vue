@@ -22,7 +22,7 @@
             <v-btn dark flat v-on:click.native="settings = false">保存</v-btn>
           </v-toolbar-items>
         </v-toolbar>
-          <v-container fluid>
+        <v-container fluid>
             <v-list two-line>
               <v-list-tile>
                 <v-list-tile-action>
