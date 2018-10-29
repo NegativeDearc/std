@@ -1,4 +1,6 @@
 import axios from 'axios'
+import Promise from 'bluebird' // solve promise error put(...).then(...).catch(...).finally is not a function
+import 'core-js/fn/promise/finally' // add the polyfill to make the feature available in all browsers.
 
 const actions = {
   LOGIN: function (context, data) {
@@ -58,10 +60,13 @@ const actions = {
       .then(data => {
         if (data.status === 200) {
           console.info('=> UPDATING SUCCESS')
-          context.dispatch('GET_TASKS_OF_ALL')
         }
       })
       .catch(err => { console.log('=> ENCOUNTER ERROR: ' + err) })
+      .finally(() => {
+        console.log('==> GET TASK LIST AFTER UPDATED')
+        context.dispatch('GET_TASKS_OF_ALL')
+      })
   },
 
   DELETE_ONE_TASK: function (context, id) {

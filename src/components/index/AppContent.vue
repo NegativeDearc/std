@@ -76,7 +76,8 @@ export default {
         'background-color': '#EEEEEE',
         'border': 'solid #FF5722'
       },
-      toDos: []
+      toDos: [],
+      online: ''
     }
   },
   methods: {
@@ -93,14 +94,8 @@ export default {
     this.toDos = this.$store.state.TASKS
   },
   sockets: {
-    connect: function () {
-      console.log('*** => websocket connected')
-    },
     oneLineCounter: function (data) {
-      console.log(data)
-    },
-    remindAlarm: function (data) {
-      console.log(data)
+      this.online = data.online
     }
   }
 }

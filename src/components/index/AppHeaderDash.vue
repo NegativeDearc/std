@@ -69,7 +69,8 @@ export default {
   name: 'AppHeaderDash',
   data () {
     return {
-      dialog: false
+      dialog: false,
+      online: null
     }
   },
   methods: {

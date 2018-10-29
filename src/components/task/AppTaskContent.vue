@@ -198,7 +198,7 @@ export default {
     }
   },
   watch: {
-    date (val) {
+    date () {
       this.taskDueDate = this.formatDate(this.date)
     }
   },

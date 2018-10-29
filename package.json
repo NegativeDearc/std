@@ -1,6 +1,6 @@
 {
   "name": "std",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "A To-do project made by Vue.js ",
   "author": "chenxei",
   "private": true,
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bluebird": "^3.5.2",
     "lodash": "^4.17.11",
     "material-design-icons-iconfont": "^3.0.3",
     "socket.io-client": "^2.1.1",

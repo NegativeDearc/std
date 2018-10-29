@@ -33,7 +33,7 @@ export default {
       select: '',
       loading: false,
       items: [],
-      input: ''
+      input: null
     }
   },
   components: {
@@ -41,7 +41,7 @@ export default {
     AppHeaderSettings
   },
   watch: {
-    input (val) {
+    input () {
       this.loading = true
       this.axios.post('http://localhost:4000/api/search', {
         userId: localStorage.getItem('userId'),
@@ -52,7 +52,7 @@ export default {
           console.log(this.items)
         })
         .catch(err => { console.error('==> SEARCH ERR', err) })
-        .finally(this.loading = false)
+        .finally(() => { this.loading = false })
     }
   }
 }
