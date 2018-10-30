@@ -228,7 +228,7 @@ export default {
     }
   },
   mounted: function () {
-    this.axios.get('http://localhost:5000/api/task/' + this.$router.currentRoute.params.taskId)
+    this.axios.get('/task/' + this.$router.currentRoute.params.taskId)
       .then(data => {
         let _data = data.data
         this.taskIsDone = _data.isDone

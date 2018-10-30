@@ -62,7 +62,7 @@ export default {
     login: function () {
       let _data = new URLSearchParams({ userId: this.userId, password: this.password })
       if (!localStorage.getItem('userId')) {
-        this.axios.post('http://localhost:5000/api/auth/login', _data)
+        this.axios.post('/auth/login', _data)
           .then(res => {
             if (res.status === 200) {
               this.$store.commit('SET_USER_ID', res.data.userId)

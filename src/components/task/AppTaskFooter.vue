@@ -20,7 +20,7 @@ export default {
       let _result = null
       let _task = this.$store.getters.GET_TASK_BY_ID(this.$route.params.taskId)
       if (_task.punchTime) {
-        _result = '完成于 ' + this.$moment(_task.punchTime).fromNow()
+        _result = '完成于 ' + _task.punchTime
       } else {
         _result = '到期于 ' + this.$moment(_task.dueDate).fromNow()
       }

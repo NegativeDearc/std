@@ -43,7 +43,7 @@ export default {
   watch: {
     input () {
       this.loading = true
-      this.axios.post('http://localhost:4000/api/search', {
+      this.axios.post('/search', {
         userId: localStorage.getItem('userId'),
         queryString: this.input
       })

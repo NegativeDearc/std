@@ -5,7 +5,7 @@ import 'core-js/fn/promise/finally' // add the polyfill to make the feature avai
 const actions = {
   LOGIN: function (context, data) {
     if (!localStorage.getItem('userId')) {
-      axios.post('http://localhost:5000/api/auth/login', data)
+      axios.post('/auth/login', data)
         .then(res => {
           if (res.status === 200) {
             context.commit('SET_USER_ID', res.data.loginUserId)
@@ -34,7 +34,7 @@ const actions = {
     //       })
     //   )
     // })
-    axios.get('http://localhost:5000/api/task/user/' + localStorage.getItem('userId'))
+    axios.get('/task/user/' + localStorage.getItem('userId'))
       .then(data => {
         console.info('=> GETTING TASKS OF ALL OF USER ' + localStorage.getItem('userId'))
         context.commit('SET_TASKS_LIST', data.data)
@@ -45,7 +45,7 @@ const actions = {
 
   UPDATE_ONE_TASK: function (context, [id, updateValue]) {
     console.log(id, updateValue)
-    axios.post('http://localhost:5000/api/task/' + id, new URLSearchParams(updateValue))
+    axios.post('/task/' + id, new URLSearchParams(updateValue))
       .then(() => {
         console.log('=> UPDATE DATA TO..', updateValue)
       }).catch(err => {
@@ -61,7 +61,7 @@ const actions = {
 
     let _form = new URLSearchParams({ isDone: updatedTask.isDone })
     new Promise(resolve => {
-      axios.put('http://localhost:5000/api/task/' + id, _form)
+      axios.put('/task/' + id, _form)
         .then(data => {
           if (data.status === 200) {
             // context.dispatch('GET_TASKS_OF_ALL')
@@ -86,7 +86,7 @@ const actions = {
   DELETE_ONE_TASK: function (context, id) {
     return new Promise((resolve) => {
       resolve(
-        axios.delete('http://localhost:5000/api/task/' + id)
+        axios.delete('/task/' + id)
           .then(data => {
             console.log('=> DELETING TASK...' + data.data)
           }).catch(err => {
@@ -106,7 +106,7 @@ const actions = {
   },
 
   CREATE_NEW_TASK: function (context, form) {
-    axios.post('http://localhost:5000/api/task/user/' + localStorage.getItem('userId'), form)
+    axios.post('/task/user/' + localStorage.getItem('userId'), form)
       .then(data => {
         if (data.status === 201) {
           console.log('==> TASK CREATED')
