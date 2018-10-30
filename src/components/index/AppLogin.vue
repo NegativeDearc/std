@@ -60,12 +60,12 @@ export default {
   },
   methods: {
     login: function () {
-      let _data = { userId: this.userId, password: this.password }
+      let _data = new URLSearchParams({ userId: this.userId, password: this.password })
       if (!localStorage.getItem('userId')) {
-        this.axios.post('http://localhost:4000/api/auth/login', _data)
+        this.axios.post('http://localhost:5000/api/auth/login', _data)
           .then(res => {
             if (res.status === 200) {
-              this.$store.commit('SET_USER_ID', res.data.loginUserId)
+              this.$store.commit('SET_USER_ID', res.data.userId)
               console.log('=> LOG IN SUCCESS OF USER: ' + localStorage.getItem('userId'))
               let _path = this.$route.query.redirect || '/'
               this.$router.push({ path: _path })

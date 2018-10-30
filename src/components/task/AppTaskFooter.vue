@@ -19,10 +19,10 @@ export default {
     taskFinishStatus: function () {
       let _result = null
       let _task = this.$store.getters.GET_TASK_BY_ID(this.$route.params.taskId)
-      if (_task.finishedAt) {
-        _result = 'Finished at ' + this.$moment(_task.finishedAt).fromNow()
+      if (_task.punchTime) {
+        _result = '完成于 ' + this.$moment(_task.punchTime).fromNow()
       } else {
-        _result = 'Due date ' + this.$moment(_task.dueDate).fromNow()
+        _result = '到期于 ' + this.$moment(_task.dueDate).fromNow()
       }
       return _result
     }

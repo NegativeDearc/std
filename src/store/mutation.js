@@ -3,14 +3,17 @@ const mutations = {
   UNDRAWER: function (state) {
     state.IFDRAWER = !state.IFDRAWER
   },
+
   SET_USER_ID: function (state, data) {
     state.USERID = data
     localStorage.setItem('userId', data)
   },
+
   REMOVE_USER_ID: function (state) {
     state.USERID = null
     localStorage.removeItem('userId')
   },
+
   HIDE_NOT_DONE_TASK: function (state) {
     state.SHOWALL = !state.SHOWALL
   },

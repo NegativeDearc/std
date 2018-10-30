@@ -42,7 +42,7 @@
                       </v-list-tile-content>
 
                       <v-list-tile-action>
-                        <v-list-tile-action-text>{{ todo.nextLoopAt| moment('YYYY/MM/DD') }} {{ todo.dueDate | moment('from') }}</v-list-tile-action-text>
+                        <v-list-tile-action-text>{{ todo.nextLoopAt| moment('YYYY/MM/DD') }} {{ todo.dueDate ? todo.dueDate : null | moment('from') }}</v-list-tile-action-text>
                         <div style="display: inline-block">
                           <v-icon v-if="todo.frequency" color="blue">restore</v-icon>
                           <span v-if="todo.remindAt">

@@ -37,7 +37,7 @@
                 return-object
                 v-model="taskRepeatInterval"
                 :disabled="taskIsDone"
-                v-on:input="slowOnChangeUpdate('frequency', $event)"
+                v-on:input="onChangeUpdate('frequency', $event)"
               >
                 <template
                   slot="item"
@@ -83,7 +83,6 @@
                       <v-time-picker
                         v-if="menu2"
                         v-model="taskTimeSlot"
-                        full-width
                         color="green lighten-1"
                         format="24hr"
                         min="8:30"
@@ -106,19 +105,15 @@
                     lazy
                     transition="scale-transition"
                     offset-y
-                    full-width
                     :disabled="taskIsDone"
                   >
                     <v-text-field
                       slot="activator"
                       v-model="taskDueDate"
-                      hint="MM/DD/YYYY format"
-                      persistent-hint
                       prepend-icon="event"
                       header-color="green lighten-1"
-                      @blur="date = parseDate(taskDueDate)"
                     ></v-text-field>
-                    <v-date-picker v-model="date" no-title @input="menu1 = false" v-on:input="onChangeUpdate('dueDate', $event)"
+                    <v-date-picker v-model="date" locale="zh-cn" @input="menu1 = false" v-on:input="onChangeUpdate('dueDate', $event)"
                     ></v-date-picker>
                   </v-menu>
                 </v-list-tile>
@@ -192,11 +187,6 @@ export default {
       snackbar: null
     }
   },
-  computed: {
-    computedtaskDueDate () {
-      return this.formatDate(this.date)
-    }
-  },
   watch: {
     date () {
       this.taskDueDate = this.formatDate(this.date)
@@ -209,14 +199,9 @@ export default {
       const [year, month, day] = date.split('-')
       return `${month}/${day}/${year}`
     },
-    parseDate (date) {
-      if (!date) return null
-      const [month, day, year] = date.split('/')
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    },
     onChangeUpdate: function (key, event) {
-      var _id = this.$router.currentRoute.params.taskId
-      var _updateValue
+      let _id = this.$router.currentRoute.params.taskId
+      let _updateValue
       switch (key) {
         case 'taskTitle':
           _updateValue = { taskTitle: event }
@@ -237,13 +222,13 @@ export default {
           _updateValue = { taskTags: event ? event.toString() : null }
       }
       console.log('=> CHANGING', key, 'TO', _updateValue)
-      // todo: use debound from lodash to reduce api pressure
+
       this.$store.dispatch('UPDATE_ONE_TASK', [_id, _updateValue])
       this.snackbar = true
     }
   },
   mounted: function () {
-    this.axios.get('http://localhost:4000/api/task/' + this.$router.currentRoute.params.taskId)
+    this.axios.get('http://localhost:5000/api/task/' + this.$router.currentRoute.params.taskId)
       .then(data => {
         let _data = data.data
         this.taskIsDone = _data.isDone

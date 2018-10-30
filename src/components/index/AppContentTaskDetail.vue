@@ -92,7 +92,6 @@
                           lazy
                           transition="scale-transition"
                           offset-y
-                          full-width
                         >
                           <v-text-field
                             slot="activator"
@@ -103,7 +102,6 @@
                           <v-time-picker
                             v-if="menu2"
                             v-model="taskTimeSlot"
-                            full-width
                             color="green lighten-1"
                             format="24hr"
                             min="8:30"
@@ -125,7 +123,6 @@
                         lazy
                         transition="scale-transition"
                         offset-y
-                        full-width
                       >
                         <v-text-field
                           slot="activator"
@@ -134,9 +131,8 @@
                           persistent-hint
                           prepend-icon="event"
                           header-color="green lighten-1"
-                          @blur="date = parseDate(taskDueDate)"
                         ></v-text-field>
-                        <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
+                        <v-date-picker v-model="date" locale="zh-cn" @input="menu1 = false"></v-date-picker>
                       </v-menu>
                     </v-list-tile>
                   </v-flex>
@@ -191,11 +187,6 @@ export default {
       menu2: false
     }
   },
-  computed: {
-    computedtaskDueDate () {
-      return this.formatDate(this.date)
-    }
-  },
   watch: {
     date () {
       this.taskDueDate = this.formatDate(this.date)
@@ -208,21 +199,18 @@ export default {
       const [year, month, day] = date.split('-')
       return `${month}/${day}/${year}`
     },
-    parseDate (date) {
-      if (!date) return null
-      const [month, day, year] = date.split('/')
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    },
     submitForm () {
-      let _formData = {
-        taskName: this.taskName ? this.taskName : null,
-        taskDescription: this.taskDescription,
-        taskTags: this.taskTags ? this.taskTags.toString() : null,
-        taskRepeatInterval: this.taskRepeatInterval ? this.taskRepeatInterval.itemId : this.taskRepeatInterval,
-        taskTimeSlot: this.taskTimeSlot,
-        taskDueDateParsed: this.date,
-        createBy: this.$store.getters.GET_USER_ID
-      }
+      let _formData = new URLSearchParams(
+        {
+          taskName: this.taskName ? this.taskName : null,
+          taskDescription: this.taskDescription,
+          taskTags: this.taskTags ? this.taskTags.toString() : null,
+          taskRepeatInterval: this.taskRepeatInterval ? this.taskRepeatInterval.itemId : this.taskRepeatInterval,
+          taskTimeSlot: this.taskTimeSlot,
+          taskDueDateParsed: this.date,
+          createBy: this.$store.getters.GET_USER_ID
+        }
+      )
       this.$store.dispatch('CREATE_NEW_TASK', _formData)
       this.task = false
     }
