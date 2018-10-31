@@ -24,6 +24,10 @@ const mutations = {
   /* change the specific one (by id) from state.TASKS when click done/not done button */
   CHANGE_DONE_STATUS_BY_ID: function (state, id) {
     state.TASKS.find(task => task.id === id).isDone = !state.TASKS.find(task => task.id === id).isDone
+  },
+  /* query user dash status */
+  SET_USER_DASH: function (state, data) {
+    state.USER_DASH = data
   }
 }
 

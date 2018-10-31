@@ -143,6 +143,7 @@
                   <v-autocomplete
                     :items="tags"
                     chips
+                    clearable
                     hide-details
                     full-width
                     hide-no-data

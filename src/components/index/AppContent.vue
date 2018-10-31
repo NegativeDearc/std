@@ -9,14 +9,15 @@
       <v-layout row wrap>
         <v-flex xs12 sm12 md6 offset-md3>
           <v-card>
-            <v-subheader>To do</v-subheader>
+            <div class="align-center body-2 grey--text pb-1 pa-1" v-text="getNow"></div>
             <v-card-text class="grey lighten-5">
               <v-list
                 subheader
                 two-line
                 dense
               >
-                <template v-for="todo in $store.getters.GET_TASK">
+                <template v-if="!$store.getters.GET_TASK">还没有任何任务，从这里开始吧😊</template>
+                <template v-else v-for="todo in $store.getters.GET_TASK">
                   <v-hover v-bind:key="todo.id">
                     <v-list-tile
                       slot-scope="{ hover }"
@@ -46,7 +47,6 @@
                         <div style="display: inline-block">
                           <v-icon v-if="todo.frequency" color="blue">restore</v-icon>
                           <span v-if="todo.remindAt">
-                          <!--<v-icon>notifications_active</v-icon>-->
                           <span>{{ todo.remindAt}}</span>
                         </span>
                         </div>
@@ -77,7 +77,18 @@ export default {
         'border': 'solid #FF5722'
       },
       toDos: [],
-      online: ''
+      online: '',
+      now: new Date()
+    }
+  },
+  created () {
+    setInterval(() => {
+      this.now = new Date()
+    }, 30000)
+  },
+  computed: {
+    getNow: function () {
+      return this.$moment(this.now).format('LLLL')
     }
   },
   methods: {

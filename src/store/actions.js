@@ -112,7 +112,15 @@ const actions = {
           console.log('==> TASK CREATED')
           context.dispatch('GET_TASKS_OF_ALL')
         }
-      }).catch(err => { console.log(err) })
+      }).catch(err => { console.log(err); alert(err) })
+  },
+
+  GET_USER_DASH: function (context) {
+    axios.get('/dash/' + localStorage.getItem('userId'))
+      .then(data => {
+        console.log('==> GETTING USER DASH STATUS')
+        context.commit('SET_USER_DASH', data.data)
+      })
   }
 }
 

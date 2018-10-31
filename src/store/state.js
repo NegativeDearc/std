@@ -7,7 +7,8 @@ const state = {
   SHOWALL: true,
   /* login state */
   USERID: null,
-  TASKS: null
+  TASKS: null,
+  USER_DASH: []
 }
 
 export default state

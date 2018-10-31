@@ -14,6 +14,7 @@
       hide-no-data
       hide-details
       solo-inverted
+      clearable
     ></v-autocomplete>
     <v-toolbar-items>
       <AppHeaderDash/>

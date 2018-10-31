@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-btn flat icon color="purple red--after" v-on:click.stop="dialog = true">
+    <v-btn flat icon color="purple red--after" v-on:click.stop="getUserDash">
       <v-icon>perm_identity</v-icon>
     </v-btn>
 
@@ -21,36 +21,69 @@
         </v-toolbar>
         <v-card-text>
           <v-container>
-            <span class="display-1">Welcome {{ $store.getters.GET_USER_ID }}</span>
+            <v-layout>
+              <v-flex xs4>
+                <v-avatar>
+                  <v-img
+                  ></v-img>
+                </v-avatar>
+              </v-flex>
+              <v-flex xs8>
+                <div class="body-1">{{ $store.getters.GET_USER_ID }}</div>
+              </v-flex>
+            </v-layout>
           </v-container>
-          <v-divider></v-divider>
+          <v-divider
+            class="mx-3"
+          ></v-divider>
+          <v-subheader>你的成就</v-subheader>
+          <v-container row wrap>
+            <v-layout>
+              <v-flex xs4>
+                <v-card flat>
+                  <div>
+                    <div class="display-3 font-weight-black"><span class="green--text">{{ this.$store.state.USER_DASH.OTF }}</span></div>
+                    <div class="body-2"><span class="black--text">及时清除</span></div>
+                  </div>
+                </v-card>
+              </v-flex>
+              <v-divider
+                class="mx-3"
+                inset
+                vertical
+              ></v-divider>
+              <v-flex xs4>
+                <v-card flat>
+                  <div>
+                    <div class="display-3 font-weight-black"><span class="blue--text">{{ this.$store.state.USER_DASH.IP }}</span></div>
+                    <div class="body-2"><span class="black--text">进展之中</span></div>
+                  </div>
+                </v-card>
+              </v-flex>
+              <v-divider
+                class="mx-3"
+                inset
+                vertical
+              ></v-divider>
+              <v-flex xs4>
+                <v-card flat>
+                  <div>
+                    <div class="display-3 font-weight-black"><span class="red--text">{{ this.$store.state.USER_DASH.D }}</span></div>
+                    <div class="body-2"><span class="black--text">延迟达成</span></div>
+                  </div>
+                </v-card>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          <v-divider
+            class="mx-3"
+          ></v-divider>
+          <v-subheader>你的下属</v-subheader>
           <v-container>
-            <v-progress-circular
-            :rotate="360"
-            :size="150"
-            :width="15"
-            :value="75"
-            color="red"
-          >On Time Finished
-          </v-progress-circular>
-            <v-progress-circular
-              :rotate="360"
-              :size="150"
-              :width="15"
-              :value="50"
-              color="teal"
-            >Weekly Progress
-            </v-progress-circular>
-            <v-progress-circular
-              :rotate="360"
-              :size="150"
-              :width="15"
-              :value="40"
-              color="blue"
-            >On-going Rate
-            </v-progress-circular>
+            <v-layout>
+              <v-flex></v-flex>
+            </v-layout>
           </v-container>
-          <v-divider></v-divider>
         </v-card-text>
         <div style="flex: 1 1 auto;"></div>
         <v-footer app><!-- why use app? -->
@@ -70,13 +103,19 @@ export default {
   data () {
     return {
       dialog: false,
-      online: null
+      online: null,
+      selfStatus: { OTF: '', IP: '', D: '' },
+      employeeStatus: []
     }
   },
   methods: {
     logout: function () {
       this.$store.dispatch('LOGOUT')
       this.$router.push('/login')
+    },
+    getUserDash: function () {
+      this.$store.dispatch('GET_USER_DASH')
+      this.dialog = true
     }
   }
 }
