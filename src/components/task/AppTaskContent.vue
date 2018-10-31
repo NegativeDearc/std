@@ -113,7 +113,11 @@
                       prepend-icon="event"
                       header-color="green lighten-1"
                     ></v-text-field>
-                    <v-date-picker v-model="date" locale="zh-cn" @input="menu1 = false" v-on:input="onChangeUpdate('dueDate', $event)"
+                    <v-date-picker
+                      v-model="date"
+                      locale="zh-cn"
+                      @input="menu1 = false"
+                      v-on:input="onChangeUpdate('dueDate', $event)"
                     ></v-date-picker>
                   </v-menu>
                 </v-list-tile>
