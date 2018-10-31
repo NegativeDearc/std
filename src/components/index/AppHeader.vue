@@ -14,8 +14,10 @@
       hide-no-data
       hide-details
       solo-inverted
+      clearable
     ></v-autocomplete>
     <v-toolbar-items>
+      <AppContentTaskDetail></AppContentTaskDetail>
       <AppHeaderDash/>
       <AppHeaderSettings/>
     </v-toolbar-items>
@@ -25,6 +27,7 @@
 <script>
 import AppHeaderDash from '../index/AppHeaderDash'
 import AppHeaderSettings from '../index/AppHeaderSettings'
+import AppContentTaskDetail from '../index/AppContentTaskDetail'
 
 export default {
   name: 'AppHeader',
@@ -37,6 +40,7 @@ export default {
     }
   },
   components: {
+    AppContentTaskDetail,
     AppHeaderDash,
     AppHeaderSettings
   },

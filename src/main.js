@@ -18,7 +18,7 @@ Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 Vue.use(VueMoment)
 
-axios.defaults.baseURL = 'http://localhost:5000/api/'
+axios.defaults.baseURL = 'http://localhost:7659/api/'
 
 /* eslint-disable no-new */
 new Vue({

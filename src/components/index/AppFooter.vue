@@ -1,16 +1,15 @@
 <template>
-  <v-footer app>
-    <AppContentTaskDetail/>
+  <v-footer app height="56px" color="white">
+    <AppBottomNav/>
   </v-footer>
 </template>
-
 <script>
-import AppContentTaskDetail from '../index/AppContentTaskDetail'
+import AppBottomNav from '../index/AppBottomNav'
 
 export default {
   name: 'AppFooter',
   components: {
-    AppContentTaskDetail
+    AppBottomNav
   }
 }
 </script>

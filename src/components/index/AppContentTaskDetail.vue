@@ -1,14 +1,11 @@
 <template>
   <v-layout row justify-center>
     <v-btn
-      large
-      block
+      icon
       dark
-      color="green"
       v-on:click.stop="task = true"
     >
-      <v-icon>add</v-icon>
-      新的任务
+      <v-icon color="green">playlist_add</v-icon>
     </v-btn>
     <v-dialog
         v-model="task"
@@ -143,6 +140,7 @@
                   <v-autocomplete
                     :items="tags"
                     chips
+                    clearable
                     hide-details
                     full-width
                     hide-no-data
@@ -181,7 +179,7 @@ export default {
       taskDueDate: null,
       date: null,
 
-      tags: ['Quality', 'Cost', 'Safety', 'People'],
+      tags: this.$store.state.TASK_TAGS,
       task: false,
       menu1: false,
       menu2: false

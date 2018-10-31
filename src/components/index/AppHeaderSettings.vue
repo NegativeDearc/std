@@ -48,15 +48,14 @@
                   <v-icon color="green">visibility</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                  <v-list-tile-title>展示已完成项</v-list-tile-title>
+                  <v-list-tile-title>隐藏已完成项</v-list-tile-title>
                   <v-list-tile-sub-title>使画面更加简洁</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                   <v-switch
                     color="green"
-                    hide-details
-                    v-model="$store.state.SHOWALL"
-                    v-on:click="$store.commit('HIDE_NOT_DONE_TASK')"
+                    model="$store.state.SHOW_ALL"
+                    v-on:change="showAll"
                   ></v-switch>
                 </v-list-tile-action>
 
@@ -109,6 +108,12 @@ export default {
         { text: 'favorite', callback: () => console.log('favorite') },
         { text: 'delete', callback: () => console.log('delete') }
       ]
+    }
+  },
+  methods: {
+    showAll: function () {
+      this.$store.commit('HIDE_NOT_DONE_TASK')
+      console.log('=> ', this.$store.state.SHOW_ALL)
     }
   }
 }

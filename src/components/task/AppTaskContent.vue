@@ -129,6 +129,7 @@
               <v-autocomplete
                 :items="tags"
                 chips
+                clearable
                 hide-details
                 full-width
                 hide-no-data
@@ -184,7 +185,7 @@ export default {
       date: null,
       taskIsDone: null,
 
-      tags: ['Quality', 'Cost', 'Safety', 'People'],
+      tags: this.$store.state.TASK_TAGS,
       task: false,
       menu1: false,
       menu2: false,

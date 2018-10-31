@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import AppContent from '../components/index/AppContent'
+import AppContentToday from '../components/index/AppContentToday'
+import AppContentFuture from '../components/index/AppContentFuture'
+import AppContentArchive from '../components/index/AppContentArchive'
 import AppIndex from '../components/index/AppIndex'
 import AppTask from '../components/task/AppTask'
 import AppLogin from '../components/index/AppLogin'
@@ -13,7 +15,10 @@ const router = new Router({
       path: '/',
       component: AppIndex,
       children: [
-        { path: '', component: AppContent, meta: { requiresAuth: true } }
+        { path: '', component: AppContentToday, meta: { requiresAuth: true } },
+        { path: 'today', component: AppContentToday, meta: { requiresAuth: true } },
+        { path: 'future', component: AppContentFuture, meta: { requiresAuth: true } },
+        { path: 'archive', component: AppContentArchive, meta: { requiresAuth: true } }
       ],
       meta: {
         requiresAuth: true
