@@ -7,7 +7,6 @@
         </v-flex>
       </v-layout>
       <v-layout row wrap>
-        Need develop
       </v-layout>
     </v-container>
   </v-content>

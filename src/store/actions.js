@@ -3,37 +3,11 @@ import Promise from 'bluebird' // solve promise error put(...).then(...).catch(.
 import 'core-js/fn/promise/finally' // add the polyfill to make the feature available in all browsers.
 
 const actions = {
-  LOGIN: function (context, data) {
-    if (!localStorage.getItem('userId')) {
-      axios.post('/auth/login', data)
-        .then(res => {
-          if (res.status === 200) {
-            context.commit('SET_USER_ID', res.data.loginUserId)
-            console.log('=> LOG IN SUCCESS OF USER: ' + localStorage.getItem('userId'))
-          }
-        }).catch(err => {
-          console.log('=> LOGIN FAILED WITH ERROR: ' + err)
-          alert(err)
-        })
-    }
-  },
   LOGOUT: function (context) {
-    // console.log(window.localStorage.getItem('userId'))
     context.commit('REMOVE_USER_ID')
   },
 
   GET_TASKS_OF_ALL: function (context) {
-    // return new Promise(resolve => {
-    //   resolve(
-    //     axios.get('http://localhost:5000/api/task/user/' + localStorage.getItem('userId'))
-    //       .then(data => {
-    //         console.info('=> GETTING TASKS OF ALL OF USER ' + localStorage.getItem('userId'))
-    //         context.commit('SET_TASKS_LIST', data.data)
-    //       }).catch(err => {
-    //         console.log('=> ENCOUNTER ERR: ' + err)
-    //       })
-    //   )
-    // })
     axios.get('/task/user/' + localStorage.getItem('userId'))
       .then(data => {
         console.info('=> GETTING TASKS OF ALL OF USER ' + localStorage.getItem('userId'))
@@ -54,32 +28,18 @@ const actions = {
   },
 
   CHANGE_DONE_STATUS: function (context, id) {
-    context.commit('CHANGE_DONE_STATUS_BY_ID', id)
     let updatedTask = context.getters.GET_TASK_BY_ID(id)
-    // sync with database
-    console.info('=> UPDATING TASK ID ' + id, 'VALUE isDone TO ' + updatedTask.isDone)
-
-    let _form = new URLSearchParams({ isDone: updatedTask.isDone })
-    new Promise(resolve => {
-      axios.put('/task/' + id, _form)
-        .then(data => {
-          if (data.status === 200) {
-            // context.dispatch('GET_TASKS_OF_ALL')
-            console.info('=> UPDATING SUCCESS')
-          }
-        })
-        .then(() => {
-          context.dispatch('GET_TASKS_OF_ALL')
-        })
-        .catch(err => { console.log('=> ENCOUNTER ERROR: ' + err) })
-        .finally(() => {
-          console.log('==> GET TASK LIST AFTER UPDATED')
-        })
-      resolve()
-    })
+    let _form = new URLSearchParams({ isDone: !updatedTask.isDone })
+    axios.put('/task/' + id, _form)
+      .then(data => {
+        if (data.status === 200) { console.info('=> UPDATING SUCCESS') }
+      })
       .then(() => {
-        console.log('=> EMPTY FUNCTION')
         context.dispatch('GET_TASKS_OF_ALL')
+      })
+      .catch(err => { console.log('=> ENCOUNTER ERROR: ' + err) })
+      .finally(() => {
+        console.log('==> GET TASK LIST AFTER UPDATED')
       })
   },
 

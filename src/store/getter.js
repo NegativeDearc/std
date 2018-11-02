@@ -1,12 +1,4 @@
-import state from '../store/state'
-
 const getters = {
-  /**
-   * @return {boolean}
-   */
-  GET_IF_DRAWER: function () {
-    return state.IFDRAWER
-  },
   /**
    * @return {string}
    */
@@ -35,7 +27,7 @@ const getters = {
   },
 
   GET_TASK: function (state, getters) {
-    if (state.SHOWALL) {
+    if (state.SHOW_ALL) {
       return getters.GET_TASK_ALL
     } else { return getters.GET_TASK_NOT_DONE }
   },
@@ -51,8 +43,6 @@ const getters = {
 
   GET_TASK_TODAY: function (state, getters) {
     let _tomorrow = getters.GET_TOMORROW
-    console.log(new Date(_tomorrow))
-
     if (state.SHOW_ALL) {
       return state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() <= new Date(_tomorrow).getTime())
     } else {
@@ -62,8 +52,6 @@ const getters = {
 
   GET_TASK_LATER: function (state, getters) {
     let _tomorrow = getters.GET_TOMORROW
-
-    console.log(new Date(_tomorrow))
     if (state.SHOW_ALL) {
       return state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() > new Date(_tomorrow).getTime())
     } else {

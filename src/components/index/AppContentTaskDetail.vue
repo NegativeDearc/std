@@ -34,6 +34,7 @@
                     label="任务"
                     prepend-icon="assignment"
                     v-model="taskName"
+                    required
                   >
                   </v-text-field>
                 </v-list-tile>
@@ -43,37 +44,17 @@
                     label="任务的描述"
                     prepend-icon="subject"
                     v-model="taskDescription"
+                    required
                   >
                   </v-text-field>
                 </v-list-tile>
                 <v-subheader>重复</v-subheader>
                 <v-list-tile>
-                  <v-select
-                    v-bind:items="loopOptions"
-                    item-text="itemText"
-                    item-value="itemId"
-                    persistent-hint
-                    prepend-icon="repeat"
-                    return-object
-                    v-model="taskRepeatInterval"
-                  >
-                    <template
-                      slot="item"
-                      slot-scope="data"
-                    >
-                      <template v-if="typeof data.item !== 'object'">
-                        <v-list-tile-content v-text="data.item.itemText"></v-list-tile-content>
-                      </template>
-                      <template v-else>
-                        <v-list-tile-avatar>
-                          <v-icon v-text="data.item.itemAvatar"></v-icon>
-                        </v-list-tile-avatar>
-                        <v-list-tile-content>
-                          <v-list-tile-title v-html="data.item.itemText"></v-list-tile-title>
-                        </v-list-tile-content>
-                      </template>
-                    </template>
-                  </v-select>
+                  <v-checkbox label="周一" value="1" off-icon="close" on-icon="check" style="border: 1px dashed gray" v-model="week"></v-checkbox>
+                  <v-checkbox label="周二" value="2" off-icon="close" on-icon="check" style="border: 1px dashed gray" v-model="week"></v-checkbox>
+                  <v-checkbox label="周三" value="3" off-icon="close" on-icon="check" style="border: 1px dashed gray" v-model="week"></v-checkbox>
+                  <v-checkbox label="周四" value="4" off-icon="close" on-icon="check" style="border: 1px dashed gray" v-model="week"></v-checkbox>
+                  <v-checkbox label="周五" value="5" off-icon="close" on-icon="check" style="border: 1px dashed gray" v-model="week"></v-checkbox>
                 </v-list-tile>
 
                 <v-layout>
@@ -110,46 +91,25 @@
                       </v-layout>
                     </v-list-tile>
                   </v-flex>
-                  <v-flex sm6 md6 xs6>
-                    <v-subheader>截止日期</v-subheader>
+                  <v-flex sm6 md6 sx6>
+                    <v-subheader>任务标签</v-subheader>
                     <v-list-tile>
-                      <v-menu
-                        ref="menu1"
-                        :close-on-content-click="false"
-                        v-model="menu1"
-                        lazy
-                        transition="scale-transition"
-                        offset-y
-                      >
-                        <v-text-field
-                          slot="activator"
-                          v-model="taskDueDate"
-                          hint="MM/DD/YYYY format"
-                          persistent-hint
-                          prepend-icon="event"
-                          header-color="green lighten-1"
-                        ></v-text-field>
-                        <v-date-picker v-model="date" locale="zh-cn" @input="menu1 = false"></v-date-picker>
-                      </v-menu>
+                      <v-icon color="red">bookmarks</v-icon>
+                      <v-autocomplete
+                        :items="tags"
+                        chips
+                        clearable
+                        hide-details
+                        full-width
+                        hide-no-data
+                        hide-selected
+                        multiple
+                        single-line
+                        v-model="taskTags"
+                      ></v-autocomplete>
                     </v-list-tile>
                   </v-flex>
                 </v-layout>
-                <v-subheader>任务标签</v-subheader>
-                <v-list-tile>
-                  <v-icon>bookmarks</v-icon>
-                  <v-autocomplete
-                    :items="tags"
-                    chips
-                    clearable
-                    hide-details
-                    full-width
-                    hide-no-data
-                    hide-selected
-                    multiple
-                    single-line
-                    v-model="taskTags"
-                  ></v-autocomplete>
-                </v-list-tile>
               </v-list>
             </v-form>
           </v-card-text>
@@ -165,29 +125,17 @@ export default {
   name: 'AppContentTaskDetail',
   data () {
     return {
-      loopOptions: [
-        {itemId: 0, itemText: '不重复', itemAvatar: 'block'},
-        {itemId: 1, itemText: '每天', itemAvatar: 'access_alarms'},
-        {itemId: 2, itemText: '每个工作日', itemAvatar: 'notifications_active'},
-        {itemId: 3, itemText: '每周', itemAvatar: 'notifications'}
-      ],
+      week: [],
       taskName: null,
       taskDescription: null,
       taskTags: null,
       taskRepeatInterval: null,
       taskTimeSlot: null,
-      taskDueDate: null,
       date: null,
 
       tags: this.$store.state.TASK_TAGS,
       task: false,
-      menu1: false,
       menu2: false
-    }
-  },
-  watch: {
-    date () {
-      this.taskDueDate = this.formatDate(this.date)
     }
   },
   methods: {
@@ -203,9 +151,8 @@ export default {
           taskName: this.taskName ? this.taskName : null,
           taskDescription: this.taskDescription,
           taskTags: this.taskTags ? this.taskTags.toString() : null,
-          taskRepeatInterval: this.taskRepeatInterval ? this.taskRepeatInterval.itemId : this.taskRepeatInterval,
+          taskRepeatInterval: this.week,
           taskTimeSlot: this.taskTimeSlot,
-          taskDueDateParsed: this.date,
           createBy: this.$store.getters.GET_USER_ID
         }
       )

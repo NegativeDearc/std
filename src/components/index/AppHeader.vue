@@ -2,7 +2,7 @@
   <v-toolbar
     app
   >
-    <v-toolbar-side-icon v-on:click.stop="$store.commit('UNDRAWER') "></v-toolbar-side-icon>
+    <v-toolbar-side-icon v-on:click.stop="$store.commit('UNDRAWER')"></v-toolbar-side-icon>
     <v-autocomplete
       :loading="loading"
       :items="items"
