@@ -78,11 +78,7 @@
           <v-divider
             class="mx-3"
           ></v-divider>
-<<<<<<< HEAD
           <v-subheader>你的团队</v-subheader>
-=======
-          <v-subheader>你的下属</v-subheader>
->>>>>>> b5b0cee9e35f1c201ddb9602e34ab04c23ffc207
           <v-container>
             <v-layout>
               <v-flex></v-flex>

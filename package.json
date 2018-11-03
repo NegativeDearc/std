@@ -1,10 +1,6 @@
 {
   "name": "std",
-<<<<<<< HEAD
   "version": "0.2.20",
-=======
-  "version": "0.0.18",
->>>>>>> b5b0cee9e35f1c201ddb9602e34ab04c23ffc207
   "description": "A To-do project made by Vue.js ",
   "author": "chenxei",
   "private": true,

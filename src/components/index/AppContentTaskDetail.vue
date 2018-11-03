@@ -110,25 +110,6 @@
                     </v-list-tile>
                   </v-flex>
                 </v-layout>
-<<<<<<< HEAD
-=======
-                <v-subheader>任务标签</v-subheader>
-                <v-list-tile>
-                  <v-icon>bookmarks</v-icon>
-                  <v-autocomplete
-                    :items="tags"
-                    chips
-                    clearable
-                    hide-details
-                    full-width
-                    hide-no-data
-                    hide-selected
-                    multiple
-                    single-line
-                    v-model="taskTags"
-                  ></v-autocomplete>
-                </v-list-tile>
->>>>>>> b5b0cee9e35f1c201ddb9602e34ab04c23ffc207
               </v-list>
             </v-form>
           </v-card-text>
