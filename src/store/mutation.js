@@ -15,9 +15,9 @@ const mutations = {
   },
 
   HIDE_NOT_DONE_TASK: function (state) {
-    let _data
-    _data = localStorage.getItem('SHOW_ALL') === 'false' || localStorage.getItem('SHOW_ALL') === null
-    state.SHOW_ALL = _data
+    let _tmpState = !state.SHOW_ALL
+    state.SHOW_ALL = _tmpState
+    localStorage.setItem('SHOW_ALL', _tmpState)
   },
   /* init the task list */
   SET_TASKS_LIST: function (state, data) {

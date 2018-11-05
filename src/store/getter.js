@@ -44,18 +44,18 @@ const getters = {
   GET_TASK_TODAY: function (state, getters) {
     let _tomorrow = getters.GET_TOMORROW
     if (state.SHOW_ALL) {
-      return state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() <= new Date(_tomorrow).getTime())
+      return state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() < new Date(_tomorrow).getTime())
     } else {
-      return state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() <= new Date(_tomorrow).getTime() && todo.isDone === false)
+      return state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() < new Date(_tomorrow).getTime() && todo.isDone === false)
     }
   },
 
   GET_TASK_LATER: function (state, getters) {
     let _tomorrow = getters.GET_TOMORROW
     if (state.SHOW_ALL) {
-      return state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() > new Date(_tomorrow).getTime())
+      return state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() >= new Date(_tomorrow).getTime())
     } else {
-      return state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() > new Date(_tomorrow).getTime() && todo.isDone === false)
+      return state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() >= new Date(_tomorrow).getTime() && todo.isDone === false)
     }
   }
 }

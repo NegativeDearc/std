@@ -5,7 +5,7 @@
       dark
       v-on:click.stop="task = true"
     >
-      <v-icon color="green">playlist_add</v-icon>
+      <v-icon color="red">add</v-icon>
     </v-btn>
     <v-dialog
         v-model="task"
@@ -35,6 +35,7 @@
                     prepend-icon="assignment"
                     v-model="taskName"
                     required
+                    outline
                   >
                   </v-text-field>
                 </v-list-tile>
@@ -45,21 +46,22 @@
                     prepend-icon="subject"
                     v-model="taskDescription"
                     required
+                    outline
                   >
                   </v-text-field>
                 </v-list-tile>
                 <v-subheader>重复</v-subheader>
-                <v-list-tile>
-                  <v-checkbox label="周一" value="1" off-icon="close" on-icon="check" style="border: 1px dashed gray" v-model="week"></v-checkbox>
-                  <v-checkbox label="周二" value="2" off-icon="close" on-icon="check" style="border: 1px dashed gray" v-model="week"></v-checkbox>
-                  <v-checkbox label="周三" value="3" off-icon="close" on-icon="check" style="border: 1px dashed gray" v-model="week"></v-checkbox>
-                  <v-checkbox label="周四" value="4" off-icon="close" on-icon="check" style="border: 1px dashed gray" v-model="week"></v-checkbox>
-                  <v-checkbox label="周五" value="5" off-icon="close" on-icon="check" style="border: 1px dashed gray" v-model="week"></v-checkbox>
+                <v-list-tile style="border: 2px solid grey; border-radius: 4px;margin-left: 50px;margin-right: 15px">
+                  <v-checkbox label="周一" value="1" off-icon="close" on-icon="check" v-model="week" color="red"></v-checkbox>
+                    <v-checkbox label="周二" value="2" off-icon="close" on-icon="check" v-model="week" color="red"></v-checkbox>
+                    <v-checkbox label="周三" value="3" off-icon="close" on-icon="check" v-model="week" color="red"></v-checkbox>
+                    <v-checkbox label="周四" value="4" off-icon="close" on-icon="check" v-model="week" color="red"></v-checkbox>
+                    <v-checkbox label="周五" value="5" off-icon="close" on-icon="check" v-model="week" color="red"></v-checkbox>
                 </v-list-tile>
 
                 <v-layout>
                   <v-flex sm6 md6 xs6>
-                    <v-subheader>提醒我</v-subheader>
+                    <v-subheader>完成时间</v-subheader>
                     <v-list-tile>
                       <v-layout>
                         <v-menu
@@ -72,6 +74,7 @@
                           offset-y
                         >
                           <v-text-field
+                            outline
                             slot="activator"
                             v-model="taskTimeSlot"
                             prepend-icon="access_time"
@@ -80,10 +83,10 @@
                           <v-time-picker
                             v-if="menu2"
                             v-model="taskTimeSlot"
-                            color="green lighten-1"
+                            color="blue"
                             format="24hr"
                             min="8:30"
-                            max="21:00"
+                            max="20:00"
                             :allowed-minutes="allowedStep"
                             @change="$refs.menu.save(taskTimeSlot)"
                           ></v-time-picker>
@@ -96,6 +99,7 @@
                     <v-list-tile>
                       <v-icon color="red">bookmarks</v-icon>
                       <v-autocomplete
+                        outline
                         :items="tags"
                         chips
                         clearable
@@ -157,6 +161,7 @@ export default {
         }
       )
       this.$store.dispatch('CREATE_NEW_TASK', _formData)
+      this.$refs.newTask.reset()
       this.task = false
     }
   }
