@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-bind:dark="$store.state.IS_DARK">
     <AppHeader/>
     <AppSideBar/>
     <router-view></router-view>

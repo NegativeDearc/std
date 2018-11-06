@@ -57,6 +57,26 @@ const getters = {
     } else {
       return state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() >= new Date(_tomorrow).getTime() && todo.isDone === false)
     }
+  },
+
+  /**
+   * @return {number}
+   */
+  GET_TODAY_FINISH_RATE: function (state, getters) {
+    let _tomorrow = getters.GET_TOMORROW
+    let _total = state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() < new Date(_tomorrow).getTime()).length
+    let _finished = state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() < new Date(_tomorrow).getTime() && todo.isDone === true).length
+    return _finished / _total * 100
+  },
+
+  /**
+   * @return {number}
+   */
+  GET_LATER_FINISH_RATE: function (state, getters) {
+    let _tomorrow = getters.GET_TOMORROW
+    let _total = state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() >= new Date(_tomorrow).getTime()).length
+    let _finished = state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() >= new Date(_tomorrow).getTime() && todo.isDone === true).length
+    return _finished / _total * 100
   }
 }
 

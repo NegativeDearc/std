@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-bind:dark="$store.state.IS_DARK">
     <AppTaskToolbar/>
     <AppTaskContent/>
     <AppTaskFooter/>

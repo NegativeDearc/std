@@ -9,16 +9,15 @@ import VueAxios from 'vue-axios'
 import VueMoment from 'vue-moment'
 import store from './store/index'
 import router from './router'
-import VueApexCharts from 'vue-apexcharts'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import '@mdi/font/css/materialdesignicons.css'
 
 Vue.config.productionTip = false
 Vue.use(Vuetify)
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 Vue.use(VueMoment)
-Vue.use(VueApexCharts)
 
 axios.defaults.baseURL = 'http://localhost:7659/api/'
 

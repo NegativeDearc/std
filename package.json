@@ -1,6 +1,6 @@
 {
   "name": "std",
-  "version": "0.2.22",
+  "version": "0.2.23",
   "description": "A To-do project made by Vue.js ",
   "author": "chenxei",
   "private": true,
@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@mdi/font": "^3.0.39",
     "apexcharts": "^2.2.0",
     "axios": "^0.18.0",
     "bluebird": "^3.5.2",

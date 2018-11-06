@@ -1,5 +1,7 @@
 <template>
-  <v-content app>
+  <v-content
+    app
+  >
     <v-container fluid grid-list-lg>
       <v-layout>
         <v-flex xs12 sm12 md6 offset-md3>
@@ -9,7 +11,7 @@
       <v-layout>
         <v-flex xs12 md6>
           <v-card>
-            <v-progress-linear value="76" height="3" color="red"></v-progress-linear>
+            <v-progress-linear v-bind:value="$store.getters.GET_TODAY_FINISH_RATE" height="3" color="red"></v-progress-linear>
             <v-subheader><v-chip label color="red lighten-4">今日摘要</v-chip></v-subheader>
             <v-divider insert></v-divider>
             <v-card-text>
@@ -55,7 +57,7 @@
         </v-flex>
         <v-flex xs12 md6>
           <v-card>
-            <v-progress-linear value="76" height="3" color="blue"></v-progress-linear>
+            <v-progress-linear v-bind:value="$store.getters.GET_LATER_FINISH_RATE" height="3" color="blue"></v-progress-linear>
             <v-subheader><v-chip label color="blue lighten-4">晚些时候</v-chip></v-subheader>
             <v-divider insert></v-divider>
             <v-card-text>

@@ -82,7 +82,14 @@
           <v-container>
             <v-layout>
               <v-flex>
-                <UserPunchCard/>
+                <template>
+                  <v-layout justify-space-around>
+                    <v-icon>mdi-comment-check</v-icon>
+                    <v-icon>mdi-comment-check</v-icon>
+                    <v-icon>mdi-comment-check</v-icon>
+                    <v-icon>mdi-comment-check</v-icon>
+                    </v-layout>
+                </template>
               </v-flex>
             </v-layout>
           </v-container>
@@ -100,11 +107,8 @@
 </template>
 
 <script>
-import UserPunchCard from '../utils/UserPunchCard'
-
 export default {
   name: 'AppHeaderDash',
-  components: { UserPunchCard },
   data () {
     return {
       dialog: false,

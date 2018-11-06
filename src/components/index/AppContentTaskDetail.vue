@@ -13,7 +13,7 @@
         hide-overlay
         transition="dialog-bottom-transition"
         scrollable
-      >
+    >
         <v-card tile>
           <v-toolbar dark color="green">
             <v-btn icon dark v-on:click.native="task = false">

@@ -1,5 +1,6 @@
 <template>
-  <v-footer app height="56px" color="white">
+  <v-footer app
+            height="56px">
     <AppBottomNav/>
   </v-footer>
 </template>

@@ -34,8 +34,9 @@
                 </v-list-tile-content>
                 <v-list-tile-action>
                   <v-switch
-                    v-model="$store.state.IFDARK"
+                    v-bind:input-value="$store.state.IS_DARK"
                     color="red"
+                    v-on:change="changeDarkModel"
                     hide-details
                   ></v-switch>
                 </v-list-tile-action>
@@ -54,7 +55,7 @@
                 <v-list-tile-action>
                   <v-switch
                     color="green"
-                    model="$store.state.SHOW_ALL"
+                    v-bind:input-value="$store.state.SHOW_ALL"
                     v-on:change="showAll"
                   ></v-switch>
                 </v-list-tile-action>
@@ -113,7 +114,9 @@ export default {
   methods: {
     showAll: function () {
       this.$store.commit('HIDE_NOT_DONE_TASK')
-      console.log('=> ', this.$store.state.SHOW_ALL)
+    },
+    changeDarkModel: function () {
+      this.$store.commit('SET_DARK_MODEL')
     }
   }
 }

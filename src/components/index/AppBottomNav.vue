@@ -10,7 +10,7 @@
       flat
       value="today"
     >
-      <span>今日</span>
+      <span>任务卡</span>
       <v-icon>touch_app</v-icon>
     </v-btn>
 
@@ -18,8 +18,9 @@
       color="teal"
       flat
       value="future"
+      disabled
     >
-      <span>未来</span>
+      <span>暂未开发</span>
       <v-icon>next_week</v-icon>
     </v-btn>
 
@@ -27,8 +28,9 @@
       color="teal"
       flat
       value="archive"
+      disabled
     >
-      <span>存档</span>
+      <span>暂未开发</span>
       <v-icon>archive</v-icon>
     </v-btn>
   </v-bottom-nav>
@@ -45,7 +47,6 @@ export default {
   watch: {
     bottomNav: function () {
       this.$router.push('/' + this.bottomNav)
-      console.log(this.bottomNav)
     }
   }
 }

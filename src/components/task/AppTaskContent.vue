@@ -1,6 +1,10 @@
 <template>
-  <v-content app>
-    <v-card flat>
+  <v-content
+    app
+  >
+    <v-card
+      flat
+    >
       <v-card-text>
         <v-form>
           <v-list two-line>
@@ -97,6 +101,16 @@
                 </v-list-tile>
               </v-flex>
             </v-layout>
+
+            <!--<v-subheader>备注</v-subheader>-->
+            <!--<v-list-tile>-->
+              <!--<v-text-field-->
+                <!--outline-->
+                <!--label="备注"-->
+                <!--prepend-icon="comment"-->
+                <!--height="100"-->
+              <!--&gt;</v-text-field>-->
+            <!--</v-list-tile>-->
           </v-list>
         </v-form>
       </v-card-text>
