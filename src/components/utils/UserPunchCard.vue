@@ -1,82 +1,71 @@
 <template>
-  <div>
+  <v-container>
     <v-layout>
-      <v-flex xs12 md12>
-        <apexcharts height="100%" width="100%" type="area" v-bind:options="chartOptions" v-bind:series="series"></apexcharts>
+      <v-flex>
+        <v-data-iterator
+          v-bind:items="punch"
+          row
+          wrap
+        >
+          <v-flex
+            sm12
+            md6
+            slot="item"
+            slot-scope="props"
+          >
+            <v-card>
+              <v-list dense>
+                <v-list-tile>
+                  <v-list-tile-content>{{ props.item.needFinishBefore }}</v-list-tile-content>
+                  <v-list-tile-content class="align-end">
+                    <v-tooltip right v-if="props.item.isDone === false && props.item.isDelay === true">
+                      <v-icon slot="activator" color="red">close</v-icon>
+                      <span>延迟未完成</span>
+                    </v-tooltip>
+                    <v-tooltip right v-if="props.item.isDone === false && props.item.isDelay === false">
+                      <v-icon slot="activator" color="blue">trending_flat</v-icon>
+                      <span>循环任务正在进行</span>
+                    </v-tooltip>
+                    <v-tooltip right v-if="props.item.isDone === false && props.item.isDelay === null && props.item.isLoop == false">
+                      <v-icon slot="activator" color="yellow">trending_flat</v-icon>
+                      <span>一次性任务正在进行</span>
+                    </v-tooltip>
+                    <v-tooltip right v-if="props.item.isDone === true && props.item.isDelay === null">
+                      <v-icon slot="activator" color="green">yellow</v-icon>
+                      <span>一次性任务已完成</span>
+                    </v-tooltip>
+                    <v-tooltip right v-if="props.item.isDone === true && props.item.isDelay === false">
+                      <v-icon slot="activator" color="green">done</v-icon>
+                      <span>循环任务完成</span>
+                    </v-tooltip>
+                    <v-tooltip right v-if="props.item.isDone === true && props.item.isDelay === true">
+                      <v-icon slot="activator" color="red">warning</v-icon>
+                      <span>延迟完成</span>
+                    </v-tooltip>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+            </v-card>
+          </v-flex>
+        </v-data-iterator>
       </v-flex>
     </v-layout>
-  </div>
+  </v-container>
 </template>
 
 <script>
-import VueApexCharts from 'vue-apexcharts'
-
 export default {
   name: 'UserPunchCard',
-  components: {
-    apexcharts: VueApexCharts
-  },
-  data: function () {
+  data () {
     return {
-      chartOptions: {
-        chart: {
-          id: 'vuechart-example'
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      theme: {
-        monochrome: {
-          enabled: true,
-          color: '#255aee',
-          shadeTo: 'light',
-          shadeIntensity: 0.65
-        }
-      },
-      xaxis: {
-        type: 'datetime',
-        category: []
-      },
-      series: []
+      punch: []
     }
   },
   mounted: function () {
     this.axios.get('/punch/' + this.$store.state.USER_ID)
       .then(data => {
-        let _xaxis = []
-        let _total = []
-        let _onTimeFinish = []
-
-        for (let i in data.data.target) {
-          _xaxis.push(data.data.target[i])
-        }
-
-        for (let i in data.data.cumTotal) {
-          _total.push(data.data.cumTotal[i])
-        }
-
-        for (let i in data.data.onTimeFinishTotal) {
-          _onTimeFinish.push(data.data.onTimeFinishTotal[i])
-        }
-
-        let _a = []
-        let _b = []
-        for (let i in _total) {
-          let _tmp = []
-          _tmp.push(_xaxis[i])
-          _tmp.push(_total[i])
-          _a.push(_tmp)
-        }
-
-        for (let i in _total) {
-          let _tmp = []
-          _tmp.push(_xaxis[i])
-          _tmp.push(_onTimeFinish[i])
-          _b.push(_tmp)
-        }
-        this.series.push({ name: 'Total Task', data: _a })
-        this.series.push({ name: 'On Time Finish', data: _b })
+        this.punch = data.data
+        console.log(data.data)
       })
   }
 }
