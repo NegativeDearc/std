@@ -31,6 +31,10 @@ const mutations = {
   /* query user dash status */
   SET_USER_DASH: function (state, data) {
     state.USER_DASH = data
+  },
+  /* query employee status */
+  SET_EMPLOYEE_DASH: function (state, data) {
+    state.EMPLOYEE_DASH = data
   }
 }
 

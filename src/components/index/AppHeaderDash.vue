@@ -43,7 +43,7 @@
                 <v-card flat>
                   <div>
                     <div class="display-3 font-weight-black"><span class="green--text">{{ this.$store.state.USER_DASH.OTF }}</span></div>
-                    <div class="body-2"><span class="black--text">及时清除</span></div>
+                    <div class="body-2"><span class="grey--text">及时清除</span></div>
                   </div>
                 </v-card>
               </v-flex>
@@ -56,7 +56,7 @@
                 <v-card flat>
                   <div>
                     <div class="display-3 font-weight-black"><span class="blue--text">{{ this.$store.state.USER_DASH.IP }}</span></div>
-                    <div class="body-2"><span class="black--text">进展之中</span></div>
+                    <div class="body-2"><span class="grey--text">进展之中</span></div>
                   </div>
                 </v-card>
               </v-flex>
@@ -69,7 +69,7 @@
                 <v-card flat>
                   <div>
                     <div class="display-3 font-weight-black"><span class="red--text">{{ this.$store.state.USER_DASH.D }}</span></div>
-                    <div class="body-2"><span class="black--text">延迟达成</span></div>
+                    <div class="body-2"><span class="grey--text">延迟达成</span></div>
                   </div>
                 </v-card>
               </v-flex>
@@ -79,20 +79,48 @@
             class="mx-3"
           ></v-divider>
           <v-subheader>你的团队</v-subheader>
-          <v-container>
-            <v-layout>
-              <v-flex>
-                <template>
-                  <v-layout justify-space-around>
-                    <v-icon>mdi-comment-check</v-icon>
-                    <v-icon>mdi-comment-check</v-icon>
-                    <v-icon>mdi-comment-check</v-icon>
-                    <v-icon>mdi-comment-check</v-icon>
-                    </v-layout>
-                </template>
-              </v-flex>
-            </v-layout>
-          </v-container>
+          <v-layout>
+            <v-flex v-for="(v, k) in $store.state.EMPLOYEE_DASH" v-bind:key="v.id" v-if="$store.state.EMPLOYEE_DASH">
+              <v-item-group>
+                <span>{{ k }}</span>
+                <v-menu v-for="item in v" v-bind:key="item.id" top>
+                  <v-btn flat icon slot="activator">
+                    <v-icon color="red" v-if="item.isDone === false && item.isDelay === true">mdi-circle-slice-1</v-icon>
+                    <v-icon color="blue" v-else-if="item.isDone === false && item.isDelay === false">mdi-circle-slice-1</v-icon>
+                    <v-icon color="yellow" v-else-if="item.isDone === true && item.isDelay === true">mdi-check-circle-outline</v-icon>
+                    <v-icon color="green" v-else-if="item.isDone === true && item.isDelay === false">mdi-check-circle-outline</v-icon>
+                  </v-btn>
+                  <v-card width="400px">
+                    <v-list two-line>
+                      <v-list-tile>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ k }}</v-list-tile-title>
+                          <v-list-tile-sub-title>{{ item.group }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </v-list>
+                    <v-divider></v-divider>
+                    <v-list>
+                      <v-list-tile>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ item.taskTitle }}</v-list-tile-title>
+                          <v-list-tile-sub-title>{{ item.taskDescription }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                        <v-list-tile-action>
+                          <v-list-tile-action-text>{{ item.needFinishBefore | moment('from') }}</v-list-tile-action-text>
+                          <v-list-tile-action-text>{{ item.punchTime | moment('from') }}</v-list-tile-action-text>
+                        </v-list-tile-action>
+                      </v-list-tile>
+                    </v-list>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="primary" flat @click="menu = false">通知他</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-menu>
+              </v-item-group>
+            </v-flex>
+          </v-layout>
         </v-card-text>
         <div style="flex: 1 1 auto;"></div>
         <v-footer app><!-- why use app? -->
@@ -123,8 +151,9 @@ export default {
       this.$router.push('/login')
     },
     getUserDash: function () {
-      this.$store.dispatch('GET_USER_DASH')
       this.dialog = true
+      this.$store.dispatch('GET_USER_DASH')
+      this.$store.dispatch('GET_EMPLOYEE_DASH')
     }
   }
 }

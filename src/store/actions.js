@@ -81,6 +81,15 @@ const actions = {
         console.log('==> GETTING USER DASH STATUS')
         context.commit('SET_USER_DASH', data.data)
       })
+  },
+
+  GET_EMPLOYEE_DASH: function (context) {
+    axios.get('/punch/' + localStorage.getItem('userId'))
+      .then(data => {
+        console.log('==> GETTING EMPLOYEE DASH STATUS')
+        context.commit('SET_EMPLOYEE_DASH', data.data)
+        console.log(data.data)
+      })
   }
 }
 
