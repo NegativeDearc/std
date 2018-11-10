@@ -79,46 +79,48 @@
             class="mx-3"
           ></v-divider>
           <v-subheader>你的团队</v-subheader>
-          <v-layout>
-            <v-flex v-for="(v, k) in $store.state.EMPLOYEE_DASH" v-bind:key="v.id" v-if="$store.state.EMPLOYEE_DASH">
-              <v-item-group>
-                <span>{{ k }}</span>
-                <v-menu v-for="item in v" v-bind:key="item.id" top>
-                  <v-btn flat icon slot="activator">
-                    <v-icon color="red" v-if="item.isDone === false && item.isDelay === true">mdi-circle-slice-1</v-icon>
-                    <v-icon color="blue" v-else-if="item.isDone === false && item.isDelay === false">mdi-circle-slice-1</v-icon>
-                    <v-icon color="yellow" v-else-if="item.isDone === true && item.isDelay === true">mdi-check-circle-outline</v-icon>
-                    <v-icon color="green" v-else-if="item.isDone === true && item.isDelay === false">mdi-check-circle-outline</v-icon>
-                  </v-btn>
-                  <v-card width="400px">
-                    <v-list two-line>
-                      <v-list-tile>
-                        <v-list-tile-content>
-                          <v-list-tile-title>{{ k }}</v-list-tile-title>
-                          <v-list-tile-sub-title>{{ item.group }}</v-list-tile-sub-title>
-                        </v-list-tile-content>
-                      </v-list-tile>
-                    </v-list>
-                    <v-divider></v-divider>
-                    <v-list>
-                      <v-list-tile>
-                        <v-list-tile-content>
-                          <v-list-tile-title>{{ item.taskTitle }}</v-list-tile-title>
-                          <v-list-tile-sub-title>{{ item.taskDescription }}</v-list-tile-sub-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                          <v-list-tile-action-text>{{ item.needFinishBefore | moment('from') }}</v-list-tile-action-text>
-                          <v-list-tile-action-text>{{ item.punchTime | moment('from') }}</v-list-tile-action-text>
-                        </v-list-tile-action>
-                      </v-list-tile>
-                    </v-list>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn color="primary" flat @click="menu = false">通知他</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-menu>
-              </v-item-group>
+          <v-layout row wrap>
+            <v-flex v-for="(v, k) in $store.state.EMPLOYEE_DASH" v-bind:key="v.id" v-if="$store.state.EMPLOYEE_DASH" sm12 md12 xs12>
+              <v-list-tile>
+                <v-item-group>
+                  <span>{{ k }}</span>
+                  <v-menu v-for="item in v" v-bind:key="item.id" top>
+                    <v-btn flat icon slot="activator">
+                      <v-icon color="red" v-if="item.isDone === false && item.isDelay === true">mdi-circle-slice-1</v-icon>
+                      <v-icon color="blue" v-else-if="item.isDone === false && item.isDelay === false">mdi-circle-slice-1</v-icon>
+                      <v-icon color="yellow" v-else-if="item.isDone === true && item.isDelay === true">mdi-check-circle-outline</v-icon>
+                      <v-icon color="green" v-else-if="item.isDone === true && item.isDelay === false">mdi-check-circle-outline</v-icon>
+                    </v-btn>
+                    <v-card width="420px">
+                      <v-list two-line>
+                        <v-list-tile>
+                          <v-list-tile-content>
+                            <v-list-tile-title>{{ k }}</v-list-tile-title>
+                            <v-list-tile-sub-title>{{ item.group }}</v-list-tile-sub-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                      </v-list>
+                      <v-divider></v-divider>
+                      <v-list>
+                        <v-list-tile>
+                          <v-list-tile-content>
+                            <v-list-tile-title>{{ item.taskTitle }}</v-list-tile-title>
+                            <v-list-tile-sub-title>{{ item.taskDescription }}</v-list-tile-sub-title>
+                          </v-list-tile-content>
+                          <v-list-tile-action>
+                            <v-list-tile-action-text v-if="item.needFinishBefore">于{{ transferUTCTime(item.needFinishBefore)| moment('from') }}过期</v-list-tile-action-text>
+                            <v-list-tile-action-text v-if="item.punchTime">完成于{{ transferUTCTime(item.punchTime) | moment('YYYY/MM/DD HH:mm:ss') }}</v-list-tile-action-text>
+                          </v-list-tile-action>
+                        </v-list-tile>
+                      </v-list>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="primary" flat @click="menu = false" outline disabled>通知他</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-menu>
+                </v-item-group>
+              </v-list-tile>
             </v-flex>
           </v-layout>
         </v-card-text>
@@ -154,6 +156,12 @@ export default {
       this.dialog = true
       this.$store.dispatch('GET_USER_DASH')
       this.$store.dispatch('GET_EMPLOYEE_DASH')
+    },
+    transferUTCTime: function (date) {
+      if (!date) { return null } else {
+        let _originalDate = new Date(date).getTime() - 480 * 60000
+        return _originalDate
+      }
     }
   }
 }
