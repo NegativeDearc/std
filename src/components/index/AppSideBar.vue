@@ -6,11 +6,11 @@
     temporary
   >
     <v-list>
-      <v-list-tile>
+      <v-list-tile to="/">
         <v-list-tile-action>
           <v-icon>home</v-icon>
         </v-list-tile-action>
-        <v-list-tile-title>Home</v-list-tile-title>
+        <v-list-tile-title>主页</v-list-tile-title>
       </v-list-tile>
 
       <v-list-group
@@ -18,7 +18,7 @@
         value="true"
       >
         <v-list-tile slot="activator">
-          <v-list-tile-title>Users</v-list-tile-title>
+          <v-list-tile-title>用户</v-list-tile-title>
         </v-list-tile>
 
         <v-list-group
@@ -27,16 +27,17 @@
           value="true"
         >
           <v-list-tile slot="activator">
-            <v-list-tile-title>Admin</v-list-tile-title>
+            <v-list-tile-title>管理</v-list-tile-title>
           </v-list-tile>
 
           <v-list-tile
-            v-for="(admin, i) in admins"
-            :key="i"
+            v-for="item in admins"
+            v-bind:key="item.id"
+            v-bind:to="item.link"
           >
-            <v-list-tile-title v-text="admin[0]"></v-list-tile-title>
+            <v-list-tile-title>{{ item.name }}</v-list-tile-title>
             <v-list-tile-action>
-              <v-icon v-text="admin[1]"></v-icon>
+              <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
           </v-list-tile>
         </v-list-group>
@@ -69,8 +70,7 @@ export default {
   name: 'AppSideBar',
   data: () => ({
     admins: [
-      ['Management', 'people_outline'],
-      ['Settings', 'settings']
+      { name: '修改密码', icon: 'people_outline', link: '/password' }
     ],
     cruds: [
       ['Create', 'add'],
@@ -78,7 +78,12 @@ export default {
       ['Update', 'update'],
       ['Delete', 'delete']
     ]
-  })
+  }),
+  methods: {
+    goTo: function (path) {
+      this.$router.go(path)
+    }
+  }
 }
 </script>
 

@@ -35,6 +35,11 @@ const mutations = {
   /* query employee status */
   SET_EMPLOYEE_DASH: function (state, data) {
     state.EMPLOYEE_DASH = data
+  },
+  /* logout */
+  LOG_OUT: function (state) {
+    state.USER_ID = null
+    localStorage.removeItem('userId')
   }
 }
 
