@@ -102,15 +102,19 @@
               </v-flex>
             </v-layout>
 
-            <!--<v-subheader>备注</v-subheader>-->
-            <!--<v-list-tile>-->
-              <!--<v-text-field-->
-                <!--outline-->
-                <!--label="备注"-->
-                <!--prepend-icon="comment"-->
-                <!--height="100"-->
-              <!--&gt;</v-text-field>-->
-            <!--</v-list-tile>-->
+            <template v-if="taskIsDone">
+              <v-subheader>备注</v-subheader>
+              <v-list-tile>
+                <v-text-field
+                  v-model="remark"
+                  v-on:input="onChangeUpdate('remark', $event)"
+                  outline
+                  label="备注"
+                  prepend-icon="comment"
+                  clearable
+                ></v-text-field>
+              </v-list-tile>
+            </template>
           </v-list>
         </v-form>
       </v-card-text>
@@ -150,6 +154,7 @@ export default {
       tags: this.$store.state.TASK_TAGS,
       menu2: false,
       snackbar: null,
+      remark: null,
       week: null
     }
   },
@@ -179,6 +184,8 @@ export default {
         case 'week':
           _updateValue = { frequency: event }
           break
+        case 'remark':
+          _updateValue = { remark: event }
       }
       console.log('=> CHANGING', key, 'TO', _updateValue)
       this.$store.dispatch('UPDATE_ONE_TASK', [_id, _updateValue])
@@ -196,6 +203,7 @@ export default {
         this.taskTags = _data.taskTags ? _data.taskTags.split(',') : null
         this.taskRepeatInterval = _data.frequency
         this.taskTimeSlot = _data.remindAt
+        this.remark = _data.remark
       })
   }
 }

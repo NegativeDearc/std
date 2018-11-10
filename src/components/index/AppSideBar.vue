@@ -78,12 +78,7 @@ export default {
       ['Update', 'update'],
       ['Delete', 'delete']
     ]
-  }),
-  methods: {
-    goTo: function (path) {
-      this.$router.go(path)
-    }
-  }
+  })
 }
 </script>
 

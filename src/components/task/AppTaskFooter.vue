@@ -1,5 +1,5 @@
 <template>
-  <v-footer>
+  <v-footer app>
     <v-layout row wrap>
       <v-spacer></v-spacer>
       <v-subheader>{{ taskFinishStatus }}</v-subheader>
