@@ -159,8 +159,7 @@ export default {
     },
     transferUTCTime: function (date) {
       if (!date) { return null } else {
-        let _originalDate = new Date(date).getTime() - 480 * 60000
-        return _originalDate
+        return new Date(date).getTime() - 480 * 60000
       }
     }
   }
