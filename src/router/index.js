@@ -8,6 +8,10 @@ import AppFooter from '../components/index/AppFooter'
 import AppTask from '../components/task/AppTask'
 import AppLogin from '../components/index/AppLogin'
 import ResetPassword from '../components/utils/ResetPassword'
+import NProgress from 'nprogress'
+
+NProgress.inc(0.2)
+NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
 
 Vue.use(Router)
 
@@ -56,11 +60,16 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       console.log('=> ALREADY LOGGED IN, DIRECT TO', to.fullPath)
+      NProgress.start()
       next()
     }
   } else {
     next() // 确保一定要调用 next()
   }
+})
+
+router.afterEach(() => {
+  NProgress.done()
 })
 
 export default router

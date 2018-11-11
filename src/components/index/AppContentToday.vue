@@ -23,14 +23,14 @@
                       <v-list-tile-action>
                         <v-checkbox
                           v-bind:key="todo.id"
-                          v-on:change="$store.dispatch('CHANGE_DONE_STATUS', todo.id)"
+                          v-on:change="changeTaskStatus(todo.id, todo.isLoop)"
                           v-bind:input-value="todo.isDone"
                           on-icon="check_circle_outline"
                           off-icon="panorama_fish_eye"
                         ></v-checkbox>
                       </v-list-tile-action>
                       <v-list-tile-content
-                        v-bind:style="[todo.isDone?completedTaskStyle:null]"
+                        v-bind:style="[todo.isDone ? completedTaskStyle : null]"
                         v-on:click.stop="goToTask(todo.id)"
                       >
                         <v-list-tile-title>{{ todo.taskTitle }}</v-list-tile-title>
@@ -69,7 +69,7 @@
                       <v-list-tile-action>
                         <v-checkbox
                           v-bind:key="todo.id"
-                          v-on:change="$store.dispatch('CHANGE_DONE_STATUS', todo.id)"
+                          v-on:change="changeTaskStatus(todo.id, todo.isLoop)"
                           v-bind:input-value="todo.isDone"
                           on-icon="check_circle_outline"
                           off-icon="panorama_fish_eye"
@@ -101,6 +101,25 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <v-dialog
+      v-model="dialog"
+      persistent
+      width="300"
+    >
+      <v-card
+        color="primary"
+        dark
+      >
+        <v-card-text>
+          正在生成新的任务
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-content>
 </template>
 
@@ -114,13 +133,24 @@ export default {
         'text-decoration': 'line-through'
       },
       panel: [true],
-      todos: []
+      todos: [],
+      dialog: false
+    }
+  },
+  watch: {
+    dialog (val) {
+      if (!val) return
+      setTimeout(() => (this.dialog = false), 1500)
     }
   },
   methods: {
     goToTask: function (_id) {
       console.log('=> DIRECT TO LINK /task/' + _id)
       this.$router.push({name: 'task', params: { taskId: _id }})
+    },
+    changeTaskStatus: function (_id, _isLoop) {
+      if (!_isLoop) { this.dialog = true }
+      this.$store.dispatch('CHANGE_DONE_STATUS', _id)
     }
   },
   beforeMount: function () {

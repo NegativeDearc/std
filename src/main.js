@@ -12,6 +12,7 @@ import router from './router'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
+import 'nprogress/nprogress.css'
 
 Vue.config.productionTip = false
 Vue.use(Vuetify)
