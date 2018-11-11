@@ -79,7 +79,7 @@
             class="mx-3"
           ></v-divider>
           <v-subheader>你的团队</v-subheader>
-          <v-layout row wrap>
+          <v-layout align-start justify-start column fill-height>
             <v-flex v-for="(v, k) in $store.state.EMPLOYEE_DASH" v-bind:key="v.id" v-if="$store.state.EMPLOYEE_DASH" sm12 md12 xs12>
               <v-list-tile>
                 <v-item-group>
