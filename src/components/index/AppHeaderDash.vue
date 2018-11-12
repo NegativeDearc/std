@@ -72,11 +72,11 @@
           </v-container>
           <v-divider class="mx-3"></v-divider>
 
-          <v-subheader class="body-2">团队状态</v-subheader>
+          <v-subheader>团队状态</v-subheader>
           <v-layout align-start justify-start column fill-height>
             <v-flex v-for="(v, k) in $store.state.EMPLOYEE_DASH" v-bind:key="v.id" v-if="$store.state.EMPLOYEE_DASH" sm12 md12 xs12>
               <v-subheader>{{ k }}</v-subheader>
-              <v-list-tile>
+              <v-list-tile class="text-lg-left text-sm-left text-xs-left">
                 <v-item-group>
                   <v-menu v-for="item in v" v-bind:key="item.id" top>
                     <v-btn flat icon slot="activator">
