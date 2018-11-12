@@ -2,8 +2,8 @@
   <v-toolbar app>
     <v-toolbar-side-icon v-on:click="back">
       <v-icon>chevron_left</v-icon>
-      <span>返回</span>
     </v-toolbar-side-icon>
+    <span>返回</span>
     <v-spacer></v-spacer>
   </v-toolbar>
 </template>

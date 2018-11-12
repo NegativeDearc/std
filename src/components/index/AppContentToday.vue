@@ -34,13 +34,19 @@
                         v-on:click.stop="goToTask(todo.id)"
                       >
                         <v-list-tile-title>{{ todo.taskTitle }}</v-list-tile-title>
-                        <v-list-tile-sub-title>{{ todo.taskDescription }}</v-list-tile-sub-title>
+                        <v-list-tile-sub-title>
+                          {{ todo.taskDescription }}
+                        </v-list-tile-sub-title>
                       </v-list-tile-content>
 
                       <v-list-tile-action>
                         <v-list-tile-action-text>{{ todo.nextLoopAt| moment('YYYY/MM/DD') }}</v-list-tile-action-text>
                         <div style="display: inline-block">
-                          <v-icon v-if="todo.frequency" color="blue">restore</v-icon>
+                          <v-tooltip v-if="todo.remark" top>
+                            <v-btn icon slot="activator"><v-icon color="yellow">comment</v-icon></v-btn>
+                            <span>{{ '备注:' + todo.remark}}</span>
+                          </v-tooltip>
+                          <v-btn icon v-if="todo.frequency"><v-icon color="blue">restore</v-icon></v-btn>
                           <span v-if="todo.remindAt">
                           <span>{{ todo.remindAt}}</span>
                         </span>
@@ -86,7 +92,11 @@
                       <v-list-tile-action>
                         <v-list-tile-action-text>{{ todo.nextLoopAt| moment('YYYY/MM/DD') }}</v-list-tile-action-text>
                         <div style="display: inline-block">
-                          <v-icon v-if="todo.frequency" color="blue">restore</v-icon>
+                          <v-tooltip v-if="todo.remark" top>
+                            <v-btn icon slot="activator"><v-icon color="yellow">comment</v-icon></v-btn>
+                            <span>{{ '备注:' + todo.remark}}</span>
+                          </v-tooltip>
+                          <v-btn icon v-if="todo.frequency"><v-icon color="blue">restore</v-icon></v-btn>
                           <span v-if="todo.remindAt">
                           <span>{{ todo.remindAt}}</span>
                         </span>

@@ -82,7 +82,7 @@
               <v-flex sm6 md6 xs6>
                 <v-subheader>任务标签</v-subheader>
                 <v-list-tile>
-                  <v-icon color="red">bookmarks</v-icon>
+                  <v-icon>bookmarks</v-icon>
                   <v-autocomplete
                     outline
                     :items="tags"
@@ -107,6 +107,7 @@
               <v-list-tile>
                 <v-text-field
                   v-model="remark"
+                  placeholder="填写必要的说明，特别是没有按期完成的时候"
                   v-on:input="onChangeUpdate('remark', $event)"
                   outline
                   label="备注"

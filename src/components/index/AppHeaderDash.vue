@@ -22,68 +22,62 @@
         <v-card-text>
           <v-container>
             <v-layout>
-              <v-flex xs4>
-                <v-avatar>
-                  <v-img
-                  ></v-img>
+              <v-flex xs2 md2>
+                <v-avatar size="100">
+                  <v-img src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairBun&accessoriesType=Wayfarers&hairColor=Red&facialHairType=MoustacheFancy&facialHairColor=BlondeGolden&clotheType=ShirtCrewNeck&clotheColor=PastelYellow&eyeType=Squint&eyebrowType=UnibrowNatural&mouthType=Grimace&skinColor=Tanned"></v-img>
                 </v-avatar>
+                <div class="body-1 pt-4">{{ $store.getters.GET_USER_ID }}</div>
               </v-flex>
-              <v-flex xs8>
-                <div class="body-1">{{ $store.getters.GET_USER_ID }}</div>
-              </v-flex>
-            </v-layout>
-          </v-container>
-          <v-divider
-            class="mx-3"
-          ></v-divider>
-          <v-subheader>你的成就</v-subheader>
-          <v-container row wrap>
-            <v-layout>
-              <v-flex xs4>
-                <v-card flat>
-                  <div>
-                    <div class="display-3 font-weight-black"><span class="green--text">{{ this.$store.state.USER_DASH.OTF }}</span></div>
-                    <div class="body-2"><span class="grey--text">及时清除</span></div>
-                  </div>
-                </v-card>
-              </v-flex>
-              <v-divider
-                class="mx-3"
-                inset
-                vertical
-              ></v-divider>
-              <v-flex xs4>
-                <v-card flat>
-                  <div>
-                    <div class="display-3 font-weight-black"><span class="blue--text">{{ this.$store.state.USER_DASH.IP }}</span></div>
-                    <div class="body-2"><span class="grey--text">进展之中</span></div>
-                  </div>
-                </v-card>
-              </v-flex>
-              <v-divider
-                class="mx-3"
-                inset
-                vertical
-              ></v-divider>
-              <v-flex xs4>
-                <v-card flat>
-                  <div>
-                    <div class="display-3 font-weight-black"><span class="red--text">{{ this.$store.state.USER_DASH.D }}</span></div>
-                    <div class="body-2"><span class="grey--text">延迟达成</span></div>
-                  </div>
-                </v-card>
+              <v-flex xs10 md10>
+                <v-container row wrap>
+                  <v-layout>
+                    <v-flex xs4>
+                      <v-card flat>
+                        <div>
+                          <div class="display-3 font-weight-black"><span class="green--text">{{ this.$store.state.USER_DASH.OTF }}</span></div>
+                          <div class="body-2"><span class="grey--text">及时清除</span></div>
+                        </div>
+                      </v-card>
+                    </v-flex>
+                    <v-divider
+                      class="mx-3"
+                      inset
+                      vertical
+                    ></v-divider>
+                    <v-flex xs4>
+                      <v-card flat>
+                        <div>
+                          <div class="display-3 font-weight-black"><span class="blue--text">{{ this.$store.state.USER_DASH.IP }}</span></div>
+                          <div class="body-2"><span class="grey--text">进展之中</span></div>
+                        </div>
+                      </v-card>
+                    </v-flex>
+                    <v-divider
+                      class="mx-3"
+                      inset
+                      vertical
+                    ></v-divider>
+                    <v-flex xs4>
+                      <v-card flat>
+                        <div>
+                          <div class="display-3 font-weight-black"><span class="red--text">{{ this.$store.state.USER_DASH.D }}</span></div>
+                          <div class="body-2"><span class="grey--text">延迟达成</span></div>
+                        </div>
+                      </v-card>
+                    </v-flex>
+                  </v-layout>
+                </v-container>
               </v-flex>
             </v-layout>
           </v-container>
-          <v-divider
-            class="mx-3"
-          ></v-divider>
-          <v-subheader>你的团队</v-subheader>
+          <v-divider class="mx-3"></v-divider>
+
+          <v-subheader class="body-2">团队状态</v-subheader>
           <v-layout align-start justify-start column fill-height>
             <v-flex v-for="(v, k) in $store.state.EMPLOYEE_DASH" v-bind:key="v.id" v-if="$store.state.EMPLOYEE_DASH" sm12 md12 xs12>
+              <v-subheader>{{ k }}</v-subheader>
               <v-list-tile>
                 <v-item-group>
-                  <span>{{ k }}</span>
                   <v-menu v-for="item in v" v-bind:key="item.id" top>
                     <v-btn flat icon slot="activator">
                       <v-icon color="red" v-if="item.isDone === false && item.isDelay === true">mdi-circle-slice-1</v-icon>

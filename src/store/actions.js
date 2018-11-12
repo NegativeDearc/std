@@ -27,8 +27,18 @@ const actions = {
       })
   },
 
+  /**
+   * @return {boolean}
+   */
   CHANGE_DONE_STATUS: function (context, id) {
     let updatedTask = context.getters.GET_TASK_BY_ID(id)
+    // if (updatedTask.isDone) {
+    //   let _confirm = confirm('您已经将这条任务标记为已完成，是否确定要取消完成状态')
+    //   if (!_confirm) {
+    //     context.dispatch('GET_TASKS_OF_ALL')
+    //     return false
+    //   }
+    // }
     let _form = new URLSearchParams({ isDone: !updatedTask.isDone })
     axios.put('/task/' + id, _form)
       .then(data => {

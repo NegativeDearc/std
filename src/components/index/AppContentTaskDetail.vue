@@ -28,7 +28,7 @@
           <v-card-text>
             <v-form ref="newTask">
               <v-list two-line>
-                <v-subheader>任务描述</v-subheader>
+                <v-subheader>任务描述<span class="red--text">(＊必需)</span></v-subheader>
                 <v-list-tile>
                   <v-text-field
                     label="任务"
@@ -61,7 +61,7 @@
 
                 <v-layout>
                   <v-flex sm6 md6 xs6>
-                    <v-subheader>完成时间</v-subheader>
+                    <v-subheader>完成时间<span class="red--text">(＊必需)</span></v-subheader>
                     <v-list-tile>
                       <v-layout>
                         <v-menu
@@ -97,7 +97,7 @@
                   <v-flex sm6 md6 sx6>
                     <v-subheader>任务标签</v-subheader>
                     <v-list-tile>
-                      <v-icon color="red">bookmarks</v-icon>
+                      <v-icon>bookmarks</v-icon>
                       <v-autocomplete
                         outline
                         :items="tags"
@@ -124,7 +124,6 @@
 </template>
 
 <script>
-// todo some validate for the form
 export default {
   name: 'AppContentTaskDetail',
   data () {
