@@ -47,7 +47,7 @@
                     <v-flex xs4>
                       <v-card flat>
                         <div>
-                          <div class="display-3 font-weight-black"><span class="blue--text">{{ this.$store.state.USER_DASH.IP }}</span></div>
+                          <div class="display-3 font-weight-black"><span class="yellow--text">{{ this.$store.state.USER_DASH.IP }}</span></div>
                           <div class="body-2"><span class="grey--text">进展之中</span></div>
                         </div>
                       </v-card>
@@ -84,6 +84,7 @@
                       <v-icon color="blue" v-else-if="item.isDone === false && item.isDelay === false">mdi-circle-slice-1</v-icon>
                       <v-icon color="yellow" v-else-if="item.isDone === true && item.isDelay === true">mdi-check-circle-outline</v-icon>
                       <v-icon color="green" v-else-if="item.isDone === true && item.isDelay === false">mdi-check-circle-outline</v-icon>
+                      <v-icon color="yellow" v-else>mdi-eye-outline</v-icon>
                     </v-btn>
                     <v-card width="420px">
                       <v-list two-line>
