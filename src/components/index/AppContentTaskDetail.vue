@@ -26,7 +26,7 @@
             </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
-            <v-form ref="newTask">
+            <form ref="newTask" v-on:submit.prevent>
               <v-list two-line>
                 <v-subheader>任务<span class="red--text">(＊必需)</span></v-subheader>
                 <v-list-tile>
@@ -34,8 +34,11 @@
                     label="任务"
                     prepend-icon="assignment"
                     v-model="taskName"
-                    required
+                    v-validate="'required|min:10'"
+                    v-bind:error-messages="errors.collect('title')"
+                    data-vv-name="title"
                     outline
+                    required
                   >
                   </v-text-field>
                 </v-list-tile>
@@ -86,7 +89,7 @@
                           </v-toolbar-items>
                         </v-toolbar>
                         <v-window v-model="window" touchless>
-                          <v-window-item v-bind:value="1">
+                          <v-window-item v-bind:value="1" lazy>
                             <v-list>
                               <v-subheader>循环任务</v-subheader>
                               <v-list-tile v-on:click.stop="allWorkDay">
@@ -139,9 +142,9 @@
                             </v-list>
                             <v-footer></v-footer>
                           </v-window-item>
-                          <v-window-item v-bind:value="2">
+                          <v-window-item v-bind:value="2" lazy>
                             <v-subheader>选择周期</v-subheader>
-                            <div>每隔{{ loop.week }}周的{{ loop.workday }}</div>
+                            <div v-if="loop.week > 0 && loop.workday.length > 0">每隔{{ loop.week }}月的周{{ loop.workday.toString() }}</div>
                             <div class="pl-5 pr-5 pb-4">
                               <v-slider
                                 step="1"
@@ -182,17 +185,19 @@
                               <v-tab v-bind:href="`#tab-1`">选星期</v-tab>
                               <v-tab v-bind:href="`#tab-2`">选日期</v-tab>
                               <v-tabs-items>
-                                <v-tab-item v-bind:id="`tab-1`">
-                                  <v-card flat>
-                                    <v-radio-group>
-                                      <v-checkbox>第一个</v-checkbox>
-                                      <v-raido>第二个</v-raido>
-                                      <v-raido>第三个</v-raido>
-                                      <v-raido>第四个</v-raido>
-                                    </v-radio-group>
-                                  </v-card>
+                                <v-tab-item v-bind:value="`tab-1`">
+                                  <div style="display: inline-block">
+                                    第
+                                    <v-select
+                                      dense
+                                      outline
+                                      chips
+                                      v-bind:items="[1,2,3,4]"
+                                    >
+                                    </v-select>
+                                  </div>
                                 </v-tab-item>
-                                <v-tab-item v-bind:id="`tab-2`">bbb</v-tab-item>
+                                <v-tab-item v-bind:value="`tab-2`">bbb</v-tab-item>
                               </v-tabs-items>
                             </v-tabs>
                             <v-footer></v-footer>
@@ -244,7 +249,7 @@
                   ></v-autocomplete>
                 </v-list-tile>
               </v-list>
-            </v-form>
+            </form>
           </v-card-text>
           <div style="flex: 1 1 auto;"></div>
         </v-card>
@@ -253,7 +258,11 @@
 </template>
 
 <script>
+// import cronstrue from 'cronstrue'
 export default {
+  $_veeValidate: {
+    validator: 'new'
+  },
   name: 'AppContentTaskDetail',
   data () {
     return {
@@ -274,7 +283,17 @@ export default {
         week: null,
         month: null
       },
-      cronExpression: ''
+      cronExpression: '',
+
+      dictionary: {
+        custom: {
+          title: {
+            required: () => 'Name can not be empty',
+            min: 'The name field may not be greater than 10 characters'
+            // custom messages
+          }
+        }
+      }
     }
   },
   computed: {
@@ -283,7 +302,8 @@ export default {
     },
     getCronDescription: function () {
       if (this.cronExpression) {
-        this.$store.dispatch('GET_CRON_EXPRESSION_DESCRIPTION', new URLSearchParams({ expression: this.cronExpression }))
+        // console.log(cronstrue.toString(this.cronExpression, { locale: 'zh_CN' }))
+        this.$store.dispatch('GET_CRON_EXPRESSION_DESCRIPTION', new URLSearchParams({expression: this.cronExpression}))
         return this.$store.CRON_DESCRIPTION
       }
     }
@@ -300,9 +320,12 @@ export default {
           createBy: this.$store.getters.GET_USER_ID
         }
       )
-      this.$store.dispatch('CREATE_NEW_TASK', _formData)
-      this.$refs.newTask.reset()
-      this.task = false
+      this.$validator.validateAll().then(data => {
+        if (data) {
+          this.$store.dispatch('CREATE_NEW_TASK', _formData)
+          this.task = false
+        }
+      })
     },
     generateCron: function () {
       const _cronTime = '0 0'
