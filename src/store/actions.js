@@ -100,6 +100,14 @@ const actions = {
         context.commit('SET_EMPLOYEE_DASH', data.data)
         console.log(data.data)
       })
+  },
+
+  GET_CRON_EXPRESSION_DESCRIPTION: function (context, form) {
+    axios.post('/cron/expression', form)
+      .then(data => {
+        console.log('==> GETTING CRON DESCRIPTION', data.data)
+        context.commit('SET_CRON_DESCRIPTION', data.data.description)
+      })
   }
 }
 

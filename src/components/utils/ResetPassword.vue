@@ -2,7 +2,7 @@
   <v-content app>
     <v-container>
       <v-layout align-center justify-center row wrap fill-height>
-        <v-flex sm6>
+        <v-flex sm10 xs12 md10>
           <v-form ref="reset_password" v-model="valid">
             <v-card>
               <v-responsive>

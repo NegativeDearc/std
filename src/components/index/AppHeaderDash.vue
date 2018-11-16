@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-btn flat icon color="purple red--after" v-on:click.stop="getUserDash">
-      <v-icon>perm_identity</v-icon>
+      <v-icon>insert_chart</v-icon>
     </v-btn>
 
     <v-dialog
@@ -19,7 +19,7 @@
           <v-toolbar-title>仪表盘</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
-        <v-card-text>
+        <v-card-text class="mb-4">
           <v-container>
             <v-layout>
               <v-flex xs2 md2>

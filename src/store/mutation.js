@@ -40,6 +40,10 @@ const mutations = {
   LOG_OUT: function (state) {
     state.USER_ID = null
     localStorage.removeItem('userId')
+  },
+  /* */
+  SET_CRON_DESCRIPTION: function (state, data) {
+    state.CRON_DESCRIPTION = data
   }
 }
 

@@ -8,6 +8,7 @@ import AppFooter from '../components/index/AppFooter'
 import AppTask from '../components/task/AppTask'
 import AppLogin from '../components/index/AppLogin'
 import ResetPassword from '../components/utils/ResetPassword'
+import DashIndex from '../components/dash/DashIndex'
 import NProgress from 'nprogress'
 
 NProgress.inc(0.2)
@@ -25,7 +26,8 @@ const router = new Router({
         { path: 'today', component: AppContentToday, meta: { requiresAuth: true } },
         { path: 'future', component: AppContentFuture, meta: { requiresAuth: true } },
         { path: 'archive', component: AppContentArchive, meta: { requiresAuth: true } },
-        { path: 'password', component: ResetPassword, meta: { requiresAuth: true } }
+        { path: 'password', component: ResetPassword, meta: { requiresAuth: true } },
+        { path: 'dash', component: DashIndex, meta: { requiresAuth: true } }
       ],
       meta: {
         requiresAuth: true

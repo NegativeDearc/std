@@ -24,7 +24,6 @@
         <v-list-group
           no-action
           sub-group
-          value="true"
         >
           <v-list-tile slot="activator">
             <v-list-tile-title>管理</v-list-tile-title>
@@ -70,7 +69,8 @@ export default {
   name: 'AppSideBar',
   data: () => ({
     admins: [
-      { name: '修改密码', icon: 'people_outline', link: '/password' }
+      { name: '修改密码', icon: 'people_outline', link: '/password' },
+      { name: '工厂仪表盘', icon: 'dashboard', link: '/dash' }
     ],
     cruds: [
       ['Create', 'add'],
