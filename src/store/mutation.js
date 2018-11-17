@@ -44,6 +44,9 @@ const mutations = {
   /* */
   SET_CRON_DESCRIPTION: function (state, data) {
     state.CRON_DESCRIPTION = data
+  },
+  CLEAR_CRON_DESCRIPTION: function (state) {
+    state.CRON_DESCRIPTION = ''
   }
 }
 

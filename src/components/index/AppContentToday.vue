@@ -90,7 +90,7 @@
                       </v-list-tile-content>
 
                       <v-list-tile-action>
-                        <v-list-tile-action-text>{{ todo.nextLoopAt| moment('YYYY/MM/DD') }}</v-list-tile-action-text>
+                        <v-list-tile-action-text>{{ todo.nextLoopAt | moment('YYYY/MM/DD') }}</v-list-tile-action-text>
                         <div style="display: inline-block">
                           <v-tooltip v-if="todo.remark" top>
                             <v-btn icon slot="activator"><v-icon color="yellow">comment</v-icon></v-btn>

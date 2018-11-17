@@ -10,7 +10,7 @@
               </v-responsive>
               <v-divider></v-divider>
               <v-card-text>
-                <v-list>
+                <v-list two-line>
                   <v-subheader>原始密码</v-subheader>
                   <v-list-tile>
                     <v-text-field

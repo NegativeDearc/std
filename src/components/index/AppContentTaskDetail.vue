@@ -26,9 +26,9 @@
             </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
-            <form ref="newTask" v-on:submit.prevent>
-              <v-list two-line>
-                <v-subheader>任务<span class="red--text">(＊必需)</span></v-subheader>
+            <v-form ref="newTask" v-on:submit.prevent>
+              <v-list three-line>
+                <v-subheader>任务</v-subheader>
                 <v-list-tile>
                   <v-text-field
                     label="任务"
@@ -56,6 +56,10 @@
                 <v-subheader>重复</v-subheader>
                 <v-list-tile>
                   <v-text-field
+                    required
+                    v-validate="'required'"
+                    v-bind:error-messages="errors.collect('loop')"
+                    data-vv-name="loop"
                     outline
                     label="选择重复周期"
                     clearable
@@ -249,7 +253,7 @@
                   ></v-autocomplete>
                 </v-list-tile>
               </v-list>
-            </form>
+            </v-form>
           </v-card-text>
           <div style="flex: 1 1 auto;"></div>
         </v-card>
@@ -288,9 +292,11 @@ export default {
       dictionary: {
         custom: {
           title: {
-            required: () => 'Name can not be empty',
-            min: 'The name field may not be greater than 10 characters'
-            // custom messages
+            required: () => '不可为空',
+            min: '至少10个字符'
+          },
+          loop: {
+            required: () => '不可为空'
           }
         }
       }
@@ -322,9 +328,12 @@ export default {
       )
       this.$validator.validateAll().then(data => {
         if (data) {
+          this.task = false // todo: speed up close process
           this.$store.dispatch('CREATE_NEW_TASK', _formData)
-          this.task = false
+          this.$store.commit('CLEAR_CRON_DESCRIPTION')
+          Object.assign(this.$data, this.$options.data())
         }
+      }).then(() => {
       })
     },
     generateCron: function () {
