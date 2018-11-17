@@ -5,6 +5,8 @@
     </v-toolbar-side-icon>
     <span>返回</span>
     <v-spacer></v-spacer>
+    <v-toolbar-title>任务详情</v-toolbar-title>
+    <v-spacer></v-spacer>
   </v-toolbar>
 </template>
 

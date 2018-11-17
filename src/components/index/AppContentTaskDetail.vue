@@ -1,14 +1,10 @@
 <template>
   <v-layout row justify-center>
-    <v-btn
-      icon
-      dark
-      v-on:click.stop="task = true"
-    >
-      <v-icon color="red">add</v-icon>
+    <v-btn flat icon dark color="red" v-on:click.stop="taskDialog = true">
+      <v-icon>add</v-icon>
     </v-btn>
     <v-dialog
-        v-model="task"
+        v-model="taskDialog"
         fullscreen
         hide-overlay
         transition="dialog-bottom-transition"
@@ -16,13 +12,13 @@
     >
         <v-card tile>
           <v-toolbar dark color="green">
-            <v-btn icon dark v-on:click.native="task = false">
+            <v-btn icon dark v-on:click.native="taskDialog = false">
               <v-icon>close</v-icon>
             </v-btn>
             <v-toolbar-title>新的任务</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn dark flat v-on:click.native="submitForm">保存</v-btn>
+              <v-btn dark flat v-on:click.native="createNewTask">保存</v-btn>
             </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
@@ -33,7 +29,7 @@
                   <v-text-field
                     label="任务"
                     prepend-icon="assignment"
-                    v-model="taskName"
+                    v-model="TASK.TASK_TITLE"
                     v-validate="'required|min:10'"
                     v-bind:error-messages="errors.collect('title')"
                     data-vv-name="title"
@@ -46,7 +42,7 @@
                   <v-text-field
                     label="任务的描述"
                     prepend-icon="subject"
-                    v-model="taskDescription"
+                    v-model="TASK.TASK_DESCRIPTION"
                     required
                     outline
                   >
@@ -64,35 +60,34 @@
                     label="选择重复周期"
                     clearable
                     readonly
-                    v-model="$store.state.CRON_DESCRIPTION"
+                    v-model="TEMP.CRON_DESCRIPTION"
                     prepend-icon="repeat"
-                    v-on:click.native="datePicker = true"
+                    v-on:click.native="cronPicker = true"
                   ></v-text-field>
                   <v-dialog
                     full-width
                     lazy
                     persistent
                     max-width="500px"
-                    v-model="datePicker"
-                    v-bind:return-value="getCronDescription"
+                    v-model="cronPicker"
                   >
                     <v-form ref="dateForm">
                       <v-card>
                         <v-toolbar dark color="green red--after">
-                          <v-btn icon v-on:click.native="goBack" v-if="window !==1">
+                          <v-btn icon v-on:click.native="goBack" v-if="windowDialog !==1">
                             <v-icon>chevron_left</v-icon>
                           </v-btn>
-                          <v-btn icon v-on:click.stop="closeForm" v-else>
+                          <v-btn icon v-on:click.stop="closeCronForm" v-else>
                             <v-icon>close</v-icon>
                           </v-btn>
                           <v-spacer></v-spacer>
                           <v-toolbar-title>选择日期</v-toolbar-title>
                           <v-spacer></v-spacer>
-                          <v-toolbar-items v-if="window !==1">
-                            <v-btn dark flat v-on:click.stop="submitDate">设置</v-btn>
+                          <v-toolbar-items v-if="windowDialog !==1">
+                            <v-btn dark flat v-on:click.stop="settingCron">设置</v-btn>
                           </v-toolbar-items>
                         </v-toolbar>
-                        <v-window v-model="window" touchless>
+                        <v-window v-model="windowDialog" touchless>
                           <v-window-item v-bind:value="1" lazy>
                             <v-list>
                               <v-subheader>循环任务</v-subheader>
@@ -120,9 +115,9 @@
                                 <v-list-tile-action></v-list-tile-action>
                               </v-list-tile>
                               <v-divider></v-divider>
-                              <v-list-tile>
+                              <v-list-tile v-on:click.stop="goWindow(4)">
                                 <v-list-tile-action><v-icon>mdi-numeric-7-box</v-icon></v-list-tile-action>
-                                <v-list-tile-content v-on:click.stop="goWindow(4)">
+                                <v-list-tile-content>
                                   <v-list-tile-title>自定义</v-list-tile-title>
                                 </v-list-tile-content>
                                 <v-list-tile-action></v-list-tile-action>
@@ -148,62 +143,100 @@
                           </v-window-item>
                           <v-window-item v-bind:value="2" lazy>
                             <v-subheader>选择周期</v-subheader>
-                            <div v-if="loop.week > 0 && loop.workday.length > 0">每隔{{ loop.week }}月的周{{ loop.workday.toString() }}</div>
+                            <div v-if="TEMP.WEEK_SELECTOR && CRON_EXPRESSION.DAY_OF_WEEK.length > 0">每隔{{ TEMP.WEEK_SELECTOR }}周的周{{ CRON_EXPRESSION.DAY_OF_WEEK.toString() }}</div>
                             <div class="pl-5 pr-5 pb-4">
                               <v-slider
                                 step="1"
                                 min="0"
                                 max="8"
-                                v-model="loop.week"
+                                v-model="TEMP.WEEK_SELECTOR"
                                 ticks="always"
                                 thumb-color="red"
                                 thumb-label="always"
+                                v-on:change="weekLoopChange"
                               ></v-slider>
                             </div>
-                            <div style="display: inline-block">
-                              <v-checkbox label="周一" value="1" off-icon="close" on-icon="check" v-model="loop.workday" color="red"></v-checkbox>
-                              <v-checkbox label="周二" value="2" off-icon="close" on-icon="check" v-model="loop.workday" color="red"></v-checkbox>
-                              <v-checkbox label="周三" value="3" off-icon="close" on-icon="check" v-model="loop.workday" color="red"></v-checkbox>
-                              <v-checkbox label="周四" value="4" off-icon="close" on-icon="check" v-model="loop.workday" color="red"></v-checkbox>
-                              <v-checkbox label="周五" value="5" off-icon="close" on-icon="check" v-model="loop.workday" color="red"></v-checkbox>
+                            <div style="display: inline-block" >
+                              <v-checkbox
+                                v-for="i in $store.state.WORKDAY_INDEX.filter(item => item.itemValue !== '1-5')"
+                                v-bind:key="i.itemValue"
+                                v-bind:label="i.itemText"
+                                v-bind:value="i.itemValue"
+                                off-icon="close"
+                                on-icon="check"
+                                v-model="CRON_EXPRESSION.DAY_OF_WEEK"
+                                color="red"></v-checkbox>
                             </div>
                             <v-footer></v-footer>
                           </v-window-item>
                           <v-window-item v-bind:value="3" lazy>
                             <v-subheader>选择周期</v-subheader>
-                            <div>每隔 {{ loop.month }} 月</div>
+                            <div>每隔 {{ TEMP.MONTH_SELECTOR }} 月第 {{ TEMP.WEEK_INDEX_SELECTOR }} 周的第 {{ TEMP.DAY_OF_WEEK_SELECTOR }} 天</div>
                             <div class="pl-5 pr-5">
                               <v-slider
+                                hint="滑动选择月份"
                                 step="1"
                                 min="0"
                                 max="12"
-                                v-model="loop.month"
+                                v-model="TEMP.MONTH_SELECTOR"
                                 ticks="always"
                                 thumb-color="red"
                                 thumb-label="always"
+                                v-on:change="monthLoopChange"
                               ></v-slider>
-                            </div>
-                            <v-tabs v-if="loop.month"
-                              centered
-                            >
-                              <v-tab v-bind:href="`#tab-1`">选星期</v-tab>
-                              <v-tab v-bind:href="`#tab-2`">选日期</v-tab>
-                              <v-tabs-items>
-                                <v-tab-item v-bind:value="`tab-1`">
-                                  <div style="display: inline-block">
-                                    第
+                              <v-container grid-list-md>
+                                <v-layout wrap v-show="TEMP.MONTH_SELECTOR > 0">
+                                  <v-flex xs12 md12>
                                     <v-select
-                                      dense
+                                      prepend-icon="view_week"
                                       outline
-                                      chips
-                                      v-bind:items="[1,2,3,4]"
+                                      v-model="TEMP.WEEK_INDEX_SELECTOR"
+                                      v-bind:items="$store.state.WEEK_INDEX"
+                                      item-text="itemText"
+                                      item-value="itemValue"
+                                      label="第几周"
+                                    ></v-select>
+                                  </v-flex>
+                                  <v-flex xs12 md12>
+                                    <v-select
+                                      menu-props="top"
+                                      prepend-icon="view_day"
+                                      outline
+                                      v-model="TEMP.DAY_OF_WEEK_SELECTOR"
+                                      v-bind:items="$store.state.WORKDAY_INDEX"
+                                      item-avatar="itemIcon"
+                                      item-text="itemText"
+                                      item-value="itemValue"
+                                      label="第几日"
+                                      v-on:change="workDayLoopChange"
                                     >
+                                      <template slot="item" slot-scope="data">
+                                        <v-list-tile-avatar>
+                                          <v-icon size="25">{{ data.item.itemIcon }}</v-icon>
+                                        </v-list-tile-avatar>
+                                        <v-list-tile-content>
+                                          <v-list-tile-title v-html="data.item.itemText"></v-list-tile-title>
+                                        </v-list-tile-content>
+                                      </template>
                                     </v-select>
-                                  </div>
-                                </v-tab-item>
-                                <v-tab-item v-bind:value="`tab-2`">bbb</v-tab-item>
-                              </v-tabs-items>
-                            </v-tabs>
+                                  </v-flex>
+                                </v-layout>
+                              </v-container>
+                            </div>
+                            <v-footer></v-footer>
+                          </v-window-item>
+                          <v-window-item v-bind:value="4" lazy>
+                            <v-subheader>输入CRON表达式</v-subheader>
+                            <v-container grid-list-md>
+                              <v-layout wrap>
+                                <v-flex xs2 md2 offset-md1 offset-xs1><v-text-field label="分" outline class="d-flex align-center" height="60" v-model="CRON_EXPRESSION.MINUTE"></v-text-field></v-flex>
+                                <v-flex xs2 md2><v-text-field label="时" outline class="d-flex align-center" height="60" v-model="CRON_EXPRESSION.HOUR"></v-text-field></v-flex>
+                                <v-flex xs2 md2><v-text-field label="天" outline class="d-flex align-center" height="60" v-model="CRON_EXPRESSION.DAY_OF_MONTH"></v-text-field></v-flex>
+                                <v-flex xs2 md2><v-text-field label="月" outline class="d-flex align-center" height="60" v-model="CRON_EXPRESSION.MONTH"></v-text-field></v-flex>
+                                <v-flex xs2 md2><v-text-field label="周" outline class="d-flex align-center" height="60" v-model="CRON_EXPRESSION.DAY_OF_WEEK"></v-text-field></v-flex>
+                              </v-layout>
+                              <span class="red--text">CRON是描述定时任务的表达式，用法请参考<a href="https://en.wikipedia.org/wiki/Cron" target="_blank">WiKi的简要介绍</a></span>
+                            </v-container>
                             <v-footer></v-footer>
                           </v-window-item>
                         </v-window>
@@ -218,19 +251,19 @@
                     label="选择时间"
                     outline
                     readonly
-                    v-model="taskTimeSlot"
+                    v-model="TASK.TASK_REMIND_AT"
                     prepend-icon="access_time"
-                    v-on:click.native="menu2 = true"
+                    v-on:click.native="timePicker = true"
                   ></v-text-field>
                   <v-dialog
-                    v-model="menu2"
-                    :return-value="taskTimeSlot"
+                    v-model="timePicker"
+                    :return-value="TASK.TASK_REMIND_AT"
                     full-width
                     lazy
                     width="290px"
                   >
                     <v-time-picker
-                      v-model="taskTimeSlot"
+                      v-model="TASK.TASK_REMIND_AT"
                       color="green"
                       format="24hr"
                     ></v-time-picker>
@@ -249,7 +282,7 @@
                     hide-selected
                     multiple
                     single-line
-                    v-model="taskTags"
+                    v-model="TASK.TASK_TAGS"
                   ></v-autocomplete>
                 </v-list-tile>
               </v-list>
@@ -262,7 +295,7 @@
 </template>
 
 <script>
-// import cronstrue from 'cronstrue'
+import cronstrue from 'cronstrue'
 export default {
   $_veeValidate: {
     validator: 'new'
@@ -270,25 +303,32 @@ export default {
   name: 'AppContentTaskDetail',
   data () {
     return {
-      week: [],
-      taskName: null,
-      taskDescription: null,
-      taskTags: null,
-      taskRepeatInterval: null,
-      taskTimeSlot: null,
-      date: null,
-      task: false,
-      menu2: false,
-
-      window: null,
-      datePicker: null,
-      loop: {
-        workday: [],
-        week: null,
-        month: null
+      CRON_EXPRESSION: {
+        MINUTE: '59',
+        HOUR: '23',
+        DAY_OF_MONTH: '',
+        MONTH: '',
+        DAY_OF_WEEK: []
       },
-      cronExpression: '',
-
+      TASK: {
+        TASK_TITLE: null,
+        TASK_DESCRIPTION: null,
+        TASK_CRON_EXPRESSION: null,
+        TASK_CRON_EXPRESSION_DESCRIPTION: null,
+        TASK_REMIND_AT: null,
+        TASK_TAGS: []
+      },
+      TEMP: {
+        MONTH_SELECTOR: 0,
+        WEEK_SELECTOR: '',
+        WEEK_INDEX_SELECTOR: '',
+        DAY_OF_WEEK_SELECTOR: '',
+        CRON_DESCRIPTION: ''
+      },
+      taskDialog: null,
+      windowDialog: null,
+      cronPicker: null,
+      timePicker: null,
       dictionary: {
         custom: {
           title: {
@@ -302,33 +342,55 @@ export default {
       }
     }
   },
+  watch: {
+    CRON_EXPRESSION: {
+      handler: function () {
+        let _sequence = ['MINUTE', 'HOUR', 'DAY_OF_MONTH', 'MONTH', 'DAY_OF_WEEK']
+        let _cronValue = []
+        for (let _seq of _sequence) {
+          if (this.CRON_EXPRESSION[_seq].toString() === '') {
+            _cronValue.push('*')
+          } else { _cronValue.push(this.CRON_EXPRESSION[_seq].toString()) }
+        }
+        console.log(_cronValue.join(' '))
+        this.TEMP.CRON_DESCRIPTION = cronstrue.toString(_cronValue.join(' '))
+      },
+      deep: true
+    }
+  },
   computed: {
     getTags: function () {
       return this.$store.state.TASK_TAGS
-    },
-    getCronDescription: function () {
-      if (this.cronExpression) {
-        // console.log(cronstrue.toString(this.cronExpression, { locale: 'zh_CN' }))
-        this.$store.dispatch('GET_CRON_EXPRESSION_DESCRIPTION', new URLSearchParams({expression: this.cronExpression}))
-        return this.$store.CRON_DESCRIPTION
-      }
     }
   },
   methods: {
-    submitForm () {
+    weekLoopChange: function () {
+      if (this.TEMP.WEEK_SELECTOR > 0) {
+        this.CRON_EXPRESSION.DAY_OF_MONTH = [ '*', parseInt(this.TEMP.WEEK_SELECTOR * 7) ].join('/')
+      }
+    },
+    monthLoopChange: function () {
+      if (this.TEMP.MONTH_SELECTOR > 0) {
+        this.CRON_EXPRESSION.MONTH = ['*', parseInt(this.TEMP.MONTH_SELECTOR)].join('/')
+      }
+    },
+    workDayLoopChange: function () {
+      this.CRON_EXPRESSION.DAY_OF_WEEK = [ this.TEMP.DAY_OF_WEEK_SELECTOR + this.TEMP.WEEK_INDEX_SELECTOR ]
+    },
+    createNewTask () {
       let _formData = new URLSearchParams(
         {
-          taskName: this.taskName ? this.taskName : null,
+          taskTitle: this.taskTitle ? this.taskTitle : null,
           taskDescription: this.taskDescription,
           taskTags: this.taskTags ? this.taskTags.toString() : null,
           taskRepeatInterval: this.cronExpression,
-          taskTimeSlot: this.taskTimeSlot,
+          taskRemindAt: this.taskRemindAt,
           createBy: this.$store.getters.GET_USER_ID
         }
       )
       this.$validator.validateAll().then(data => {
         if (data) {
-          this.task = false // todo: speed up close process
+          this.taskDialog = false // todo: speed up close process
           this.$store.dispatch('CREATE_NEW_TASK', _formData)
           this.$store.commit('CLEAR_CRON_DESCRIPTION')
           Object.assign(this.$data, this.$options.data())
@@ -336,53 +398,25 @@ export default {
       }).then(() => {
       })
     },
-    generateCron: function () {
-      const _cronTime = '0 0'
-      let _cronDayOfMonth
-      let _cronMonth
-      let _workday
-      if (this.loop.month) {
-        _cronMonth = ['*', this.loop.month].join('/')
-      } else {
-        _cronMonth = '*'
-      }
-      if (this.loop.week) {
-        _cronDayOfMonth = ['*', this.loop.week * 7].join('/')
-      } else {
-        _cronDayOfMonth = '*'
-      }
-      if (this.loop.workday.length > 0) {
-        _workday = this.loop.workday.toString()
-      } else {
-        _workday = '*'
-      }
-      let _cronExpression = [_cronTime, _cronDayOfMonth, _cronMonth, _workday]
-      this.cronExpression = _cronExpression.join(' ')
-      console.log(this.cronExpression)
-    },
     goBack: function () {
-      this.window = 1
-      this.$refs.dateForm.reset()
+      this.windowDialog = 1
+      Object.assign(this.$data.CRON_EXPRESSION, this.$options.data().CRON_EXPRESSION)
+      Object.assign(this.$data.TEMP, this.$options.data().TEMP)
     },
     goWindow: function (n) {
-      this.window = n
+      this.windowDialog = n
     },
     allWorkDay: function () {
-      this.loop.workday = [1, 2, 3, 4, 5]
-      Object.assign(this.$data.loop, this.$options.data().loop)
-      this.datePicker = false
-      this.cronExpression = '0 0 * * 1-5' // or '0 0 17 * * 1-5'
-      console.log(this.cronExpression)
+      this.CRON_EXPRESSION.DAY_OF_MONTH = '*'
+      this.CRON_EXPRESSION.MONTH = '*'
+      this.CRON_EXPRESSION.DAY_OF_WEEK = ['1-5']
+      this.cronPicker = false
     },
-    closeForm: function () {
-      this.datePicker = false
-      Object.assign(this.$data.loop, this.$options.data().loop)
+    closeCronForm: function () {
+      this.cronPicker = false
     },
-    submitDate: function () {
-      // console.log(this.loop.week, this.loop.workday)
-      this.generateCron()
-      this.datePicker = false
-      Object.assign(this.$data.loop, this.$options.data().loop)
+    settingCron: function () {
+      this.cronPicker = false
     }
   }
 }
