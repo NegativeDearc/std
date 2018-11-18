@@ -19,7 +19,7 @@ const actions = {
 
   UPDATE_ONE_TASK: function (context, [id, updateValue]) {
     console.log(id, updateValue)
-    axios.post('/task/' + id, new URLSearchParams(updateValue))
+    axios.post('/task/' + id, updateValue)
       .then(() => {
         console.log('=> UPDATE DATA TO..', updateValue)
       }).catch(err => {
