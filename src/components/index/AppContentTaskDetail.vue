@@ -82,9 +82,7 @@
                           <v-spacer></v-spacer>
                           <v-toolbar-title>选择日期</v-toolbar-title>
                           <v-spacer></v-spacer>
-                          <v-toolbar-items v-if="windowDialog !==1">
-                            <v-btn dark flat v-on:click.stop="settingCron">设置</v-btn>
-                          </v-toolbar-items>
+                          <v-btn icon v-bind:disabled="windowDialog === 1" flat v-on:click.stop="settingCron"><v-icon>check</v-icon></v-btn>
                         </v-toolbar>
                         <v-window v-model="windowDialog" touchless>
                           <v-window-item v-bind:value="1" lazy>
@@ -103,7 +101,7 @@
                                 <v-list-tile-content>
                                   <v-list-tile-title>周</v-list-tile-title>
                                 </v-list-tile-content>
-                                <v-list-tile-action></v-list-tile-action>
+                                <v-list-tile-action><v-icon>more_vert</v-icon></v-list-tile-action>
                               </v-list-tile>
                               <v-divider></v-divider>
                               <v-list-tile v-on:click.stop="goWindow(3)">
@@ -111,7 +109,7 @@
                                 <v-list-tile-content>
                                   <v-list-tile-title>月</v-list-tile-title>
                                 </v-list-tile-content>
-                                <v-list-tile-action></v-list-tile-action>
+                                <v-list-tile-action><v-icon>more_vert</v-icon></v-list-tile-action>
                               </v-list-tile>
                               <v-divider></v-divider>
                               <v-list-tile v-on:click.stop="goWindow(4)">
@@ -119,7 +117,7 @@
                                 <v-list-tile-content>
                                   <v-list-tile-title>自定义</v-list-tile-title>
                                 </v-list-tile-content>
-                                <v-list-tile-action></v-list-tile-action>
+                                <v-list-tile-action><v-icon>more_vert</v-icon></v-list-tile-action>
                               </v-list-tile>
                               <v-subheader>一次任务</v-subheader>
                               <v-list-tile>
@@ -142,7 +140,7 @@
                           </v-window-item>
                           <v-window-item v-bind:value="2" lazy>
                             <v-subheader>选择周期</v-subheader>
-                            <div>每隔{{ TEMP.WEEK_SELECTOR }}周的周{{ CRON_EXPRESSION.DAY_OF_WEEK.toString() }}</div>
+                            <div>每隔 {{ TEMP.WEEK_SELECTOR }} 周的周 {{ CRON_EXPRESSION.DAY_OF_WEEK.toString() }}</div>
                             <div class="pl-5 pr-5 pb-4">
                               <v-slider
                                 step="1"
@@ -383,16 +381,15 @@ export default {
       this.CRON_EXPRESSION.DAY_OF_WEEK = [ this.TEMP.DAY_OF_WEEK_SELECTOR + this.TEMP.WEEK_INDEX_SELECTOR ]
     },
     createNewTask () {
-      let _formData = new URLSearchParams(
-        {
-          taskTitle: this.TASK.TASK_TITLE,
-          taskDescription: this.TASK.TASK_DESCRIPTION,
-          taskTags: this.TASK.TASK_TAGS ? this.TASK.TASK_TAGS.toString() : null,
-          taskRepeatInterval: this.TEMP.CRON_EXPRESSION,
-          taskRemindAt: this.TASK.TASK_REMIND_AT,
-          createBy: this.$store.getters.GET_USER_ID
-        }
-      )
+      let _formData = {
+        taskTitle: this.TASK.TASK_TITLE,
+        taskDescription: this.TASK.TASK_DESCRIPTION,
+        taskTags: this.TASK.TASK_TAGS ? this.TASK.TASK_TAGS.toString() : null,
+        taskRepeatInterval: this.TEMP.CRON_EXPRESSION,
+        taskFrequencyDescription: cronstrue.toString(this.generateCron),
+        taskRemindAt: this.TASK.TASK_REMIND_AT,
+        createBy: this.$store.getters.GET_USER_ID
+      }
       this.$validator.validateAll().then(data => {
         if (data) {
           this.taskDialog = false // todo: speed up close process
@@ -415,7 +412,7 @@ export default {
     allWorkDay: function () {
       this.CRON_EXPRESSION.DAY_OF_MONTH = '*'
       this.CRON_EXPRESSION.MONTH = '*'
-      this.CRON_EXPRESSION.DAY_OF_WEEK = ['1-5']
+      this.CRON_EXPRESSION.DAY_OF_WEEK = ['1', '2', '3', '4', '5']
       this.cronPicker = false
     },
     closeCronForm: function () {

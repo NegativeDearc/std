@@ -21,7 +21,6 @@
                 box
                 required
                 v-bind:disabled="TASK.TASK_IS_DONE"
-                v-on:input="onChangeUpdate('TITLE', $event)"
               >
               </v-text-field>
             </v-list-tile>
@@ -33,7 +32,6 @@
                 required
                 box
                 v-bind:disabled="TASK.TASK_IS_DONE"
-                v-on:input="onChangeUpdate('DESCRIPTION', $event)"
               >
               </v-text-field>
             </v-list-tile>
@@ -47,18 +45,19 @@
                 v-bind:error-messages="errors.collect('loop')"
                 data-vv-name="loop"
                 box
-                label="选择周期"
+                v-bind:label="TASK.TASK_CRON_EXPRESSION"
                 readonly
+                clearable
                 prepend-icon="repeat"
-                v-model="TASK.TASK_CRON_EXPRESSION"
+                v-model="TASK.CRON_EXPRESSION_DESCRIPTION"
                 v-on:click.native="openCronForm"
-                v-on:change="onChangeUpdate('FREQUENCY', $event)"
               ></v-text-field>
               <v-dialog
                 full-width
                 lazy
                 max-width="600px"
                 v-model="cronPicker"
+                v-bind:return-value="TASK.CRON_EXPRESSION_DESCRIPTION"
               >
                 <v-form ref="dateForm">
                   <v-card>
@@ -72,9 +71,7 @@
                       <v-spacer></v-spacer>
                       <v-toolbar-title>选择日期</v-toolbar-title>
                       <v-spacer></v-spacer>
-                      <v-toolbar-items v-if="windowDialog !==1">
-                        <v-btn dark flat v-on:click.stop="settingCron">设置</v-btn>
-                      </v-toolbar-items>
+                      <v-btn icon v-bind:disabled="windowDialog === 1" flat v-on:click.stop="settingCron"><v-icon>check</v-icon></v-btn>
                     </v-toolbar>
                     <v-window v-model="windowDialog" touchless>
                       <v-window-item v-bind:value="1" lazy>
@@ -93,7 +90,7 @@
                             <v-list-tile-content>
                               <v-list-tile-title>周</v-list-tile-title>
                             </v-list-tile-content>
-                            <v-list-tile-action></v-list-tile-action>
+                            <v-list-tile-action><v-icon>more_vert</v-icon></v-list-tile-action>
                           </v-list-tile>
                           <v-divider></v-divider>
                           <v-list-tile v-on:click.stop="goWindow(3)">
@@ -101,7 +98,7 @@
                             <v-list-tile-content>
                               <v-list-tile-title>月</v-list-tile-title>
                             </v-list-tile-content>
-                            <v-list-tile-action></v-list-tile-action>
+                            <v-list-tile-action><v-icon>more_vert</v-icon></v-list-tile-action>
                           </v-list-tile>
                           <v-divider></v-divider>
                           <v-list-tile v-on:click.stop="goWindow(4)">
@@ -109,7 +106,7 @@
                             <v-list-tile-content>
                               <v-list-tile-title>自定义</v-list-tile-title>
                             </v-list-tile-content>
-                            <v-list-tile-action></v-list-tile-action>
+                            <v-list-tile-action><v-icon>more_vert</v-icon></v-list-tile-action>
                           </v-list-tile>
                           <v-subheader>一次任务</v-subheader>
                           <v-list-tile>
@@ -247,7 +244,7 @@
               ></v-text-field>
               <v-dialog
                 v-model="timePicker"
-                :return-value="TASK.TASK_REMIND_AT"
+                v-bind:return-value="TASK.TASK_REMIND_AT"
                 full-width
                 lazy
                 width="290px"
@@ -256,7 +253,6 @@
                   v-model="TASK.TASK_REMIND_AT"
                   color="green"
                   format="24hr"
-                  v-on:input="onChangeUpdate('REMIND_AT', $event)"
                 ></v-time-picker>
               </v-dialog>
             </v-list-tile>
@@ -275,7 +271,6 @@
                 single-line
                 v-model="TASK.TASK_TAGS"
                 v-bind:disabled="TASK.TASK_IS_DONE"
-                v-on:change="onChangeUpdate('TAGS', $event)"
               ></v-autocomplete>
             </v-list-tile>
           </v-list>
@@ -286,7 +281,6 @@
             <v-text-field
               v-model="TASK.TASK_REMARK"
               placeholder="填写必要的说明，特别是没有按期完成的时候"
-              v-on:input="onChangeUpdate('REMARK', $event)"
               box
               label="备注"
               prepend-icon="comment"
@@ -382,6 +376,22 @@ export default {
     TASK: {
       handler: function () {
         this.TASK.CRON_EXPRESSION_DESCRIPTION = cronstrue.toString(this.TASK.TASK_CRON_EXPRESSION)
+        let _form = {
+          taskTitle: this.TASK.TASK_TITLE,
+          taskDescription: this.TASK.TASK_DESCRIPTION,
+          frequency: this.TASK.TASK_CRON_EXPRESSION,
+          freqDescription: this.TASK.CRON_EXPRESSION_DESCRIPTION,
+          taskTags: this.TASK.TASK_TAGS.toString(),
+          remindAt: this.TASK_REMIND_AT,
+          remark: this.TASK.TASK_REMARK
+        }
+        this.$validator.validateAll().then(data => {
+          if (data) {
+            let _id = this.$router.currentRoute.params.taskId
+            this.$store.dispatch('UPDATE_ONE_TASK', [_id, _form])
+            this.snackbarDialog = true
+          }
+        })
       },
       deep: true
     }
@@ -402,36 +412,6 @@ export default {
     }
   },
   methods: {
-    onChangeUpdate: function (key, event) {
-      let _id = this.$router.currentRoute.params.taskId
-      let _updateValue
-      switch (key) {
-        case 'TITLE':
-          _updateValue = { taskTitle: event }
-          break
-        case 'DESCRIPTION':
-          _updateValue = { taskDescription: event }
-          break
-        case 'REMIND_AT':
-          _updateValue = { remindAt: event }
-          break
-        case 'TAGS':
-          _updateValue = { taskTags: event ? event.toString() : null }
-          break
-        case 'FREQUENCY':
-          _updateValue = { frequency: this.generateCron }
-          break
-        case 'REMARK':
-          _updateValue = { remark: event }
-      }
-      console.log('=> CHANGING', key, 'TO', _updateValue)
-      this.$validator.validateAll().then(data => {
-        if (data) {
-          this.$store.dispatch('UPDATE_ONE_TASK', [_id, _updateValue])
-          this.snackbarDialog = true
-        }
-      })
-    },
     weekLoopChange: function () {
       if (this.TEMP.WEEK_SELECTOR > 0) {
         this.CRON_EXPRESSION.DAY_OF_MONTH = [ '*', parseInt(this.TEMP.WEEK_SELECTOR * 7) ].join('/')
@@ -456,14 +436,14 @@ export default {
     allWorkDay: function () {
       this.CRON_EXPRESSION.DAY_OF_MONTH = '*'
       this.CRON_EXPRESSION.MONTH = '*'
-      this.CRON_EXPRESSION.DAY_OF_WEEK = ['1-5']
+      this.CRON_EXPRESSION.DAY_OF_WEEK = ['1', '2', '3', '4', '5']
       this.cronPicker = false
     },
     openCronForm: function () {
-      Object.assign(this.$data.TEMP, this.$options.data().TEMP)
       this.cronPicker = true
     },
     closeCronForm: function () {
+      this.$emit('myEvent')
       this.cronPicker = false
     },
     settingCron: function () {
@@ -477,7 +457,7 @@ export default {
     this.TASK.TASK_DESCRIPTION = _task.taskDescription
     this.TASK.TASK_CRON_EXPRESSION = _task.frequency
     this.TASK.CRON_EXPRESSION_DESCRIPTION = cronstrue.toString(this.TASK.TASK_CRON_EXPRESSION)
-    this.TASK.TASK_TAGS = _task.taskTags ? _task.taskTags.split(',') : null
+    this.TASK.TASK_TAGS = _task.taskTags ? _task.taskTags.split(',') : []
     this.TASK.TASK_REMIND_AT = _task.remindAt
     this.TASK.TASK_REMARK = _task.remark
   }
