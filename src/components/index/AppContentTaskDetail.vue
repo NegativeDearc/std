@@ -33,7 +33,7 @@
                     v-validate="'required|min:10'"
                     v-bind:error-messages="errors.collect('title')"
                     data-vv-name="title"
-                    outline
+                    box
                     required
                   >
                   </v-text-field>
@@ -44,7 +44,7 @@
                     prepend-icon="subject"
                     v-model="TASK.TASK_DESCRIPTION"
                     required
-                    outline
+                    box
                   >
                   </v-text-field>
                 </v-list-tile>
@@ -56,7 +56,7 @@
                     v-validate="'required'"
                     v-bind:error-messages="errors.collect('loop')"
                     data-vv-name="loop"
-                    outline
+                    box
                     label="选择重复周期"
                     clearable
                     readonly
@@ -67,8 +67,7 @@
                   <v-dialog
                     full-width
                     lazy
-                    persistent
-                    max-width="500px"
+                    max-width="600px"
                     v-model="cronPicker"
                   >
                     <v-form ref="dateForm">
@@ -92,7 +91,7 @@
                             <v-list>
                               <v-subheader>循环任务</v-subheader>
                               <v-list-tile v-on:click.stop="allWorkDay">
-                                <v-list-tile-action><v-icon>mdi-numeric-1-box</v-icon></v-list-tile-action>
+                                <v-list-tile-action><v-icon>mdi-calendar-range</v-icon></v-list-tile-action>
                                 <v-list-tile-content>
                                   <v-list-tile-title>工作日</v-list-tile-title>
                                 </v-list-tile-content>
@@ -100,7 +99,7 @@
                               </v-list-tile>
                               <v-divider></v-divider>
                               <v-list-tile v-on:click.stop="goWindow(2)">
-                                <v-list-tile-action><v-icon>mdi-numeric-7-box</v-icon></v-list-tile-action>
+                                <v-list-tile-action><v-icon>mdi-calendar-week</v-icon></v-list-tile-action>
                                 <v-list-tile-content>
                                   <v-list-tile-title>周</v-list-tile-title>
                                 </v-list-tile-content>
@@ -108,7 +107,7 @@
                               </v-list-tile>
                               <v-divider></v-divider>
                               <v-list-tile v-on:click.stop="goWindow(3)">
-                                <v-list-tile-action><v-icon>mdi-numeric-7-box</v-icon></v-list-tile-action>
+                                <v-list-tile-action><v-icon>mdi-calendar-text</v-icon></v-list-tile-action>
                                 <v-list-tile-content>
                                   <v-list-tile-title>月</v-list-tile-title>
                                 </v-list-tile-content>
@@ -116,7 +115,7 @@
                               </v-list-tile>
                               <v-divider></v-divider>
                               <v-list-tile v-on:click.stop="goWindow(4)">
-                                <v-list-tile-action><v-icon>mdi-numeric-7-box</v-icon></v-list-tile-action>
+                                <v-list-tile-action><v-icon>mdi-calendar-multiselect</v-icon></v-list-tile-action>
                                 <v-list-tile-content>
                                   <v-list-tile-title>自定义</v-list-tile-title>
                                 </v-list-tile-content>
@@ -132,7 +131,7 @@
                               </v-list-tile>
                               <v-divider></v-divider>
                               <v-list-tile>
-                                <v-list-tile-action><v-icon>mdi-numeric-1-box</v-icon></v-list-tile-action>
+                                <v-list-tile-action><v-icon>mdi-numeric-7-box</v-icon></v-list-tile-action>
                                 <v-list-tile-content>
                                   <v-list-tile-title>下周这个时候</v-list-tile-title>
                                 </v-list-tile-content>
@@ -143,7 +142,7 @@
                           </v-window-item>
                           <v-window-item v-bind:value="2" lazy>
                             <v-subheader>选择周期</v-subheader>
-                            <div v-if="TEMP.WEEK_SELECTOR && CRON_EXPRESSION.DAY_OF_WEEK.length > 0">每隔{{ TEMP.WEEK_SELECTOR }}周的周{{ CRON_EXPRESSION.DAY_OF_WEEK.toString() }}</div>
+                            <div>每隔{{ TEMP.WEEK_SELECTOR }}周的周{{ CRON_EXPRESSION.DAY_OF_WEEK.toString() }}</div>
                             <div class="pl-5 pr-5 pb-4">
                               <v-slider
                                 step="1"
@@ -185,7 +184,7 @@
                                 v-on:change="monthLoopChange"
                               ></v-slider>
                               <v-container grid-list-md>
-                                <v-layout wrap v-show="TEMP.MONTH_SELECTOR > 0">
+                                <v-layout wrap>
                                   <v-flex xs12 md12>
                                     <v-select
                                       prepend-icon="view_week"
@@ -249,7 +248,7 @@
                   <v-text-field
                     clearable
                     label="选择时间"
-                    outline
+                    box
                     readonly
                     v-model="TASK.TASK_REMIND_AT"
                     prepend-icon="access_time"
@@ -269,11 +268,11 @@
                     ></v-time-picker>
                   </v-dialog>
                 </v-list-tile>
-                <v-subheader>任务标签</v-subheader>
+                <v-subheader>标签</v-subheader>
                 <v-list-tile>
                   <v-autocomplete
                     prepend-icon="bookmark"
-                    outline
+                    box
                     v-bind:items="getTags"
                     chips
                     clearable
@@ -296,6 +295,7 @@
 
 <script>
 import cronstrue from 'cronstrue'
+
 export default {
   $_veeValidate: {
     validator: 'new'
@@ -323,7 +323,8 @@ export default {
         WEEK_SELECTOR: '',
         WEEK_INDEX_SELECTOR: '',
         DAY_OF_WEEK_SELECTOR: '',
-        CRON_DESCRIPTION: ''
+        CRON_DESCRIPTION: '',
+        CRON_EXPRESSION: ''
       },
       taskDialog: null,
       windowDialog: null,
@@ -345,15 +346,9 @@ export default {
   watch: {
     CRON_EXPRESSION: {
       handler: function () {
-        let _sequence = ['MINUTE', 'HOUR', 'DAY_OF_MONTH', 'MONTH', 'DAY_OF_WEEK']
-        let _cronValue = []
-        for (let _seq of _sequence) {
-          if (this.CRON_EXPRESSION[_seq].toString() === '') {
-            _cronValue.push('*')
-          } else { _cronValue.push(this.CRON_EXPRESSION[_seq].toString()) }
-        }
-        console.log(_cronValue.join(' '))
-        this.TEMP.CRON_DESCRIPTION = cronstrue.toString(_cronValue.join(' '))
+        let _cronExpression = this.generateCron
+        this.TEMP.CRON_EXPRESSION = this.generateCron
+        this.TEMP.CRON_DESCRIPTION = cronstrue.toString(_cronExpression)
       },
       deep: true
     }
@@ -361,6 +356,16 @@ export default {
   computed: {
     getTags: function () {
       return this.$store.state.TASK_TAGS
+    },
+    generateCron: function () {
+      let _sequence = ['MINUTE', 'HOUR', 'DAY_OF_MONTH', 'MONTH', 'DAY_OF_WEEK']
+      let _cronValue = []
+      for (let _seq of _sequence) {
+        if (this.CRON_EXPRESSION[_seq].toString() === '') {
+          _cronValue.push('*')
+        } else { _cronValue.push(this.CRON_EXPRESSION[_seq].toString()) }
+      }
+      return _cronValue.join(' ')
     }
   },
   methods: {
@@ -380,11 +385,11 @@ export default {
     createNewTask () {
       let _formData = new URLSearchParams(
         {
-          taskTitle: this.taskTitle ? this.taskTitle : null,
-          taskDescription: this.taskDescription,
-          taskTags: this.taskTags ? this.taskTags.toString() : null,
-          taskRepeatInterval: this.cronExpression,
-          taskRemindAt: this.taskRemindAt,
+          taskTitle: this.TASK.TASK_TITLE,
+          taskDescription: this.TASK.TASK_DESCRIPTION,
+          taskTags: this.TASK.TASK_TAGS ? this.TASK.TASK_TAGS.toString() : null,
+          taskRepeatInterval: this.TEMP.CRON_EXPRESSION,
+          taskRemindAt: this.TASK.TASK_REMIND_AT,
           createBy: this.$store.getters.GET_USER_ID
         }
       )
@@ -394,6 +399,7 @@ export default {
           this.$store.dispatch('CREATE_NEW_TASK', _formData)
           this.$store.commit('CLEAR_CRON_DESCRIPTION')
           Object.assign(this.$data, this.$options.data())
+          this.$refs.newTask.reset()
         }
       }).then(() => {
       })
