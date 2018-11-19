@@ -60,6 +60,13 @@
           </v-list-tile>
         </v-list-group>
       </v-list-group>
+
+      <v-list-tile to="/lab">
+        <v-list-tile-action>
+          <v-icon>mdi-bug</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-title>实验室</v-list-tile-title>
+      </v-list-tile>
     </v-list>
   </v-navigation-drawer>
 </template>

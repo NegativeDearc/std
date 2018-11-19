@@ -4,6 +4,7 @@ import AppContentToday from '../components/index/AppContentToday'
 import AppContentFuture from '../components/index/AppContentFuture'
 import AppContentArchive from '../components/index/AppContentArchive'
 import AppIndex from '../components/index/AppIndex'
+import experimentIndex from '../components/experiment/experimentIndex'
 import AppFooter from '../components/index/AppFooter'
 import AppTask from '../components/task/AppTask'
 import AppLogin from '../components/index/AppLogin'
@@ -32,6 +33,10 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/lab',
+      component: experimentIndex
     },
     {
       path: '/login',
