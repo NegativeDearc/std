@@ -10,52 +10,56 @@
 </template>
 
 <script>
-import CronPicker from '../experiment/cronPicker'
-import CronPickerLayout from '../experiment/cronPickerLayout'
-import CronNumberPicker from '../experiment/cronNumberPicker'
-import CronDateTypePicker from '../experiment/cronDateTypePicker'
-import CronDayPicker from '../experiment/cronDayPicker'
+import CronPickerLayout from './cronPickerLayout'
+import CronNumberPicker from './cronNumberPicker'
+import CronDateTypePicker from './cronDateTypePicker'
+import CronDayPicker from './cronDayPicker'
 
 export default {
+  name: 'cronPickerIndex',
+  components: { CronDayPicker, CronDateTypePicker, CronNumberPicker, CronPickerLayout },
   data () {
     return {
       tmp: {
         index: 0,
         number: 0,
-        month: '',
-        workday: ''
+        workday: null,
+        month: null
       }
+
     }
   },
   watch: {
     tmp: {
       handler: function () {
+        let CRON_DICT = {
+          'SECOND': '00',
+          'MINUTE': '00',
+          'HOUR': '17',
+          'DAY_OF_MONTH': '*',
+          'MONTH': '*',
+          'DAY_OF_WEEK': '*',
+          'YEAR': '*'
+        }
         switch (this.tmp.index) {
           case 0:
-            this.tmp.day = [ '*', this.tmp.number * 7 ].join('/')
+            CRON_DICT.DAY_OF_MONTH = ['*', this.tmp.number * 7].join('/')
             break
           case 1:
-            this.tmp.day = [ '*', this.tmp.number * 30 ].join('/')
-            this.tmp.month = '*'
+            CRON_DICT.MONTH = ['*', this.tmp.number].join('/')
             break
           case 2:
-            this.tmp.day = [ '*', this.tmp.number * 365 ].join('/')
+            CRON_DICT.YEAR = ['*', this.tmp.number].join('/')
+            CRON_DICT.MONTH = this.tmp.month
             break
         }
-        let _sequence = ['day', 'month', 'workday']
-        let _cronArray = ['0', '17']
-        for (let _seq of _sequence) {
-          _cronArray.push(this.tmp[_seq])
-        }
-        console.log(this.tmp)
-        console.log(_cronArray.join(' ').toString())
-        this.$emit('cron-expression', _cronArray.join(' ').toString())
+        CRON_DICT.DAY_OF_WEEK = this.tmp.workday
+        // console.log(CRON_DICT)
+        this.$emit('cron-expression', CRON_DICT)
       },
       deep: true
     }
   },
-  name: 'experimentIndex',
-  components: { CronDayPicker, CronDateTypePicker, CronNumberPicker, CronPickerLayout, CronPicker },
   methods: {
     changeDateType: function (index) {
       this.tmp.index = index

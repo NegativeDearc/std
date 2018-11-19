@@ -1,9 +1,6 @@
 <template>
   <v-container>
-    <v-card>
-      <v-toolbar flat>
-        <v-toolbar-title>日期选择器</v-toolbar-title>
-      </v-toolbar>
+    <v-card flat>
       <v-card-text>
         <v-layout align-center justify-center column fill-height>
           <slot name="1"></slot>
@@ -11,9 +8,7 @@
         <v-layout align-center justify-center column fill-height v-bind:style="ifShowBorder">
           <slot name="2"></slot>
         </v-layout>
-
       </v-card-text>
-      <v-footer></v-footer>
     </v-card>
   </v-container>
 </template>

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import CronDayPicker from '../experiment/cronDayPicker'
+import CronDayPicker from './cronDayPicker'
 
 export default {
   name: 'cronDateTypePicker',
