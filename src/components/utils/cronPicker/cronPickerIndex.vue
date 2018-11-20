@@ -38,8 +38,8 @@ export default {
           'HOUR': '17',
           'DAY_OF_MONTH': '*',
           'MONTH': '*',
-          'DAY_OF_WEEK': '*',
-          'YEAR': '*'
+          'DAY_OF_WEEK': '*'
+          // 'YEAR': '*'
         }
         switch (this.tmp.index) {
           case 0:
@@ -50,7 +50,7 @@ export default {
             break
           case 2:
             CRON_DICT.YEAR = ['*', this.tmp.number].join('/')
-            CRON_DICT.MONTH = this.tmp.month
+            // CRON_DICT.MONTH = this.tmp.month
             break
         }
         CRON_DICT.DAY_OF_WEEK = this.tmp.workday
@@ -69,7 +69,7 @@ export default {
     },
     getDatePicked: function (form) {
       this.tmp.workday = form.workday
-      this.tmp.month = form.month
+      // this.tmp.month = form.month
     }
   }
 }

@@ -190,16 +190,18 @@ export default {
   },
   methods: {
     createNewTask () {
-      let _formData = {
-        taskTitle: this.TASK.TASK_TITLE,
-        taskDescription: this.TASK.TASK_DESCRIPTION,
-        taskTags: this.TASK.TASK_TAGS ? this.TASK.TASK_TAGS.toString() : null,
-        taskRepeatInterval: this.cronExpression.substr(4), // 需要移除秒以供后端解析
-        createBy: this.$store.getters.GET_USER_ID
-      }
       this.$validator.validateAll().then(data => {
         if (data) {
-          this.taskDialog = false // todo: speed up close process
+          let _formData = {
+            taskTitle: this.TASK.TASK_TITLE,
+            taskDescription: this.TASK.TASK_DESCRIPTION,
+            taskTags: this.TASK.TASK_TAGS ? this.TASK.TASK_TAGS.toString() : null,
+            taskRemindAt: this.TASK.TASK_REMIND_AT,
+            taskRepeatInterval: this.cronExpression.substr(3) || null, // 需要移除秒位置以供后端解析
+            createBy: this.$store.getters.GET_USER_ID
+          }
+
+          this.taskDialog = false
           this.$store.dispatch('CREATE_NEW_TASK', _formData)
           this.$store.commit('CLEAR_CRON_DESCRIPTION')
           this.$refs.newTask.reset()

@@ -1,19 +1,19 @@
 <template>
   <v-container>
-    <v-layout align-center justify-center row fill-height v-if="index >= 2">
-      <v-checkbox
-      v-for="item in month"
-      v-bind:key="item.itemValue"
-      v-bind:label="item.itemText"
-      v-bind:value="item.itemValue"
-      v-model="month_index"
-      v-on:change="pickDate"
-      on-icon="check_circle_outline"
-      off-icon="panorama_fish_eye"
-    >
-      </v-checkbox>
-    </v-layout>
-    <v-divider v-if="index >= 2"></v-divider>
+    <!--<v-layout align-center justify-center row fill-height v-if="index >= 2">-->
+      <!--<v-checkbox-->
+      <!--v-for="item in month"-->
+      <!--v-bind:key="item.itemValue"-->
+      <!--v-bind:label="item.itemText"-->
+      <!--v-bind:value="item.itemValue"-->
+      <!--v-model="month_index"-->
+      <!--v-on:change="pickDate"-->
+      <!--on-icon="check_circle_outline"-->
+      <!--off-icon="panorama_fish_eye"-->
+    <!--&gt;-->
+      <!--</v-checkbox>-->
+    <!--</v-layout>-->
+    <!--<v-divider v-if="index >= 2"></v-divider>-->
 
     <v-layout align-center justify-center row fill-height v-if="index >= 1">
       <v-checkbox
@@ -81,7 +81,7 @@ export default {
       let _week = this.week_index || ''
       let _form = {
         workday: (this.workday_index.sort().toString() || '1,2,3,4,5') + _week, // 注意计算的优先级
-        month: this.month_index || '*'
+        // month: this.month_index || '*'
       }
       this.$emit('date-picked', _form)
     }

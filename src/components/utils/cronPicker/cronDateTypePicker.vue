@@ -28,7 +28,8 @@ export default {
   components: { CronDayPicker },
   data () {
     return {
-      dateType: ['周', '月', '年'],
+      // dateType: ['周', '月', '年'],
+      dateType: ['周', '月'],
       index: 0,
       numberMax: 24
     }
