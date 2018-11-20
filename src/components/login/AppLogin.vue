@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-bind:dark="$store.state.IS_DARK">
     <v-container>
       <v-layout align-center justify-end column fill-height>
         <div class="display-3 grey--text">
@@ -36,7 +36,7 @@
     <v-footer class="pa-3" app>
       <div class="body-2">CHENXEI@SCN MOVE</div>
       <v-spacer></v-spacer>
-      <div class="body-2">&copy; {{ new Date().getFullYear() }} STD Version V0.3.37</div>
+      <div class="body-2">&copy; {{ new Date().getFullYear() }} STD Version V0.3.38</div>
     </v-footer>
   </v-app>
 

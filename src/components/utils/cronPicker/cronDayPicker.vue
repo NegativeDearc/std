@@ -80,7 +80,7 @@ export default {
     pickDate: function () {
       let _week = this.week_index || ''
       let _form = {
-        workday: (this.workday_index.sort().toString() || '1,2,3,4,5') + _week, // 注意计算的优先级
+        workday: (this.workday_index.sort().toString() || '1,2,3,4,5') + _week // 注意计算的优先级
         // month: this.month_index || '*'
       }
       this.$emit('date-picked', _form)

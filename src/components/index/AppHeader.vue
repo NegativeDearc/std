@@ -27,7 +27,7 @@
 <script>
 import AppHeaderDash from '../index/AppHeaderDash'
 import AppHeaderSettings from '../index/AppHeaderSettings'
-import AppContentTaskDetail from '../index/AppContentTaskDetail'
+import AppContentTaskDetail from './AppHeaderNew'
 
 export default {
   name: 'AppHeader',
