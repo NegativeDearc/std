@@ -8,7 +8,7 @@
       <v-toolbar-title>{{ TASK.TASK_TITLE || '任务详情' }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn flat v-if="!TASK.TASK_IS_DONE" v-on:click="updateForm">{{ $t('update') }}</v-btn>
+        <v-btn flat v-on:click="updateForm">{{ $t('update') }}</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content
@@ -183,6 +183,7 @@ export default {
         TASK_REMARK: null,
         TASK_IS_DONE: null
       },
+      task: {},
       cron: null,
       taskDialog: null,
       snackbarDialog: null,
@@ -206,8 +207,8 @@ export default {
       handler: function () {
         if (!this.TASK.TASK_IS_DONE) {
           let _cron = this.TASK.TASK_CRON_EXPRESSION.split(' ')
-          _cron[1] = this.TASK.TASK_REMIND_AT.split(':')[1]
-          _cron[2] = this.TASK.TASK_REMIND_AT.split(':')[0]
+          _cron[0] = this.TASK.TASK_REMIND_AT.split(':')[1]
+          _cron[1] = this.TASK.TASK_REMIND_AT.split(':')[0]
           this.TASK.TASK_CRON_EXPRESSION = _cron.join(' ')
         }
       },
@@ -228,14 +229,20 @@ export default {
     updateForm: function () {
       this.$validator.validateAll().then(data => {
         if (data) {
-          let _form = {
-            taskTitle: this.TASK.TASK_TITLE,
-            taskDescription: this.TASK.TASK_DESCRIPTION,
-            taskRepeatInterval: this.TASK.TASK_CRON_EXPRESSION.substr(3),
-            freqDescription: this.TASK.CRON_EXPRESSION_DESCRIPTION,
-            taskTags: this.TASK.TASK_TAGS.toString(),
-            remindAt: this.TASK.TASK_REMIND_AT,
-            remark: this.TASK.TASK_REMARK
+          let _form = {}
+          if (!this.TASK.TASK_IS_DONE) {
+            _form = {
+              taskTitle: this.TASK.TASK_TITLE,
+              taskDescription: this.TASK.TASK_DESCRIPTION,
+              frequency: this.TASK.TASK_CRON_EXPRESSION,
+              freqDescription: this.TASK.CRON_EXPRESSION_DESCRIPTION,
+              taskTags: this.TASK.TASK_TAGS.toString(),
+              remindAt: this.TASK.TASK_REMIND_AT
+            }
+          } else {
+            _form = {
+              remark: this.TASK.TASK_REMARK
+            }
           }
 
           let _id = this.$router.currentRoute.params.taskId
@@ -267,16 +274,16 @@ export default {
       this.TASK.TASK_REMIND_AT = [cron.HOUR, cron.MINUTE].join(':')
     }
   },
-  mounted: function () {
-    let _task = this.$store.getters.GET_TASK_BY_ID(this.$route.params.taskId)
-    this.TASK.TASK_IS_DONE = _task.isDone
-    this.TASK.TASK_TITLE = _task.taskTitle
-    this.TASK.TASK_DESCRIPTION = _task.taskDescription
-    this.TASK.TASK_CRON_EXPRESSION = '00 ' + _task.frequency // 从后端转来需加上秒位
-    this.TASK.CRON_EXPRESSION_DESCRIPTION = cronstrue.toString(this.TASK.TASK_CRON_EXPRESSION)
-    this.TASK.TASK_TAGS = _task.taskTags ? _task.taskTags.split(',') : []
-    this.TASK.TASK_REMIND_AT = _task.remindAt
-    this.TASK.TASK_REMARK = _task.remark
+  created: function () {
+    this.task = this.$store.getters.GET_TASK_BY_ID(this.$route.params.taskId)
+    this.TASK.TASK_IS_DONE = this.task.isDone
+    this.TASK.TASK_TITLE = this.task.taskTitle
+    this.TASK.TASK_DESCRIPTION = this.task.taskDescription
+    this.TASK.TASK_CRON_EXPRESSION = this.task.frequency
+    this.TASK.CRON_EXPRESSION_DESCRIPTION = cronstrue.toString('00 ' + this.TASK.TASK_CRON_EXPRESSION) // 从后端转来需加上秒位
+    this.TASK.TASK_TAGS = this.task.taskTags ? this.task.taskTags.split(',') : []
+    this.TASK.TASK_REMIND_AT = this.task.remindAt
+    this.TASK.TASK_REMARK = this.task.remark
   }
 }
 </script>

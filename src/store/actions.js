@@ -22,10 +22,8 @@ const actions = {
     axios.post('/task/' + id, updateValue)
       .then(() => {
         console.log('=> UPDATE DATA TO..', updateValue)
-        return true
       }).catch(err => {
         console.log(('=> ENCOUNTER ERR WHEN TRYING UPDATE TO ', err))
-        return false
       })
   },
 
