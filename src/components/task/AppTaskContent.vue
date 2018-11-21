@@ -4,12 +4,11 @@
       <v-toolbar-side-icon v-on:click="back">
         <v-icon>chevron_left</v-icon>
       </v-toolbar-side-icon>
-      <span>返回</span>
       <v-spacer></v-spacer>
       <v-toolbar-title>{{ TASK.TASK_TITLE || '任务详情' }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn flat v-if="!TASK.TASK_IS_DONE" v-on:click="updateForm">更新</v-btn>
+        <v-btn flat v-if="!TASK.TASK_IS_DONE" v-on:click="updateForm">{{ $t('update') }}</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content
@@ -22,7 +21,7 @@
         <v-card-text>
           <v-form ref="newTask" v-on:submit.prevent>
             <v-list three-line subheader dense>
-              <v-subheader>任务</v-subheader>
+              <v-subheader>{{ $t('task') }}</v-subheader>
               <v-list-tile>
                 <v-text-field
                   label="任务"
@@ -49,7 +48,7 @@
                 </v-text-field>
               </v-list-tile>
 
-              <v-subheader>重复</v-subheader>
+              <v-subheader>{{ $t('loop') }}</v-subheader>
               <v-list-tile v-bind:disabled="TASK.TASK_IS_DONE">
                 <v-text-field
                   v-bind:disabled="TASK.TASK_IS_DONE"
@@ -74,7 +73,7 @@
                   <v-card flat>
                     <v-toolbar dark color="green">
                       <v-btn icon flat v-on:click="cronPicker = !cronPicker"><v-icon>close</v-icon></v-btn>
-                      <v-toolbar-title>日期选择器</v-toolbar-title>
+                      <v-toolbar-title>{{ $t('choose_date') }}</v-toolbar-title>
                     </v-toolbar>
                     <cronPickerIndex v-on:cron-expression="getCronExpression"></cronPickerIndex>
                   </v-card>
@@ -97,16 +96,18 @@
                   v-bind:return-value="TASK.TASK_REMIND_AT"
                   full-width
                   lazy
-                  width="290px"
+                  width="470px"
                 >
                   <v-time-picker
                     v-model="TASK.TASK_REMIND_AT"
                     color="green"
-                    format="24hr"
+                    scrollable
+                    full-width
+                    landscape
                   ></v-time-picker>
                 </v-dialog>
               </v-list-tile>
-              <v-subheader>标签</v-subheader>
+              <v-subheader>{{ $t('tags') }}</v-subheader>
               <v-list-tile>
                 <v-autocomplete
                   prepend-icon="bookmark"
@@ -123,21 +124,21 @@
                   v-bind:disabled="TASK.TASK_IS_DONE"
                 ></v-autocomplete>
               </v-list-tile>
+              <template v-if="TASK.TASK_IS_DONE">
+                <v-subheader>{{ $t('remark') }}</v-subheader>
+                <v-list-tile>
+                  <v-text-field
+                    v-model="TASK.TASK_REMARK"
+                    placeholder="填写必要的说明，特别是没有按期完成的时候"
+                    box
+                    label="备注"
+                    prepend-icon="comment"
+                    clearable
+                  ></v-text-field>
+                </v-list-tile>
+              </template>
             </v-list>
           </v-form>
-          <template v-if="TASK.TASK_IS_DONE">
-            <v-subheader>备注</v-subheader>
-            <v-list-tile>
-              <v-text-field
-                v-model="TASK.TASK_REMARK"
-                placeholder="填写必要的说明，特别是没有按期完成的时候"
-                box
-                label="备注"
-                prepend-icon="comment"
-                clearable
-              ></v-text-field>
-            </v-list-tile>
-          </template>
         </v-card-text>
         <v-snackbar
           v-model="snackbarDialog"
@@ -145,7 +146,7 @@
           :timeout="1000"
           top
         >
-          更新成功
+          {{ $t('update_success') }}
           <v-btn
             dark
             flat

@@ -43,7 +43,7 @@ export default {
         }
         switch (this.tmp.index) {
           case 0:
-            CRON_DICT.DAY_OF_MONTH = ['*', this.tmp.number * 7].join('/')
+            CRON_DICT.DAY_OF_MONTH = ['*', this.tmp.number].join('/')
             break
           case 1:
             CRON_DICT.MONTH = ['*', this.tmp.number].join('/')

@@ -16,7 +16,7 @@
           <v-btn icon dark v-on:click.native="dialog = false">
             <v-icon dark>close</v-icon>
           </v-btn>
-          <v-toolbar-title>仪表盘</v-toolbar-title>
+          <v-toolbar-title>{{ $t('dashboard') }}</v-toolbar-title>
           <v-spacer></v-spacer>
         </v-toolbar>
         <v-card-text class="mb-4">
@@ -35,7 +35,7 @@
                       <v-card flat>
                         <div>
                           <div class="display-3 font-weight-black"><span class="green--text">{{ this.$store.state.USER_DASH.OTF }}</span></div>
-                          <div class="body-2"><span class="grey--text">及时清除</span></div>
+                          <div class="body-2"><span class="grey--text">{{ $t('finish_on_time') }}</span></div>
                         </div>
                       </v-card>
                     </v-flex>
@@ -48,7 +48,7 @@
                       <v-card flat>
                         <div>
                           <div class="display-3 font-weight-black"><span class="yellow--text">{{ this.$store.state.USER_DASH.IP }}</span></div>
-                          <div class="body-2"><span class="grey--text">进展之中</span></div>
+                          <div class="body-2"><span class="grey--text">{{ $t('in_progress') }}</span></div>
                         </div>
                       </v-card>
                     </v-flex>
@@ -61,7 +61,7 @@
                       <v-card flat>
                         <div>
                           <div class="display-3 font-weight-black"><span class="red--text">{{ this.$store.state.USER_DASH.D }}</span></div>
-                          <div class="body-2"><span class="grey--text">延迟达成</span></div>
+                          <div class="body-2"><span class="grey--text">{{ $t('finish_overdue') }}</span></div>
                         </div>
                       </v-card>
                     </v-flex>
@@ -72,7 +72,7 @@
           </v-container>
           <v-divider class="mx-3"></v-divider>
 
-          <v-subheader>团队状态</v-subheader>
+          <v-subheader>{{ $t('team_status') }}</v-subheader>
           <v-layout align-start justify-start column fill-height>
             <v-flex v-for="(v, k) in $store.state.EMPLOYEE_DASH" v-bind:key="v.id" v-if="$store.state.EMPLOYEE_DASH" sm12 md12 xs12>
               <v-subheader>{{ k }}</v-subheader>

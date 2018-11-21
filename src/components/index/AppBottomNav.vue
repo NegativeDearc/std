@@ -10,7 +10,7 @@
       flat
       value="today"
     >
-      <span>任务卡</span>
+      <span>{{ $t('punchCard')}}</span>
       <v-icon>touch_app</v-icon>
     </v-btn>
 

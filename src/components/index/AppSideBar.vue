@@ -10,7 +10,7 @@
         <v-list-tile-action>
           <v-icon>home</v-icon>
         </v-list-tile-action>
-        <v-list-tile-title>主页</v-list-tile-title>
+        <v-list-tile-title>{{ $t('home') }}</v-list-tile-title>
       </v-list-tile>
 
       <v-list-group
@@ -18,7 +18,7 @@
         value="true"
       >
         <v-list-tile slot="activator">
-          <v-list-tile-title>用户</v-list-tile-title>
+          <v-list-tile-title>{{ $t('users') }}</v-list-tile-title>
         </v-list-tile>
 
         <v-list-group
@@ -26,7 +26,7 @@
           sub-group
         >
           <v-list-tile slot="activator">
-            <v-list-tile-title>管理</v-list-tile-title>
+            <v-list-tile-title>{{ $t('users_control') }}</v-list-tile-title>
           </v-list-tile>
 
           <v-list-tile
@@ -41,31 +41,13 @@
           </v-list-tile>
         </v-list-group>
 
-        <v-list-group
-          sub-group
-          no-action
-        >
-          <v-list-tile slot="activator">
-            <v-list-tile-title>Actions</v-list-tile-title>
-          </v-list-tile>
-
-          <v-list-tile
-            v-for="(crud, i) in cruds"
-            :key="i"
-          >
-            <v-list-tile-title v-text="crud[0]"></v-list-tile-title>
-            <v-list-tile-action>
-              <v-icon v-text="crud[1]"></v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-        </v-list-group>
       </v-list-group>
 
-      <v-list-tile to="/lab">
+      <v-list-tile to="">
         <v-list-tile-action>
           <v-icon>mdi-bug</v-icon>
         </v-list-tile-action>
-        <v-list-tile-title>实验室</v-list-tile-title>
+        <v-list-tile-title>{{ $t('lab') }}</v-list-tile-title>
       </v-list-tile>
     </v-list>
   </v-navigation-drawer>
@@ -78,12 +60,6 @@ export default {
     admins: [
       { name: '修改密码', icon: 'people_outline', link: '/password' },
       { name: '工厂仪表盘', icon: 'dashboard', link: '/dash' }
-    ],
-    cruds: [
-      ['Create', 'add'],
-      ['Read', 'insert_drive_file'],
-      ['Update', 'update'],
-      ['Delete', 'delete']
     ]
   })
 }

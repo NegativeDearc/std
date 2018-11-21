@@ -77,6 +77,10 @@ const getters = {
     let _total = state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() >= new Date(_tomorrow).getTime()).length
     let _finished = state.TASKS.filter(todo => new Date(todo.nextLoopAt).getTime() >= new Date(_tomorrow).getTime() && todo.isDone === true).length
     return _finished / _total * 100
+  },
+
+  GET_DEFAULT_LANG: function (state) {
+    return state.DEFAULT_LANG
   }
 }
 

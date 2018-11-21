@@ -8,6 +8,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import VueMoment from 'vue-moment'
 import VeeValidate from 'vee-validate'
+import VueI18n from 'vue-i18n'
 import store from './store/index'
 import router from './router'
 import 'vuetify/dist/vuetify.min.css'
@@ -22,6 +23,7 @@ Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 Vue.use(VueMoment)
 Vue.use(VeeValidate)
+Vue.use(VueI18n)
 
 axios.defaults.baseURL = 'http://localhost:7659/api/'
 
@@ -46,8 +48,17 @@ axios.interceptors.response.use((response) => {
   return Promise.reject(error)
 })
 
+const i18n = new VueI18n({
+  locale: localStorage.getItem('LOCALE') || 'CN',
+  messages: {
+    'CN': require('./i18n/zh_CN').message,
+    'EN': require('./i18n/en').message
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
+  i18n,
   store,
   router,
   render: h => h(App)

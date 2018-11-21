@@ -15,16 +15,16 @@
             <v-btn icon dark v-on:click.native="taskDialog = false">
               <v-icon>close</v-icon>
             </v-btn>
-            <v-toolbar-title>新的任务</v-toolbar-title>
+            <v-toolbar-title>{{ $t('new_task') }}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items>
-              <v-btn dark flat v-on:click.native="createNewTask">保存</v-btn>
+              <v-btn dark flat v-on:click.native="createNewTask">{{ $t('save') }}</v-btn>
             </v-toolbar-items>
           </v-toolbar>
           <v-card-text>
             <v-form ref="newTask" v-on:submit.prevent>
               <v-list three-line>
-                <v-subheader>任务</v-subheader>
+                <v-subheader>{{ $t('task') }}</v-subheader>
                 <v-list-tile>
                   <v-text-field
                     label="任务"
@@ -49,7 +49,7 @@
                   </v-text-field>
                 </v-list-tile>
 
-                <v-subheader>重复</v-subheader>
+                <v-subheader>{{ $t('loop') }}</v-subheader>
                 <v-list-tile>
                   <v-text-field
                     required
@@ -73,7 +73,7 @@
                     <v-card flat>
                       <v-toolbar dark color="green">
                         <v-btn icon flat v-on:click="cronPicker = !cronPicker"><v-icon>close</v-icon></v-btn>
-                        <v-toolbar-title>日期选择器</v-toolbar-title>
+                        <v-toolbar-title>{{ $t('choose_date') }}</v-toolbar-title>
                       </v-toolbar>
                       <cronPickerIndex v-on:cron-expression="getCronExpression"></cronPickerIndex>
                     </v-card>
@@ -93,18 +93,20 @@
                   <v-dialog
                     v-model="timePicker"
                     :return-value="TASK.TASK_REMIND_AT"
-                    full-width
                     lazy
-                    width="290px"
+                    width="470px"
+                    full-width
                   >
                     <v-time-picker
                       v-model="TASK.TASK_REMIND_AT"
                       color="green"
-                      format="24hr"
+                      scrollable
+                      full-width
+                      landscape
                     ></v-time-picker>
                   </v-dialog>
                 </v-list-tile>
-                <v-subheader>标签</v-subheader>
+                <v-subheader>{{ $t('tags') }}</v-subheader>
                 <v-list-tile>
                   <v-autocomplete
                     prepend-icon="bookmark"

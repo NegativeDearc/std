@@ -50,6 +50,19 @@ export default {
     index: { type: Number, required: true }
   },
   name: 'cronDayPicker',
+  watch: {
+    index: function () {
+      // to fix week_index still show when change from month to week
+      if (this.index === 0) {
+        this.week_index = null
+        let _week = this.week_index || ''
+        let _form = {
+          workday: (this.workday_index.sort().toString() || '1,2,3,4,5') + _week // 注意计算的优先级
+        }
+        this.$emit('date-picked', _form)
+      }
+    }
+  },
   data () {
     return {
       workday_index: [],

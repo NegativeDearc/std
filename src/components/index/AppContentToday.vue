@@ -3,14 +3,14 @@
     <v-container fluid grid-list-md>
       <v-layout>
         <v-flex xs12 sm12 md12>
-          <div class="align-center display-1 font-weight-light grey--text"><span>Go GEMBA && Just Do It</span></div>
+          <div class="align-center display-1 font-weight-light grey--text"><span>Go Gemba & Just Do It</span></div>
         </v-flex>
       </v-layout>
       <v-layout row wrap>
         <v-flex xs12 md6>
           <v-card>
             <v-progress-linear v-bind:value="$store.getters.GET_TODAY_FINISH_RATE" height="3" color="red"></v-progress-linear>
-            <v-subheader><v-chip label color="red lighten-4">今日摘要</v-chip></v-subheader>
+            <v-subheader><v-chip label color="red lighten-4">{{ $t('today') }}</v-chip></v-subheader>
             <v-divider insert></v-divider>
             <v-card-text>
               <v-list subheader two-line dense>
@@ -62,7 +62,7 @@
         <v-flex xs12 md6>
           <v-card>
             <v-progress-linear v-bind:value="$store.getters.GET_LATER_FINISH_RATE" height="3" color="blue"></v-progress-linear>
-            <v-subheader><v-chip label color="blue lighten-4">晚些时候</v-chip></v-subheader>
+            <v-subheader><v-chip label color="blue lighten-4">{{ $t('further') }}</v-chip></v-subheader>
             <v-divider insert></v-divider>
             <v-card-text>
               <v-list subheader two-line dense>

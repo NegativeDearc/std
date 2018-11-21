@@ -16,21 +16,49 @@
           <v-btn icon dark v-on:click.native="settings = false">
             <v-icon>close</v-icon>
           </v-btn>
-          <v-toolbar-title>设置</v-toolbar-title>
+          <v-toolbar-title>{{ $t('setting') }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
-            <v-btn dark flat v-on:click.native="settings = false">保存</v-btn>
+            <v-btn dark flat v-on:click.native="settings = false">{{ $t('save') }}</v-btn>
           </v-toolbar-items>
         </v-toolbar>
         <v-container fluid>
             <v-list two-line>
               <v-list-tile>
                 <v-list-tile-action>
+                  <v-icon color="purple">g_translate</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>{{ $t('translate') }}</v-list-tile-title>
+                  <v-list-tile-sub-title>{{ $t('translate_description') }}</v-list-tile-sub-title>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                  <v-menu offset-x left>
+                    <v-btn slot="activator" flat outline>
+                      {{ this.$store.getters.GET_DEFAULT_LANG }}
+                    </v-btn>
+                    <v-list>
+                      <template v-for="lang in $store.state.LANGUAGE_MENU">
+                        <v-list-tile v-bind:key="lang.id" v-bind:locale="lang.locale" v-on:click="changeLanguage(lang.locale)">
+                          <v-list-tile-action>
+                            <v-icon>{{ lang.icon }}</v-icon>
+                          </v-list-tile-action>
+                          <v-list-tile-content v-bind:key="lang.locale">
+                            <v-list-tile-title>{{ lang.description }}</v-list-tile-title>
+                          </v-list-tile-content></v-list-tile>
+                      </template>
+                    </v-list>
+                  </v-menu>
+                </v-list-tile-action>
+              </v-list-tile>
+              <v-divider flat></v-divider>
+              <v-list-tile>
+                <v-list-tile-action>
                   <v-icon color="black">brightness_4</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                  <v-list-tile-title>应用深黑模式</v-list-tile-title>
-                  <v-list-tile-sub-title>使你变得更酷</v-list-tile-sub-title>
+                  <v-list-tile-title>{{ $t('dark_model') }}</v-list-tile-title>
+                  <v-list-tile-sub-title>{{ $t('dark_model_description') }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                   <v-switch
@@ -49,8 +77,8 @@
                   <v-icon color="green">visibility</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                  <v-list-tile-title>显示已完成项</v-list-tile-title>
-                  <v-list-tile-sub-title>使画面更加简洁</v-list-tile-sub-title>
+                  <v-list-tile-title>{{ $t('show_finish') }}</v-list-tile-title>
+                  <v-list-tile-sub-title>{{ $t('show_finish_description') }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                   <v-switch
@@ -68,14 +96,16 @@
                   <v-icon color="blue">looks_one</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                  <v-list-tile-title>项目排序原则</v-list-tile-title>
-                  <v-list-tile-sub-title>使顺序更贴近习惯</v-list-tile-sub-title>
+                  <v-list-tile-title>{{ $t('sort_by') }}</v-list-tile-title>
+                  <v-list-tile-sub-title>{{ $t('sort_by_description') }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                  <v-menu offset-y left>
+                  <v-menu offset-x left>
                     <v-btn
                       slot="activator"
                       color="primary"
+                      outline
+                      flat
                     >
                       截止日期
                     </v-btn>
@@ -117,6 +147,10 @@ export default {
     },
     changeDarkModel: function () {
       this.$store.commit('SET_DARK_MODEL')
+    },
+    changeLanguage: function (locale) {
+      this.$store.commit('CHANGE_DEFAULT_LANG', locale)
+      this.$i18n.locale = locale
     }
   }
 }

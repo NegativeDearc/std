@@ -45,7 +45,12 @@ const state = {
     TASK_REMIND_AT: null,
     TASK_IS_DONE: null,
     TASK_IS_LOOP: null
-  }
+  },
+  DEFAULT_LANG: localStorage.getItem('LOCALE') || 'CN',
+  LANGUAGE_MENU: [
+    { id: 1, locale: 'CN', description: '中文', icon: 'settings' },
+    { id: 2, locale: 'EN', description: 'English', icon: 'settings' }
+  ]
 }
 
 export default state

@@ -47,6 +47,10 @@ const mutations = {
   },
   CLEAR_CRON_DESCRIPTION: function (state) {
     state.CRON_DESCRIPTION = ''
+  },
+  CHANGE_DEFAULT_LANG: function (state, locale) {
+    state.DEFAULT_LANG = locale
+    localStorage.setItem('LOCALE', locale)
   }
 }
 
