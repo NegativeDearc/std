@@ -18,7 +18,7 @@
                   <v-hover v-bind:key="todo.id">
                     <v-list-tile
                       slot-scope="{ hover }"
-                      :class="`elevation-${hover ? 8 : 0}`"
+                      :class="`elevation-${hover ? 4 : 0}`"
                     >
                       <v-list-tile-action>
                         <v-checkbox
@@ -70,7 +70,7 @@
                   <v-hover v-bind:key="todo.id">
                     <v-list-tile
                       slot-scope="{ hover }"
-                      :class="`elevation-${hover ? 8 : 0}`"
+                      :class="`elevation-${hover ? 4 : 0}`"
                     >
                       <v-list-tile-action>
                         <v-checkbox
@@ -140,7 +140,8 @@ export default {
     return {
       completedTaskStyle: {
         'font-style': 'italic',
-        'text-decoration': 'line-through'
+        'color': 'grey',
+        'text-decoration': 'line-through red'
       },
       panel: [true],
       todos: [],

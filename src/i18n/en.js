@@ -24,7 +24,7 @@ module.exports = {
     team_status: 'Team Status',
     setting: 'Setting',
     dark_model: 'Dark Model',
-    dark_model_description: 'Cool and cooler',
+    dark_model_description: "Don't worry stay cool",
     show_finish: 'Show Finished',
     show_finish_description: 'Make screen tidy',
     sort_by: 'Sort By',
