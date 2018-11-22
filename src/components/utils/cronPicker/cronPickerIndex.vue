@@ -75,7 +75,7 @@ export default {
     },
     getDatePicked: function (form) {
       this.tmp.workday = form.workday
-      this.tmp.day = form.day || '*'
+      this.tmp.day = form.day || null
       // console.log(this.tmp)
       // this.tmp.month = form.month
     }
