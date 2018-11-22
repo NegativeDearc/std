@@ -13,6 +13,7 @@ module.exports = {
     choose_loop: 'Choose loop type',
     choose_date: 'Date Picker',
     choose_time: 'Choose time',
+    select_date: 'Select Date',
     tags: 'Tags',
     new_task: 'New Task',
     task_title: 'Task Title',
@@ -42,6 +43,12 @@ module.exports = {
     old_password: 'Old Password',
     new_password: 'New Password',
     repeat_password: 'Repeat Password',
-    reset: 'Reset'
+    reset: 'Reset',
+    week: 'Week',
+    date: 'Date',
+    logout: 'Logout',
+    finished_at: 'finished at:',
+    expired_at: 'expired at:',
+    notify: 'Notify'
   }
 }

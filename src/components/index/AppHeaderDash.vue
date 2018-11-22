@@ -34,7 +34,7 @@
                     <v-flex xs4>
                       <v-card flat>
                         <div>
-                          <div class="display-3 font-weight-black"><span class="green--text">{{ this.$store.state.USER_DASH.OTF }}</span></div>
+                          <div class="display-3 font-weight-black"><span>{{ this.$store.state.USER_DASH.OTF }}</span></div>
                           <div class="body-2"><span class="grey--text">{{ $t('finish_on_time') }}</span></div>
                         </div>
                       </v-card>
@@ -47,7 +47,7 @@
                     <v-flex xs4>
                       <v-card flat>
                         <div>
-                          <div class="display-3 font-weight-black"><span class="yellow--text">{{ this.$store.state.USER_DASH.IP }}</span></div>
+                          <div class="display-3 font-weight-black"><span>{{ this.$store.state.USER_DASH.IP }}</span></div>
                           <div class="body-2"><span class="grey--text">{{ $t('in_progress') }}</span></div>
                         </div>
                       </v-card>
@@ -60,7 +60,7 @@
                     <v-flex xs4>
                       <v-card flat>
                         <div>
-                          <div class="display-3 font-weight-black"><span class="red--text">{{ this.$store.state.USER_DASH.D }}</span></div>
+                          <div class="display-3 font-weight-black"><span>{{ this.$store.state.USER_DASH.D }}</span></div>
                           <div class="body-2"><span class="grey--text">{{ $t('finish_overdue') }}</span></div>
                         </div>
                       </v-card>
@@ -103,14 +103,14 @@
                             <v-list-tile-sub-title>{{ item.taskDescription }}</v-list-tile-sub-title>
                           </v-list-tile-content>
                           <v-list-tile-action>
-                            <v-list-tile-action-text v-if="item.needFinishBefore">于{{ transferUTCTime(item.needFinishBefore)| moment('from') }}过期</v-list-tile-action-text>
-                            <v-list-tile-action-text v-if="item.punchTime">完成于{{ transferUTCTime(item.punchTime) | moment('YYYY/MM/DD HH:mm:ss') }}</v-list-tile-action-text>
+                            <v-list-tile-action-text v-if="item.needFinishBefore">{{ $t('expired_at') }}{{ transferUTCTime(item.needFinishBefore)| moment('from') }}</v-list-tile-action-text>
+                            <v-list-tile-action-text v-if="item.punchTime">{{ $t('finished_at') }}{{ transferUTCTime(item.punchTime) | moment('YYYY/MM/DD HH:mm:ss') }}</v-list-tile-action-text>
                           </v-list-tile-action>
                         </v-list-tile>
                       </v-list>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" flat @click="menu = false" outline disabled>通知他</v-btn>
+                        <v-btn color="primary" flat @click="menu = false" outline disabled>{{ $t('notify') }}</v-btn>
                       </v-card-actions>
                     </v-card>
                   </v-menu>
@@ -123,7 +123,7 @@
         <v-footer app><!-- why use app? -->
           <v-btn block depressed dark v-on:click="logout">
             <v-icon>power_settings_new</v-icon>
-            &nbsp;登出
+            &nbsp;{{ $t('logout') }}
           </v-btn>
         </v-footer>
       </v-card>

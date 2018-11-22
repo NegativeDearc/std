@@ -140,7 +140,6 @@ export default {
     return {
       completedTaskStyle: {
         'font-style': 'italic',
-        'color': 'grey',
         'text-decoration': 'line-through red'
       },
       panel: [true],

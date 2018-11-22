@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <template>
   <cron-picker-layout v-bind:show-border="tmp.index >= 0" id="cron-picker">
     <v-layout slot="1" align-center justify-center fill-height>
@@ -24,38 +25,43 @@ export default {
         index: 0,
         number: 0,
         workday: null,
-        month: null
+        month: null,
+        day: null
+      },
+      CRON_DICT: {
+        // 'SECOND': '00',
+        'MINUTE': '00',
+        'HOUR': '17',
+        'DAY_OF_MONTH': '*',
+        'MONTH': '*',
+        'DAY_OF_WEEK': '*'
+        // 'YEAR': '*'
       }
-
     }
   },
   watch: {
     tmp: {
       handler: function () {
-        let CRON_DICT = {
-          // 'SECOND': '00',
-          'MINUTE': '00',
-          'HOUR': '17',
-          'DAY_OF_MONTH': '*',
-          'MONTH': '*',
-          'DAY_OF_WEEK': '*'
-          // 'YEAR': '*'
-        }
+        Object.assign(this.$data.CRON_DICT, this.$options.data().CRON_DICT)
         switch (this.tmp.index) {
           case 0:
-            CRON_DICT.DAY_OF_MONTH = ['*', this.tmp.number].join('/')
+            this.CRON_DICT.DAY_OF_MONTH = ['*', this.tmp.number].join('/')
             break
           case 1:
-            CRON_DICT.MONTH = ['*', this.tmp.number].join('/')
+            this.CRON_DICT.MONTH = ['*', this.tmp.number].join('/')
             break
           case 2:
-            CRON_DICT.YEAR = ['*', this.tmp.number].join('/')
+            this.CRON_DICT.YEAR = ['*', this.tmp.number].join('/')
             // CRON_DICT.MONTH = this.tmp.month
             break
         }
-        CRON_DICT.DAY_OF_WEEK = this.tmp.workday
+        this.CRON_DICT.DAY_OF_WEEK = this.tmp.workday
+
+        if (this.tmp.day !== null) {
+          this.CRON_DICT.DAY_OF_MONTH = this.tmp.day
+        }
         // console.log(CRON_DICT)
-        this.$emit('cron-expression', CRON_DICT)
+        this.$emit('cron-expression', this.CRON_DICT)
       },
       deep: true
     }
@@ -69,6 +75,8 @@ export default {
     },
     getDatePicked: function (form) {
       this.tmp.workday = form.workday
+      this.tmp.day = form.day || '*'
+      // console.log(this.tmp)
       // this.tmp.month = form.month
     }
   }

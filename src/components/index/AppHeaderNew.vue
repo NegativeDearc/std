@@ -172,7 +172,7 @@ export default {
   computed: {
     parseCron: function () {
       if (this.cron) {
-        return cronstrue.toString('00 ' + this.cronExpression)
+        return cronstrue.toString(this.cronExpression)
       }
     }
   },
@@ -181,8 +181,8 @@ export default {
       handler: function () {
         if (this.TASK.TASK_REMIND_AT) {
           let _cron = this.cronExpression.split(' ')
-          _cron[1] = this.TASK.TASK_REMIND_AT.split(':')[1]
-          _cron[2] = this.TASK.TASK_REMIND_AT.split(':')[0]
+          _cron[0] = this.TASK.TASK_REMIND_AT.split(':')[1]
+          _cron[1] = this.TASK.TASK_REMIND_AT.split(':')[0]
           this.cronExpression = _cron.join(' ')
           // console.log(_cron)
         }
@@ -223,10 +223,11 @@ export default {
       for (let i in cron) {
         _.push(cron[i])
       }
+      console.log(this.cron)
       this.cronExpression = _.join(' ').toString()
+      console.log(this.cronExpression)
       this.TASK.TASK_REMIND_AT = [cron.HOUR, cron.MINUTE].join(':')
-      console.log(cron)
-      console.log(cronstrue.toString(this.cronExpression))
+      console.log(cronstrue.toString('00 ' + this.cronExpression))
     }
   }
 }

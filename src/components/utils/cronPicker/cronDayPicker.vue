@@ -14,9 +14,32 @@
       <!--</v-checkbox>-->
     <!--</v-layout>-->
     <!--<v-divider v-if="index >= 2"></v-divider>-->
+    <v-layout v-if="index >=1" align-center justify-left row fill-height>
+      <v-flex>
+        <v-switch
+          v-model="week_or_day"
+          v-bind:label="week_or_day ? $t('week'): $t('date')"
+          v-on:change="changeWeekOrDay"
+        >
+        </v-switch>
+      </v-flex>
+    </v-layout>
+
+    <v-layout v-if="index >= 1 && !week_or_day">
+      <v-flex>
+        <v-autocomplete
+          v-bind:label="$t('select_date')"
+          box
+          v-bind:items="new Array(31).fill('').map( (item, index) => index+1)"
+          v-model="day"
+          v-on:change="pickDate"
+        ></v-autocomplete>
+      </v-flex>
+    </v-layout>
 
     <v-layout align-center justify-center row fill-height v-if="index >= 1">
       <v-checkbox
+        v-if="week_or_day"
         v-for="item in week"
         v-bind:key="item.itemValue"
         v-bind:label="item.itemText"
@@ -27,10 +50,11 @@
         off-icon="panorama_fish_eye"
       ></v-checkbox>
     </v-layout>
-    <v-divider v-if="index >= 1"></v-divider>
+    <v-divider v-if="index >= 1 && week_or_day"></v-divider>
 
     <v-layout align-center justify-center row fill-height v-if="index >= 0">
       <v-checkbox
+        v-if="week_or_day"
         v-for="item in workday"
         v-bind:key="item.itemValue"
         v-bind:label="item.itemText"
@@ -59,15 +83,18 @@ export default {
         let _form = {
           workday: (this.workday_index.sort().toString() || '1,2,3,4,5') + _week // 注意计算的优先级
         }
+        this.week_or_day = true
         this.$emit('date-picked', _form)
       }
     }
   },
   data () {
     return {
+      day: null,
+      week_or_day: true,
       workday_index: [],
       week_index: '',
-      month_index: '',
+      // month_index: '',
       workday: [
         { 'itemValue': '1', 'itemText': '星期一', 'itemIcon': 'mdi-numeric-1-box' },
         { 'itemValue': '2', 'itemText': '星期二', 'itemIcon': 'mdi-numeric-2-box' },
@@ -90,12 +117,32 @@ export default {
     }
   },
   methods: {
-    pickDate: function () {
-      let _week = this.week_index || ''
-      let _form = {
-        workday: (this.workday_index.sort().toString() || '1,2,3,4,5') + _week // 注意计算的优先级
-        // month: this.month_index || '*'
+    changeWeekOrDay: function () {
+      console.log(this.week_or_day)
+      if (this.week_or_day) {
+        this.day = null
+      } else {
+        this.workday_index = []
+        this.week_index = ''
       }
+    },
+    pickDate: function () {
+      let _form
+      let _week
+      if (this.week_or_day === false) {
+        _form = {
+          workday: '*', // 注意计算的优先级
+          // month: this.month_index || '*'
+          day: this.day
+        }
+      } else {
+        _week = this.week_index || ''
+        _form = {
+          workday: (this.workday_index.sort().toString() || '1,2,3,4,5') + _week // 注意计算的优先级
+          // month: this.month_index || '*'
+        }
+      }
+      console.log(_form)
       this.$emit('date-picked', _form)
     }
   },

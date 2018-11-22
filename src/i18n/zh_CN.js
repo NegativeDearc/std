@@ -13,6 +13,7 @@ module.exports = {
     choose_loop: '选择循环周期',
     choose_date: '日期选择器具',
     choose_time: '选择时间',
+    select_date: '指定日期',
     tags: '标签',
     new_task: '新的任务',
     task_title: '任务详情',
@@ -42,6 +43,12 @@ module.exports = {
     old_password: '原始密码',
     new_password: '新密码',
     repeat_password: '重复密码',
-    reset: '重设'
+    reset: '重设',
+    week: '星期',
+    date: '日期',
+    logout: '登出',
+    finished_at: '完成于:',
+    expired_at: '过期于:',
+    notify: '通知'
   }
 }

@@ -272,6 +272,7 @@ export default {
         _.push(cron[i])
       }
       this.TASK.TASK_CRON_EXPRESSION = _.join(' ').toString()
+      console.log(this.TASK.TASK_CRON_EXPRESSION)
       this.TASK.TASK_REMIND_AT = [cron.HOUR, cron.MINUTE].join(':')
     }
   },
