@@ -76,10 +76,10 @@ export default {
         { 'itemValue': '5', 'itemText': '星期五', 'itemIcon': 'mdi-numeric-5-box' }
       ],
       week: [
-        { 'itemValue': '#1', 'itemText': '第一周', 'itemIcon': 'mdi-numeric-1-box' },
-        { 'itemValue': '#2', 'itemText': '第二周', 'itemIcon': 'mdi-numeric-2-box' },
-        { 'itemValue': '#3', 'itemText': '第三周', 'itemIcon': 'mdi-numeric-3-box' },
-        { 'itemValue': '#4', 'itemText': '第四周', 'itemIcon': 'mdi-numeric-4-box' }
+        { 'itemValue': '#1', 'itemText': '第一个', 'itemIcon': 'mdi-numeric-1-box' },
+        { 'itemValue': '#2', 'itemText': '第二个', 'itemIcon': 'mdi-numeric-2-box' },
+        { 'itemValue': '#3', 'itemText': '第三个', 'itemIcon': 'mdi-numeric-3-box' },
+        { 'itemValue': '#4', 'itemText': '第四个', 'itemIcon': 'mdi-numeric-4-box' }
       ],
       month: [
         { 'itemValue': '*/1', 'itemText': '每个月', 'itemIcon': 'mdi-numeric-1-box' },

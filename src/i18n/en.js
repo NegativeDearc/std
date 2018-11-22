@@ -9,11 +9,13 @@ module.exports = {
     task_description: 'Task description',
     loop: 'Loop',
     remark: 'Remark',
+    remark_placeholder: 'Write comments',
     choose_loop: 'Choose loop type',
     choose_date: 'Date Picker',
     choose_time: 'Choose time',
     tags: 'Tags',
     new_task: 'New Task',
+    task_title: 'Task Title',
     save: 'Save',
     dashboard: 'Dashboard',
     finish_on_time: 'Finish On Time',
@@ -30,10 +32,16 @@ module.exports = {
     home: 'Home',
     users: 'Users',
     users_control: 'Control',
+    change_password: 'Change Password',
+    plant_dashboard: 'Plant Dashboard',
     lab: 'Lab',
     language: '中文',
     translate: '选择语言',
     translate_description: '哈？英文不太好吗',
-    update_success: 'update success'
+    update_success: 'update success',
+    old_password: 'Old Password',
+    new_password: 'New Password',
+    repeat_password: 'Repeat Password',
+    reset: 'Reset'
   }
 }

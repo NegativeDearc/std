@@ -1,5 +1,5 @@
 <template>
-  <cron-picker-layout v-bind:show-border="tmp.index >= 0">
+  <cron-picker-layout v-bind:show-border="tmp.index >= 0" id="cron-picker">
     <v-layout slot="1" align-center justify-center fill-height>
       <div class="body-2">每隔</div>
       <cron-number-picker v-on:number-change="changeNumber"></cron-number-picker>
@@ -33,7 +33,7 @@ export default {
     tmp: {
       handler: function () {
         let CRON_DICT = {
-          'SECOND': '00',
+          // 'SECOND': '00',
           'MINUTE': '00',
           'HOUR': '17',
           'DAY_OF_MONTH': '*',
@@ -76,5 +76,11 @@ export default {
 </script>
 
 <style scoped>
-
+  #cron-picker {
+    font-family:  "Noto Sans", "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+  }
 </style>

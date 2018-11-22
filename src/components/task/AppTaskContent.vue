@@ -5,10 +5,10 @@
         <v-icon>chevron_left</v-icon>
       </v-toolbar-side-icon>
       <v-spacer></v-spacer>
-      <v-toolbar-title>{{ TASK.TASK_TITLE || '任务详情' }}</v-toolbar-title>
+      <v-toolbar-title>{{ TASK.TASK_TITLE || $t('task_title') }}</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn flat v-on:click="updateForm">{{ $t('update') }}</v-btn>
+        <v-btn flat v-on:click.native="updateForm">{{ $t('update') }}</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-content
@@ -24,7 +24,7 @@
               <v-subheader>{{ $t('task') }}</v-subheader>
               <v-list-tile>
                 <v-text-field
-                  label="任务"
+                  v-bind:label="$t('task')"
                   prepend-icon="assignment"
                   v-model="TASK.TASK_TITLE"
                   v-validate="'required|min:10'"
@@ -38,7 +38,7 @@
               </v-list-tile>
               <v-list-tile>
                 <v-text-field
-                  label="任务的描述"
+                  v-bind:label="$t('task_description')"
                   prepend-icon="subject"
                   v-model="TASK.TASK_DESCRIPTION"
                   required
@@ -57,7 +57,7 @@
                   v-bind:error-messages="errors.collect('loop')"
                   data-vv-name="loop"
                   box
-                  label="选择循环周期"
+                  v-bind:label="$t('choose_loop')"
                   readonly
                   clearable
                   prepend-icon="repeat"
@@ -83,7 +83,7 @@
               <v-list-tile v-bind:disabled="TASK.TASK_IS_DONE">
                 <v-text-field
                   clearable
-                  label="选择时间"
+                  v-bind:label="$t('choose_time')"
                   box
                   readonly
                   v-model="TASK.TASK_REMIND_AT"
@@ -129,9 +129,9 @@
                 <v-list-tile>
                   <v-text-field
                     v-model="TASK.TASK_REMARK"
-                    placeholder="填写必要的说明，特别是没有按期完成的时候"
+                    v-bind:placeholder="$t('remark_placeholder')"
                     box
-                    label="备注"
+                    v-bind:label="$t('remark')"
                     prepend-icon="comment"
                     clearable
                   ></v-text-field>
@@ -207,6 +207,7 @@ export default {
       handler: function () {
         if (!this.TASK.TASK_IS_DONE) {
           let _cron = this.TASK.TASK_CRON_EXPRESSION.split(' ')
+          console.log(_cron)
           _cron[0] = this.TASK.TASK_REMIND_AT.split(':')[1]
           _cron[1] = this.TASK.TASK_REMIND_AT.split(':')[0]
           this.TASK.TASK_CRON_EXPRESSION = _cron.join(' ')
@@ -280,7 +281,7 @@ export default {
     this.TASK.TASK_TITLE = this.task.taskTitle
     this.TASK.TASK_DESCRIPTION = this.task.taskDescription
     this.TASK.TASK_CRON_EXPRESSION = this.task.frequency
-    this.TASK.CRON_EXPRESSION_DESCRIPTION = cronstrue.toString('00 ' + this.TASK.TASK_CRON_EXPRESSION) // 从后端转来需加上秒位
+    this.TASK.CRON_EXPRESSION_DESCRIPTION = cronstrue.toString('00 ' + this.TASK.TASK_CRON_EXPRESSION)
     this.TASK.TASK_TAGS = this.task.taskTags ? this.task.taskTags.split(',') : []
     this.TASK.TASK_REMIND_AT = this.task.remindAt
     this.TASK.TASK_REMARK = this.task.remark

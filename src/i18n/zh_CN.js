@@ -9,11 +9,13 @@ module.exports = {
     task_description: '任务描述',
     loop: '重复',
     remark: '备注',
+    remark_placeholder: '填写必要的说明',
     choose_loop: '选择循环周期',
     choose_date: '日期选择器具',
     choose_time: '选择时间',
     tags: '标签',
     new_task: '新的任务',
+    task_title: '任务详情',
     save: '保存',
     dashboard: '仪表盘',
     finish_on_time: '及时清除',
@@ -30,10 +32,16 @@ module.exports = {
     home: '主页',
     users: '用户',
     users_control: '管理',
+    change_password: '修改密码',
+    plant_dashboard: '工厂仪表盘',
     lab: '实验室',
     language: 'EN',
     translate: 'Change Language',
     translate_description: "LOL, Just don't understand Chinese ?",
-    update_success: '更新成功'
+    update_success: '更新成功',
+    old_password: '原始密码',
+    new_password: '新密码',
+    repeat_password: '重复密码',
+    reset: '重设'
   }
 }

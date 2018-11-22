@@ -11,7 +11,7 @@
               <v-divider></v-divider>
               <v-card-text>
                 <v-list two-line>
-                  <v-subheader>原始密码</v-subheader>
+                  <v-subheader>{{ $t('old_password') }}</v-subheader>
                   <v-list-tile>
                     <v-text-field
                       type="password"
@@ -22,7 +22,7 @@
                       clearable
                     ></v-text-field>
                   </v-list-tile>
-                  <v-subheader>新密码</v-subheader>
+                  <v-subheader>{{ $t('new_password') }}</v-subheader>
                   <v-list-tile>
                     <v-text-field
                       type="password"
@@ -33,7 +33,7 @@
                       clearable
                     ></v-text-field>
                   </v-list-tile>
-                  <v-subheader>重复新密码</v-subheader>
+                  <v-subheader>{{ $t('repeat_password') }}</v-subheader>
                   <v-list-tile>
                     <v-text-field
                       type="password"
@@ -49,7 +49,7 @@
               <v-divider></v-divider>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn outline color="green" v-on:click="resetPassword" :disabled="!valid">重设</v-btn>
+                <v-btn outline color="green" v-on:click="resetPassword" :disabled="!valid">{{ $t('reset') }}</v-btn>
               </v-card-actions>
             </v-card>
           </v-form>

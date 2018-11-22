@@ -27,7 +27,7 @@
                 <v-subheader>{{ $t('task') }}</v-subheader>
                 <v-list-tile>
                   <v-text-field
-                    label="任务"
+                    v-bind:label="$t('task')"
                     prepend-icon="assignment"
                     v-model="TASK.TASK_TITLE"
                     v-validate="'required|min:10'"
@@ -40,7 +40,7 @@
                 </v-list-tile>
                 <v-list-tile>
                   <v-text-field
-                    label="任务的描述"
+                    v-bind:label="$t('task_description')"
                     prepend-icon="subject"
                     v-model="TASK.TASK_DESCRIPTION"
                     required
@@ -57,7 +57,7 @@
                     v-bind:error-messages="errors.collect('loop')"
                     data-vv-name="loop"
                     box
-                    label="选择循环周期"
+                    v-bind:label="$t('choose_loop')"
                     clearable
                     readonly
                     v-model="parseCron"
@@ -83,7 +83,7 @@
                 <v-list-tile>
                   <v-text-field
                     clearable
-                    label="选择时间"
+                    v-bind:label="$t('choose_time')"
                     box
                     readonly
                     v-model="TASK.TASK_REMIND_AT"
@@ -172,7 +172,7 @@ export default {
   computed: {
     parseCron: function () {
       if (this.cron) {
-        return cronstrue.toString(this.cronExpression)
+        return cronstrue.toString('00 ' + this.cronExpression)
       }
     }
   },
@@ -199,7 +199,7 @@ export default {
             taskDescription: this.TASK.TASK_DESCRIPTION,
             taskTags: this.TASK.TASK_TAGS ? this.TASK.TASK_TAGS.toString() : null,
             taskRemindAt: this.TASK.TASK_REMIND_AT,
-            taskRepeatInterval: this.cronExpression.substr(3) || null, // 需要移除秒位置以供后端解析
+            taskRepeatInterval: this.cronExpression,
             createBy: this.$store.getters.GET_USER_ID
           }
 
