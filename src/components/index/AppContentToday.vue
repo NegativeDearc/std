@@ -18,7 +18,8 @@
                   <v-hover v-bind:key="todo.id">
                     <v-list-tile
                       slot-scope="{ hover }"
-                      :class="`elevation-${hover ? 4 : 0}`"
+                      v-bind:class="`elevation-${hover ? 4 : 0}`"
+                      v-on:click.self="goToTask(todo.id)"
                     >
                       <v-list-tile-action>
                         <v-checkbox
@@ -70,7 +71,8 @@
                   <v-hover v-bind:key="todo.id">
                     <v-list-tile
                       slot-scope="{ hover }"
-                      :class="`elevation-${hover ? 4 : 0}`"
+                      v-bind:class="`elevation-${hover ? 4 : 0}`"
+                      v-on:click.self="goToTask(todo.id)"
                     >
                       <v-list-tile-action>
                         <v-checkbox
@@ -88,7 +90,6 @@
                         <v-list-tile-title>{{ todo.taskTitle }}</v-list-tile-title>
                         <v-list-tile-sub-title>{{ todo.taskDescription }}</v-list-tile-sub-title>
                       </v-list-tile-content>
-
                       <v-list-tile-action>
                         <v-list-tile-action-text>{{ todo.nextLoopAt | moment('YYYY/MM/DD') }}</v-list-tile-action-text>
                         <div style="display: inline-block">
@@ -98,8 +99,8 @@
                           </v-tooltip>
                           <v-btn icon v-if="todo.frequency"><v-icon color="blue">restore</v-icon></v-btn>
                           <span v-if="todo.remindAt">
-                          <span>{{ todo.remindAt}}</span>
-                        </span>
+                            <span>{{ todo.remindAt}}</span>
+                          </span>
                         </div>
                       </v-list-tile-action>
                     </v-list-tile>
@@ -121,7 +122,7 @@
         dark
       >
         <v-card-text>
-          正在生成新的任务
+          {{ $t('generating_new_task') }}
           <v-progress-linear
             indeterminate
             color="white"

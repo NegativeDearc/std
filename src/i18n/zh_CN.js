@@ -49,6 +49,7 @@ module.exports = {
     logout: '登出',
     finished_at: '完成于:',
     expired_at: '过期于:',
-    notify: '通知'
+    notify: '通知',
+    generating_new_task: '正在生成新的任务'
   }
 }

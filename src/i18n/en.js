@@ -49,6 +49,7 @@ module.exports = {
     logout: 'Logout',
     finished_at: 'finished at:',
     expired_at: 'expired at:',
-    notify: 'Notify'
+    notify: 'Notify',
+    generating_new_task: 'Generating new task...'
   }
 }
