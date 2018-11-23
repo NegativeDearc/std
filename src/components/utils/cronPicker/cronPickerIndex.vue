@@ -2,7 +2,7 @@
 <template>
   <cron-picker-layout v-bind:show-border="tmp.index >= 0" id="cron-picker">
     <v-layout slot="1" align-center justify-center fill-height>
-      <div class="body-2">每隔</div>
+      <div class="body-2">{{ $t('every') }}</div>
       <cron-number-picker v-on:number-change="changeNumber"></cron-number-picker>
       <cron-date-type-picker v-on:date-type-change="changeDateType"></cron-date-type-picker>
     </v-layout>
@@ -89,6 +89,5 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
   }
 </style>

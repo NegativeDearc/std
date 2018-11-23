@@ -11,7 +11,7 @@ module.exports = {
     remark: '备注',
     remark_placeholder: '填写必要的说明',
     choose_loop: '选择循环周期',
-    choose_date: '日期选择器具',
+    choose_date: '日期选择器',
     choose_time: '选择时间',
     select_date: '指定日期',
     tags: '标签',
@@ -50,6 +50,7 @@ module.exports = {
     finished_at: '完成于:',
     expired_at: '过期于:',
     notify: '通知',
-    generating_new_task: '正在生成新的任务'
+    generating_new_task: '正在生成新的任务',
+    every: '每隔'
   }
 }

@@ -50,6 +50,7 @@ module.exports = {
     finished_at: 'finished at:',
     expired_at: 'expired at:',
     notify: 'Notify',
-    generating_new_task: 'Generating new task...'
+    generating_new_task: 'Generating new task...',
+    every: 'EVERY'
   }
 }
