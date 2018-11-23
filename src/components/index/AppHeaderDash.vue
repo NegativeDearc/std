@@ -23,10 +23,10 @@
           <v-container>
             <v-layout>
               <v-flex xs2 md2>
-                <v-avatar size="100">
+                <v-avatar size="90">
                   <v-img src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairBun&accessoriesType=Wayfarers&hairColor=Red&facialHairType=MoustacheFancy&facialHairColor=BlondeGolden&clotheType=ShirtCrewNeck&clotheColor=PastelYellow&eyeType=Squint&eyebrowType=UnibrowNatural&mouthType=Grimace&skinColor=Tanned"></v-img>
                 </v-avatar>
-                <div class="body-1 pt-4">{{ $store.getters.GET_USER_ID }}</div>
+                <div class="body-1 pt-4"><v-chip>{{ $store.state.USER.USER_NAME }}</v-chip></div>
               </v-flex>
               <v-flex xs10 md10>
                 <v-container row wrap>

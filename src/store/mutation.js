@@ -9,14 +9,22 @@ const mutations = {
     localStorage.setItem('darkModel', state.IS_DARK)
   },
 
-  SET_USER_ID: function (state, data) {
-    state.USER_ID = data
-    localStorage.setItem('userId', data)
+  SET_USER: function (state, data) {
+    state.USER.USER_ID = data.userId
+    state.USER.USER_NAME = data.userName
+    state.USER.USER_GROUP = data.userGroup
+    localStorage.setItem('userId', data.userId)
+    localStorage.setItem('userName', data.userName)
+    localStorage.setItem('userGroup', data.userGroup)
   },
 
   REMOVE_USER_ID: function (state) {
-    state.USER_ID = null
+    state.USER.USER_ID = null
+    state.USER.USER_NAME = null
+    state.USER.USER_GROUP = null
     localStorage.removeItem('userId')
+    localStorage.removeItem('userName')
+    localStorage.removeItem('userGroup')
   },
 
   HIDE_NOT_DONE_TASK: function (state) {
@@ -38,7 +46,7 @@ const mutations = {
   },
   /* logout */
   LOG_OUT: function (state) {
-    state.USER_ID = null
+    state.USER.USER_ID = null
     localStorage.removeItem('userId')
   },
   /* */

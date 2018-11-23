@@ -18,9 +18,6 @@
           </v-btn>
           <v-toolbar-title>{{ $t('setting') }}</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-toolbar-items>
-            <v-btn dark flat v-on:click.native="settings = false">{{ $t('save') }}</v-btn>
-          </v-toolbar-items>
         </v-toolbar>
         <v-container fluid>
             <v-list two-line>
@@ -41,7 +38,7 @@
                       <template v-for="lang in $store.state.LANGUAGE_MENU">
                         <v-list-tile v-bind:key="lang.id" v-bind:locale="lang.locale" v-on:click="changeLanguage(lang.locale)">
                           <v-list-tile-action>
-                            <v-icon>{{ lang.icon }}</v-icon>
+                            <span v-bind:class="lang.icon"></span>
                           </v-list-tile-action>
                           <v-list-tile-content v-bind:key="lang.locale">
                             <v-list-tile-title>{{ lang.description }}</v-list-tile-title>
@@ -133,12 +130,7 @@ export default {
   name: 'AppHeaderSettings',
   data () {
     return {
-      settings: false,
-      sortBy: [
-        { text: 'list', callback: () => console.log('list') },
-        { text: 'favorite', callback: () => console.log('favorite') },
-        { text: 'delete', callback: () => console.log('delete') }
-      ]
+      settings: false
     }
   },
   methods: {

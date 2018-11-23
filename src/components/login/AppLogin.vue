@@ -36,7 +36,7 @@
     <v-footer class="pa-3" app>
       <div class="body-2">CHENXEI@SCN MOVE</div>
       <v-spacer></v-spacer>
-      <div class="body-2">&copy; {{ new Date().getFullYear() }} STD Version V0.3.41</div>
+      <div class="body-2">&copy; {{ new Date().getFullYear() }} STD Version V0.3.42</div>
     </v-footer>
   </v-app>
 
@@ -58,7 +58,7 @@ export default {
         this.axios.post('/auth/login', _data)
           .then(res => {
             if (res.status === 200) {
-              this.$store.commit('SET_USER_ID', res.data.userId)
+              this.$store.commit('SET_USER', res.data)
               console.log('=> LOG IN SUCCESS OF USER: ' + localStorage.getItem('userId'))
               let _path = this.$route.query.redirect || '/'
               this.$router.push({ path: _path })

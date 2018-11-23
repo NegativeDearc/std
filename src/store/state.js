@@ -6,12 +6,16 @@ const state = {
   /* show completed task */
   SHOW_ALL: localStorage.getItem('SHOW_ALL') === 'true',
   /* login state */
-  USER_ID: null || localStorage.getItem('userId'),
+  USER: {
+    USER_ID: null || localStorage.getItem('userId'),
+    USER_NAME: null || localStorage.getItem('userName'),
+    USER_GROUP: null || localStorage.getItem('userName')
+  },
   /* tasks for specific user when entered today */
   TASKS: [],
   USER_DASH: [],
   EMPLOYEE_DASH: [],
-  TASK_TAGS: ['质量', '成本', '交付', '安全', '员工', '其他'],
+  TASK_TAGS: ['质量', '成本', '交付', '效率', '安全', '员工', '其他'],
   CRON_DESCRIPTION: '',
   /* for menu items */
   WEEK_INDEX: [
@@ -48,8 +52,8 @@ const state = {
   },
   DEFAULT_LANG: localStorage.getItem('LOCALE') || 'CN',
   LANGUAGE_MENU: [
-    { id: 1, locale: 'CN', description: '中文', icon: 'settings' },
-    { id: 2, locale: 'EN', description: 'English', icon: 'settings' }
+    { id: 1, locale: 'CN', description: '中文', icon: 'flag-icon flag-icon-cn' },
+    { id: 2, locale: 'EN', description: 'English', icon: 'flag-icon flag-icon-us' }
   ]
 }
 

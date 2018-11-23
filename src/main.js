@@ -16,6 +16,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
 import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
+import 'flag-icon-css/css/flag-icon.css'
 
 Vue.config.productionTip = false
 Vue.use(Vuetify)
