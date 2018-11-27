@@ -1,7 +1,7 @@
 <template>
   <v-bottom-nav
-    :active.sync="bottomNav"
-    :value="true"
+    v-bind:active.sync="bottomNav"
+    v-bind:value="true"
     absolute
     color="transparent"
   >
@@ -17,11 +17,10 @@
     <v-btn
       color="teal"
       flat
-      value="future"
-      disabled
+      value="personal"
     >
-      <span>暂未开发</span>
-      <v-icon>next_week</v-icon>
+      <span>个人空间</span>
+      <v-icon>person</v-icon>
     </v-btn>
 
     <v-btn
@@ -41,7 +40,7 @@ export default {
   name: 'AppBottomNav',
   data () {
     return {
-      bottomNav: 'today'
+      bottomNav: this.$route.path.substr(1) || 'today'
     }
   },
   watch: {

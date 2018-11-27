@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import AppContentToday from '../components/index/AppContentToday'
-import AppContentFuture from '../components/index/AppContentFuture'
+import AppContentSelf from '../components/index/AppContentSelf'
 import AppContentArchive from '../components/index/AppContentArchive'
 import AppIndex from '../components/index/AppIndex'
 import AppFooter from '../components/index/AppFooter'
@@ -26,8 +26,8 @@ const router = new Router({
       component: AppIndex,
       children: [
         { path: '', components: { default: AppContentToday, footer: AppFooter }, meta: { requiresAuth: true } },
-        { path: 'today', component: AppContentToday, meta: { requiresAuth: true } },
-        { path: 'future', component: AppContentFuture, meta: { requiresAuth: true } },
+        { path: 'today', components: { default: AppContentToday, footer: AppFooter, meta: { requiresAuth: true } } },
+        { path: 'personal', components: { default: AppContentSelf, footer: AppFooter, meta: { requiresAuth: true } } },
         { path: 'archive', component: AppContentArchive, meta: { requiresAuth: true } },
         { path: 'password', component: ResetPassword, meta: { requiresAuth: true } }
       ],
@@ -37,7 +37,8 @@ const router = new Router({
     },
     {
       path: '/dashboard',
-      component: dashboardIndex
+      component: dashboardIndex,
+      meta: { requiresAuth: true }
     },
     {
       path: '/login',
