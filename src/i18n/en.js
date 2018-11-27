@@ -1,6 +1,7 @@
 module.exports = {
   message: {
     punchCard: 'Punch Card',
+    personalTask: 'Personal Task',
     today: 'Today',
     further: 'Later',
     back: 'Back',

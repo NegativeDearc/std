@@ -5,7 +5,6 @@
         <v-flex xs12 sm12 md12>
           <v-alert
             v-model="alert"
-            dismissible
             type="error"
           >
             处于开发阶段，数据丢失概不负责

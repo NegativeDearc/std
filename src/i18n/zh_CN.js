@@ -1,6 +1,7 @@
 module.exports = {
   message: {
     punchCard: '任务卡',
+    personalTask: '个人任务',
     today: '今日摘要',
     further: '晚些时候',
     back: '返回',

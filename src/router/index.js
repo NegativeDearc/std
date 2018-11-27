@@ -25,7 +25,7 @@ const router = new Router({
       path: '/',
       component: AppIndex,
       children: [
-        { path: '', components: { default: AppContentToday, footer: AppFooter }, meta: { requiresAuth: true } },
+        { path: '/', components: { default: AppContentToday, footer: AppFooter }, meta: { requiresAuth: true } },
         { path: 'today', components: { default: AppContentToday, footer: AppFooter, meta: { requiresAuth: true } } },
         { path: 'personal', components: { default: AppContentSelf, footer: AppFooter, meta: { requiresAuth: true } } },
         { path: 'archive', component: AppContentArchive, meta: { requiresAuth: true } },

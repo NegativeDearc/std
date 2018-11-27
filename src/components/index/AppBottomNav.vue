@@ -19,7 +19,7 @@
       flat
       value="personal"
     >
-      <span>个人空间</span>
+      <span>{{ $t('personalTask') }}</span>
       <v-icon>person</v-icon>
     </v-btn>
 
@@ -46,6 +46,7 @@ export default {
   watch: {
     bottomNav: function () {
       this.$router.push('/' + this.bottomNav)
+      console.log(this.bottomNav)
     }
   }
 }
