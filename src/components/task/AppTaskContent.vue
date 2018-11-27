@@ -69,6 +69,7 @@
                   lazy
                   max-width="600px"
                   v-model="cronPicker"
+                  persistent
                 >
                   <v-card flat>
                     <v-toolbar dark color="green">
@@ -260,9 +261,6 @@ export default {
       this.cronPicker = true
     },
     closeCronForm: function () {
-      this.cronPicker = false
-    },
-    settingCron: function () {
       this.cronPicker = false
     },
     getCronExpression: function (cron) {

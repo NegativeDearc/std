@@ -51,6 +51,10 @@ module.exports = {
     expired_at: 'expired at:',
     notify: 'Notify',
     generating_new_task: 'Generating new task...',
-    every: 'EVERY'
+    every: 'EVERY',
+    mu_1: 'MU 1',
+    mu_2: 'MU 2',
+    central: 'CENTRAL',
+    pass_seven_days_finish_rate: 'Rolling 7 Days Finish Rate'
   }
 }

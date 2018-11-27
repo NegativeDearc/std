@@ -8,7 +8,10 @@ import AppFooter from '../components/index/AppFooter'
 import AppTask from '../components/task/AppTask'
 import AppLogin from '../components/login/AppLogin'
 import ResetPassword from '../components/utils/ResetPassword'
-import DashIndex from '../components/dash/DashIndex'
+import dashboardIndex from '../components/dashboard/dashboardIndex'
+import cronPickerIndex from '../components/experiment/cronPicker/cronPickerIndex'
+import dashboardIndexExperiment from '../components/experiment/dashboard/dashboardIndex'
+import labIndex from '../components/experiment/labIndex'
 import NProgress from 'nprogress'
 
 NProgress.inc(0.2)
@@ -26,12 +29,15 @@ const router = new Router({
         { path: 'today', component: AppContentToday, meta: { requiresAuth: true } },
         { path: 'future', component: AppContentFuture, meta: { requiresAuth: true } },
         { path: 'archive', component: AppContentArchive, meta: { requiresAuth: true } },
-        { path: 'password', component: ResetPassword, meta: { requiresAuth: true } },
-        { path: 'dash', component: DashIndex, meta: { requiresAuth: true } }
+        { path: 'password', component: ResetPassword, meta: { requiresAuth: true } }
       ],
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/dashboard',
+      component: dashboardIndex
     },
     {
       path: '/login',
@@ -39,6 +45,14 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
+    },
+    {
+      path: '/lab',
+      component: labIndex,
+      children: [
+        { path: 'picker', component: cronPickerIndex },
+        { path: 'dash', component: dashboardIndexExperiment }
+      ]
     },
     {
       path: '/task/:taskId',
