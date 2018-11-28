@@ -58,6 +58,7 @@ const i18n = new VueI18n({
 })
 
 /* eslint-disable no-new */
+export const eventBus = new Vue()
 new Vue({
   i18n,
   store,

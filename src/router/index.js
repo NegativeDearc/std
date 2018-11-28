@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import AppContentToday from '../components/index/AppContentToday'
-import AppContentSelf from '../components/index/PersonalTask/AppContentSelf'
+import selfIndex from '../components/index/PersonalTask/selfIndex'
 import AppIndex from '../components/index/AppIndex'
 import AppFooter from '../components/index/AppFooter'
 import AppSideBar from '../components/index/AppSideBar'
@@ -28,7 +28,7 @@ const router = new Router({
       children: [
         { path: '/', components: { default: AppContentToday, header: AppHeader, sidebar: AppSideBar, footer: AppFooter }, meta: { requiresAuth: true } },
         { path: 'today', components: { default: AppContentToday, header: AppHeader, sidebar: AppSideBar, footer: AppFooter, meta: { requiresAuth: true } } },
-        { path: 'personal', components: { default: AppContentSelf, footer: AppFooter, sidebar: AppSideBar, meta: { requiresAuth: true } } },
+        { path: 'personal', components: { default: selfIndex, footer: AppFooter, sidebar: AppSideBar, meta: { requiresAuth: true } } },
         { path: 'password', components: { default: ResetPassword, header: AppHeader, sidebar: AppSideBar, meta: { requiresAuth: true } } }
       ],
       meta: {

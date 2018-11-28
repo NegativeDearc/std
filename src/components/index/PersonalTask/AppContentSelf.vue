@@ -1,5 +1,10 @@
 <template>
   <v-content app>
+    <v-toolbar></v-toolbar>
+    <v-date-picker
+      no-title
+      full-width
+    ></v-date-picker>
     <v-container>
       <v-layout>
         <v-flex xs12 sm12 md6 offset-md3>
