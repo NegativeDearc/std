@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import AppHeaderDash from '../index/AppHeaderDash'
-import AppHeaderSettings from '../index/AppHeaderSettings'
+import AppHeaderDash from './AppHeaderDash'
+import AppHeaderSettings from './AppHeaderSettings'
 import AppContentTaskDetail from './AppHeaderNew'
 
 export default {

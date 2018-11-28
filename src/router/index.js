@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import AppContentToday from '../components/index/AppContentToday'
-import AppContentSelf from '../components/index/AppContentSelf'
-import AppContentArchive from '../components/index/AppContentArchive'
+import AppContentSelf from '../components/index/PersonalTask/AppContentSelf'
 import AppIndex from '../components/index/AppIndex'
 import AppFooter from '../components/index/AppFooter'
+import AppSideBar from '../components/index/AppSideBar'
+import AppHeader from '../components/index/headerForToday/AppHeader'
 import AppTask from '../components/task/AppTask'
 import AppLogin from '../components/login/AppLogin'
 import ResetPassword from '../components/utils/ResetPassword'
@@ -25,11 +26,10 @@ const router = new Router({
       path: '/',
       component: AppIndex,
       children: [
-        { path: '/', components: { default: AppContentToday, footer: AppFooter }, meta: { requiresAuth: true } },
-        { path: 'today', components: { default: AppContentToday, footer: AppFooter, meta: { requiresAuth: true } } },
-        { path: 'personal', components: { default: AppContentSelf, footer: AppFooter, meta: { requiresAuth: true } } },
-        { path: 'archive', component: AppContentArchive, meta: { requiresAuth: true } },
-        { path: 'password', component: ResetPassword, meta: { requiresAuth: true } }
+        { path: '/', components: { default: AppContentToday, header: AppHeader, sidebar: AppSideBar, footer: AppFooter }, meta: { requiresAuth: true } },
+        { path: 'today', components: { default: AppContentToday, header: AppHeader, sidebar: AppSideBar, footer: AppFooter, meta: { requiresAuth: true } } },
+        { path: 'personal', components: { default: AppContentSelf, footer: AppFooter, sidebar: AppSideBar, meta: { requiresAuth: true } } },
+        { path: 'password', components: { default: ResetPassword, header: AppHeader, sidebar: AppSideBar, meta: { requiresAuth: true } } }
       ],
       meta: {
         requiresAuth: true

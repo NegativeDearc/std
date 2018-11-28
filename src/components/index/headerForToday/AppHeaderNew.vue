@@ -133,7 +133,7 @@
 
 <script>
 import cronstrue from 'cronstrue'
-import cronPickerIndex from '../utils/cronPicker/cronPickerIndex'
+import cronPickerIndex from '../../utils/cronPicker/cronPickerIndex'
 
 export default {
   $_veeValidate: {

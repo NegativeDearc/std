@@ -22,16 +22,6 @@
       <span>{{ $t('personalTask') }}</span>
       <v-icon>person</v-icon>
     </v-btn>
-
-    <v-btn
-      color="teal"
-      flat
-      value="archive"
-      disabled
-    >
-      <span>暂未开发</span>
-      <v-icon>archive</v-icon>
-    </v-btn>
   </v-bottom-nav>
 </template>
 

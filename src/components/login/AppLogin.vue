@@ -25,6 +25,7 @@
                   outline
                   required
                   clearable
+                  v-on:keypress.enter="login"
                 ></v-text-field>
                 <v-btn block depressed big round color="info" v-on:click="login" large>登陆</v-btn>
               </v-form>
@@ -36,7 +37,7 @@
     <v-footer class="pa-3" app>
       <div class="body-2">CHENXEI@SCN MOVE</div>
       <v-spacer></v-spacer>
-      <div class="body-2">&copy; {{ new Date().getFullYear() }} STD Version V0.4.43</div>
+      <div class="body-2">&copy; {{ new Date().getFullYear() }} STD Version V0.4.44</div>
     </v-footer>
   </v-app>
 
@@ -68,6 +69,11 @@ export default {
             alert(err)
           })
       }
+    }
+  },
+  mounted: function () {
+    if (localStorage.getItem('userId')) {
+      this.$router.push('/')
     }
   }
 }
