@@ -3,9 +3,9 @@
     v-if="items.length !== 0"
     fluid
   >
-    <div>
-      <v-subheader>{{ date }}</v-subheader>
-      <v-card flat>
+    <v-subheader>{{ date }}</v-subheader>
+    <div class="wrapper" ref="wrapper">
+      <v-card flat class="content">
         <v-list>
           <template v-for="(item, index) in items">
             <v-list-tile v-bind:key="item.id" v-bind:style="tile_color_style(item.color)">
@@ -35,12 +35,15 @@
     </div>
   </v-container>
   <v-container v-else fluid>
-    <v-subheader>{{ $t('no_event') }}</v-subheader>
+    <div ref="wrapper">
+      <v-subheader>{{ $t('no_event') }}</v-subheader>
+    </div>
   </v-container>
 </template>
 
 <script>
 import localForge from 'localforage'
+import BScroll from 'better-scroll'
 import { eventBus } from '../../../main'
 
 export default {
@@ -108,10 +111,20 @@ export default {
     eventBus.$on('refresh-item', () => {
       this.getItems()
     })
+  },
+  created: function () {
+    this.$nextTick(() => {
+      this.scroll = new BScroll(this.$refs.wrapper, {})
+      console.log(this.scroll)
+    })
   }
 }
 </script>
 
 <style scoped>
-
+  .wrapper {
+    height: 310px;
+    max-height: 400px;
+    overflow: auto;
+  }
 </style>
