@@ -54,6 +54,7 @@
                   <v-text-field
                     v-bind:style="{ width: '100%' }"
                     placeholder="enter description"
+                    v-model="self_task_description"
                     solo
                     flat
                     single-line
@@ -93,6 +94,7 @@
          flat dark
          v-bind:color="selected_color || 'primary'"
          v-bind:disabled="!self_task_title"
+         v-on:click="save"
        >
          save
        </v-btn>
@@ -102,6 +104,8 @@
 
 <script>
 import { eventBus } from '../../../main'
+import uuid4 from 'uuid'
+import localForge from 'localforage'
 
 export default {
   props: {
@@ -111,6 +115,7 @@ export default {
     return {
       selected_color: null,
       self_task_title: null,
+      self_task_description: null,
       colors: [
         { value: 'red', text: 'red' },
         { value: 'pink', text: 'pink' },
@@ -132,6 +137,30 @@ export default {
     close_modal: function () {
       console.log('closing modal')
       eventBus.$emit('close-modal')
+    },
+    init_item: function () {
+      // close modal and init data()
+      this.selected_color = null
+      this.self_task_title = null
+      this.self_task_description = null
+      eventBus.$emit('close-modal')
+      eventBus.$emit('update-events')
+    },
+    save: function () {
+      // save to localstorage by localforage
+      let _taskItem = {
+        date: this.date,
+        title: this.self_task_title,
+        description: this.self_task_description,
+        color: this.selected_color,
+        author: this.$store.state.USER.USER_ID
+      }
+      localForge.setItem([this.date, uuid4()].join(':'), _taskItem)
+        .then(data => {
+          console.log(data)
+          this.init_item()
+        })
+        .catch(err => { console.log(err) })
     }
   }
 }

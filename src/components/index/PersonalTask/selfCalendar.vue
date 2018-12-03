@@ -6,6 +6,9 @@
       v-on:input="select_dates"
       v-model="selected_date"
       reactive
+      color="primary"
+      v-bind:events="custom_events"
+      v-bind:event-color="custom_events_colors"
     >
       <v-btn
         absolute
@@ -49,6 +52,7 @@
 <script>
 import { eventBus } from '../../../main'
 import SelfNewTask from './selfNewTask'
+import localForge from 'localforage'
 
 export default {
   name: 'selfCalendar',
@@ -58,7 +62,9 @@ export default {
       show_modal: false,
       show_dates: false,
       selected_date: '',
-      snackbar: false
+      snackbar: false,
+      o_keys: [],
+      keys: []
     }
   },
   methods: {
@@ -73,7 +79,32 @@ export default {
         this.show_modal = true
         console.log(this.selected_date)
       }
+    },
+    db_keys: function () {
+      localForge.keys().then(keys => {
+        this.o_keys = keys
+        this.keys = keys.map(key => key.split(':')[0])
+      })
+    },
+    custom_events: function (date) {
+      // console.log(date)
+      return this.keys.includes(date)
+    },
+    custom_events_colors: function (date) {
+      // function taking date as a parameter and returning color for that date
+      for (let i of this.o_keys) {
+        if (i.split(':')[0] === date) {
+          localForge.getItem(i).then(item => {
+            // console.log(item.color || 'primary')
+            // todo: generate correct color
+            return item.color || 'primary'
+          })
+        }
+      }
     }
+  },
+  mounted: function () {
+    this.db_keys()
   },
   created: function () {
     eventBus.$on('show-today', () => {
@@ -82,6 +113,9 @@ export default {
     })
     eventBus.$on('close-modal', () => {
       this.show_modal = false
+    })
+    eventBus.$on('update-events', () => {
+      this.db_keys()
     })
   }
 }

@@ -17,6 +17,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
 import 'flag-icon-css/css/flag-icon.css'
+import localForge from 'localforage'
 
 Vue.config.productionTip = false
 Vue.use(Vuetify)
@@ -25,6 +26,13 @@ Vue.use(VueAxios, axios)
 Vue.use(VueMoment)
 Vue.use(VeeValidate)
 Vue.use(VueI18n)
+
+localForge.config({
+  name: 'Personal_task',
+  storeName: 'personal_task',
+  description: 'made for personal task',
+  version: 1
+})
 
 axios.defaults.baseURL = 'http://localhost:7659/api/'
 
