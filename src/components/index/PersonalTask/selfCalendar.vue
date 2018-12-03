@@ -67,6 +67,13 @@ export default {
       keys: []
     }
   },
+  watch: {
+    selected_date: function (oldVal) {
+      if (oldVal !== '') {
+        eventBus.$emit('show-task-item', this.selected_date)
+      }
+    }
+  },
   methods: {
     select_dates: function () {
       console.log(this.selected_date)

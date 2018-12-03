@@ -148,17 +148,24 @@ export default {
     },
     save: function () {
       // save to localstorage by localforage
+      let _id = [this.date, uuid4()].join(':')
       let _taskItem = {
+        id: _id,
         date: this.date,
         title: this.self_task_title,
         description: this.self_task_description,
         color: this.selected_color,
-        author: this.$store.state.USER.USER_ID
+        author: this.$store.state.USER.USER_ID,
+        isDone: false
       }
-      localForge.setItem([this.date, uuid4()].join(':'), _taskItem)
+      localForge.setItem(_id, _taskItem)
         .then(data => {
           console.log(data)
+          eventBus.$emit('show-task-item', this.date)
           this.init_item()
+        })
+        .then(() => {
+          eventBus.$emit('refresh-item')
         })
         .catch(err => { console.log(err) })
     }
