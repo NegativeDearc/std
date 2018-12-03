@@ -1,20 +1,41 @@
 <template>
-  <v-container v-if="items.length !== 0">
-    <v-card flat>
-      <v-list>
-        <v-list-tile v-for="item in items" v-bind:key="item.id" v-bind:style="tile_color_style(item.color)">
-          <v-list-tile-action>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            <v-list-tile-sub-title>{{ item.description }}</v-list-tile-sub-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-btn icon><v-icon color="red" v-on:click="remove_item(item.id)">close</v-icon></v-btn>
-          </v-list-tile-action>
-        </v-list-tile>
-      </v-list>
-    </v-card>
+  <v-container
+    v-if="items.length !== 0"
+    fluid
+  >
+    <div>
+      <v-subheader>{{ date }}</v-subheader>
+      <v-card flat>
+        <v-list>
+          <template v-for="(item, index) in items">
+            <v-list-tile v-bind:key="item.id" v-bind:style="tile_color_style(item.color)">
+              <v-list-tile-action>
+                <v-checkbox
+                  v-on:change="changeStatus(item.id)"
+                  v-bind:input-value="item.isDone"
+                  on-icon="check_circle_outline"
+                  off-icon="panorama_fish_eye"
+                ></v-checkbox>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title v-bind:style="item.isDone ? doneStyle: ''">{{ item.title }}</v-list-tile-title>
+                <v-list-tile-sub-title>{{ item.description }}</v-list-tile-sub-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+                <v-list-tile-sub-title>{{ item.date }}</v-list-tile-sub-title>
+              </v-list-tile-action>
+              <v-list-tile-action>
+                <v-btn icon><v-icon color="red" v-on:click="remove_item(item.id)">close</v-icon></v-btn>
+              </v-list-tile-action>
+            </v-list-tile>
+            <v-divider v-if="items.length > 1 && index < (items.length - 1)" v-bind:key="item.id.split(':')[1]"></v-divider>
+          </template>
+        </v-list>
+      </v-card>
+    </div>
+  </v-container>
+  <v-container v-else fluid>
+    <v-subheader>{{ $t('no_event') }}</v-subheader>
   </v-container>
 </template>
 
@@ -51,11 +72,25 @@ export default {
           }
         }
       })
+    },
+    changeStatus: function (id) {
+      localForge.getItem(id)
+        .then(item => {
+          let _item = item
+          _item.isDone = !_item.isDone
+          localForge.setItem(id, _item)
+            .then(() => { this.getItems() })
+            .catch(err => { console.log(err) })
+        })
     }
   },
   data () {
     return {
-      items: []
+      items: [],
+      doneStyle: {
+        'font-style': 'italic',
+        'text-decoration': 'line-through red'
+      }
     }
   },
   name: 'selfTaskItems',

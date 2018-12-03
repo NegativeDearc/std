@@ -156,7 +156,8 @@ export default {
         description: this.self_task_description,
         color: this.selected_color,
         author: this.$store.state.USER.USER_ID,
-        isDone: false
+        isDone: false,
+        createAt: new Date().toISOString()
       }
       localForge.setItem(_id, _taskItem)
         .then(data => {

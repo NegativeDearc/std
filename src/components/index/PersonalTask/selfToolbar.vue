@@ -1,5 +1,8 @@
 <template>
-  <v-toolbar app color="transparent">
+  <v-toolbar
+    app
+    v-bind:dark="$store.state.IS_DARK"
+  >
     <v-toolbar-side-icon></v-toolbar-side-icon>
     <v-spacer></v-spacer>
     <v-btn flat depress v-on:click="showToday">TODAY</v-btn>

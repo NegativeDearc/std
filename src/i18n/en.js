@@ -56,6 +56,7 @@ module.exports = {
     mu_1: 'MU 1',
     mu_2: 'MU 2',
     central: 'CENTRAL',
-    pass_seven_days_finish_rate: 'Rolling 7 Days Finish Rate'
+    pass_seven_days_finish_rate: 'Rolling 7 Days Finish Rate',
+    no_event: 'No Event'
   }
 }
