@@ -9,6 +9,7 @@
         hide-overlay
         transition="dialog-bottom-transition"
         scrollable
+        v-bind:dark="$store.state.IS_DARK"
     >
         <v-card tile>
           <v-toolbar dark color="green">

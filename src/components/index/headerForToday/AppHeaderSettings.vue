@@ -10,6 +10,7 @@
       hide-overlay
       transition="dialog-bottom-transition"
       scrollable
+      v-bind:dark="$store.state.IS_DARK"
     >
       <v-card>
         <v-toolbar dark color="indigo">
@@ -31,7 +32,7 @@
                 </v-list-tile-content>
                 <v-list-tile-action>
                   <v-menu offset-x left>
-                    <v-btn slot="activator" flat outline>
+                    <v-btn slot="activator" flat outline color="purple">
                       {{ this.$store.getters.GET_DEFAULT_LANG }}
                     </v-btn>
                     <v-list>
@@ -60,15 +61,14 @@
                 <v-list-tile-action>
                   <v-switch
                     v-bind:input-value="$store.state.IS_DARK"
-                    color="red"
+                    color="black"
                     v-on:change="changeDarkModel"
                     hide-details
                   ></v-switch>
                 </v-list-tile-action>
 
               </v-list-tile>
-              <v-divider></v-divider>
-
+              <v-divider flat></v-divider>
               <v-list-tile>
                 <v-list-tile-action>
                   <v-icon color="green">visibility</v-icon>
@@ -86,8 +86,7 @@
                 </v-list-tile-action>
 
               </v-list-tile>
-              <v-divider></v-divider>
-
+              <v-divider flat></v-divider>
               <v-list-tile>
                 <v-list-tile-action>
                   <v-icon color="blue">looks_one</v-icon>
@@ -113,9 +112,23 @@
                     </v-list>
                   </v-menu>
                 </v-list-tile-action>
-
               </v-list-tile>
               <v-divider></v-divider>
+              <v-list-tile>
+                <v-list-tile-action>
+                  <v-icon color="red">mdi-airplane</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>{{ $t('holiday_model') }}</v-list-tile-title>
+                  <v-list-tile-sub-title>{{ $t('holiday_modal_description') }}</v-list-tile-sub-title>
+                </v-list-tile-content>
+                <v-list-tile-action>
+                  <v-switch
+                    color="red"
+                  ></v-switch>
+                </v-list-tile-action>
+              </v-list-tile>
+
             </v-list>
           </v-container>
         <div style="flex: 1 1 auto;"></div>

@@ -164,6 +164,7 @@ export default {
       this.$store.dispatch('CHANGE_DONE_STATUS', _id)
     }
   },
+  // todo:why not use when mounted ?
   beforeMount: function () {
     this.$store.dispatch('GET_TASKS_OF_ALL')
     this.todos = this.$store.state.TASKS

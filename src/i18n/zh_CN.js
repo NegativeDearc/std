@@ -57,6 +57,8 @@ module.exports = {
     mu_2: '制造单元2',
     central: '中央部门',
     pass_seven_days_finish_rate: '近七天的完成率',
-    no_event: '无事件'
+    no_event: '无事件',
+    holiday_model: '假期模式',
+    holiday_modal_description: '逃跑吧，懦夫！'
   }
 }

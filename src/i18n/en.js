@@ -57,6 +57,8 @@ module.exports = {
     mu_2: 'MU 2',
     central: 'CENTRAL',
     pass_seven_days_finish_rate: 'Rolling 7 Days Finish Rate',
-    no_event: 'No Event'
+    no_event: 'No Event',
+    holiday_model: 'Holiday Model',
+    holiday_modal_description: 'Run away, run away'
   }
 }
