@@ -3,7 +3,7 @@
     <v-container>
       <v-layout align-center justify-end column fill-height>
         <div class="display-3 grey--text">
-          SCN to-do
+          <span class="green--text">STD</span>
         </div>
         <v-flex xs8 md8 sm8>
           <v-card flat color="transparent" width="400px">
