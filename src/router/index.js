@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import AppContentToday from '../components/index/AppContentToday'
+import AppContentToday from '../components/index/headerForToday/AppContentToday'
 import selfIndex from '../components/index/PersonalTask/selfIndex'
 import AppIndex from '../components/index/AppIndex'
 import AppFooter from '../components/index/AppFooter'
