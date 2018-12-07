@@ -1,6 +1,6 @@
 <template>
   <v-layout row justify-center>
-    <v-btn flat icon dark color="red" v-on:click.stop="taskDialog = true">
+    <v-btn flat icon dark color="green" v-on:click.stop="taskDialog = true">
       <v-icon>add</v-icon>
     </v-btn>
     <v-dialog
