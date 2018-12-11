@@ -125,6 +125,7 @@
                 <v-list-tile-action>
                   <v-switch
                     color="red"
+                    v-on:change="changeHolidayModel"
                   ></v-switch>
                 </v-list-tile-action>
               </v-list-tile>
@@ -156,6 +157,9 @@ export default {
     changeLanguage: function (locale) {
       this.$store.commit('CHANGE_DEFAULT_LANG', locale)
       this.$i18n.locale = locale
+    },
+    changeHolidayModel: function () {
+      console.log('change holiday model')
     }
   }
 }
