@@ -15,7 +15,7 @@
                   <v-icon color="green" v-else-if="item.isDone === true && item.isDelay === false">mdi-check-circle-outline</v-icon>
                   <v-icon color="yellow" v-else>mdi-eye-outline</v-icon>
                 </v-btn>
-                <v-card width="420px">
+                <v-card width="600px">
                   <v-list two-line>
                     <v-list-tile>
                       <v-list-tile-content>
