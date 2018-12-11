@@ -108,7 +108,7 @@ export default {
       this.segment = event
     },
     refresh: function () {
-      console.log('refreshing this page')
+      this.$router.go(0)
     },
     goBack: function () {
       this.$router.back()
