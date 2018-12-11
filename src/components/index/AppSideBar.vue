@@ -42,7 +42,7 @@
         value="true"
       >
         <v-list-tile slot="activator">
-          <v-list-tile-title>{{ $t('lab') }}</v-list-tile-title>
+          <v-list-tile-title>{{ $t('lab') }}<sup><span class="red--text">beta</span></sup></v-list-tile-title>
         </v-list-tile>
 
         <v-list>

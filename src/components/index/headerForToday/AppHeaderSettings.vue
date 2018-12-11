@@ -92,7 +92,7 @@
                   <v-icon color="blue">looks_one</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                  <v-list-tile-title>{{ $t('sort_by') }}</v-list-tile-title>
+                  <v-list-tile-title>{{ $t('sort_by') }}<sup><span class="red--text">beta</span></sup></v-list-tile-title>
                   <v-list-tile-sub-title>{{ $t('sort_by_description') }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
@@ -119,7 +119,7 @@
                   <v-icon color="red">mdi-airplane</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                  <v-list-tile-title>{{ $t('holiday_model') }}</v-list-tile-title>
+                  <v-list-tile-title>{{ $t('holiday_model') }}<sup><span class="red--text">beta</span></sup></v-list-tile-title>
                   <v-list-tile-sub-title>{{ $t('holiday_modal_description') }}</v-list-tile-sub-title>
                 </v-list-tile-content>
                 <v-list-tile-action>

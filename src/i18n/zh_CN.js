@@ -36,7 +36,7 @@ module.exports = {
     users_control: '管理',
     change_password: '修改密码',
     plant_dashboard: '工厂仪表盘',
-    lab: '实验室(BETA)',
+    lab: '实验室',
     language: 'EN',
     translate: 'Change Language',
     translate_description: "LOL, Just don't understand Chinese ?",
