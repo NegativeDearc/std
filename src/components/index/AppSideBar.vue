@@ -15,7 +15,6 @@
             build with &nbsp;<v-icon color="red" size="14">mdi-heart</v-icon>
             made by <span><v-icon size="14" color="yellow">mdi-language-javascript</v-icon></span><span><v-icon size="14" color="blue">mdi-language-python</v-icon></span>
           </div>
-          <v-divider insert></v-divider>
           <v-card-actions>
           </v-card-actions>
         </v-layout>
