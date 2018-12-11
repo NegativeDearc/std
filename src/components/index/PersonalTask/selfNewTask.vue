@@ -5,8 +5,8 @@
           New Task
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn flat icon dark>
-          <v-icon v-on:click="close_modal">close</v-icon>
+        <v-btn flat icon dark v-on:click="close_modal">
+          <v-icon>close</v-icon>
         </v-btn>
       </v-toolbar>
 

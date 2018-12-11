@@ -19,8 +19,8 @@
         color="pink"
         v-on:click="insertNewTask"
       >
-        <v-icon v-if="!show_modal">add</v-icon>
-        <v-icon v-else>close</v-icon>
+          <v-icon v-if="!show_modal">add</v-icon>
+          <v-icon v-else>close</v-icon>
       </v-btn>
     </v-date-picker>
 
