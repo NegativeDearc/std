@@ -6,6 +6,20 @@
     temporary
   >
     <v-list>
+      <v-card flat>
+        <v-layout align-center justify-end column fill-height>
+          <div class="display-2 grey--text">
+            <span class="green--text">STD</span>
+          </div>
+          <div class="body-2 grey--text">
+            build with &nbsp;<v-icon color="red" size="14">mdi-heart</v-icon>
+            made by <span><v-icon size="14" color="yellow">mdi-language-javascript</v-icon></span><span><v-icon size="14" color="blue">mdi-language-python</v-icon></span>
+          </div>
+          <v-divider insert></v-divider>
+          <v-card-actions>
+          </v-card-actions>
+        </v-layout>
+      </v-card>
       <v-list-tile to="/">
         <v-list-tile-action>
           <v-icon>home</v-icon>
