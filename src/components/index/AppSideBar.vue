@@ -12,8 +12,8 @@
             <span class="green--text">STD</span>
           </div>
           <div class="body-2 grey--text">
-            build with &nbsp;<v-icon color="red" size="14">mdi-heart</v-icon>
-            made by <span><v-icon size="14" color="yellow">mdi-language-javascript</v-icon></span><span><v-icon size="14" color="blue">mdi-language-python</v-icon></span>
+            build with <v-icon color="red" size="14">mdi-heart</v-icon>
+            made by <span><v-icon size="14" color="yellow">mdi-language-javascript</v-icon></span> + <span><v-icon size="14" color="blue">mdi-language-python</v-icon></span>
           </div>
           <v-card-actions>
           </v-card-actions>
@@ -74,7 +74,6 @@
           </v-list-tile>
         </v-list>
       </v-list-group>
-
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -88,8 +87,7 @@ export default {
       { name: '工厂仪表盘', icon: 'dashboard', link: '/dashboard' }
     ],
     labs: [
-      { name: '日历', icon: '', link: '/lab/picker' },
-      { name: '仪表盘', icon: '', link: '/lab/dash' }
+      { name: '日历', icon: '', link: '/lab/picker' }
     ]
   })
 }

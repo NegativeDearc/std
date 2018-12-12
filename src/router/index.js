@@ -11,7 +11,6 @@ import AppLogin from '../components/login/AppLogin'
 import ResetPassword from '../components/utils/ResetPassword'
 import dashboardIndex from '../components/dashboard/dashboardIndex'
 import cronPickerIndex from '../components/experiment/cronPicker/cronPickerIndex'
-import dashboardIndexExperiment from '../components/experiment/dashboard/dashboardIndex'
 import labIndex from '../components/experiment/labIndex'
 import NProgress from 'nprogress'
 
@@ -51,8 +50,7 @@ const router = new Router({
       path: '/lab',
       component: labIndex,
       children: [
-        { path: 'picker', component: cronPickerIndex },
-        { path: 'dash', component: dashboardIndexExperiment }
+        { path: 'picker', component: cronPickerIndex }
       ]
     },
     {
