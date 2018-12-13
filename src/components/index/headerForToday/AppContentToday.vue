@@ -7,7 +7,7 @@
         </v-flex>
       </v-layout>
       <v-layout row wrap>
-        <v-flex xs12 md6>
+        <v-flex xs12 md6 sm6>
           <v-card>
             <v-progress-linear v-bind:value="$store.getters.GET_TODAY_FINISH_RATE" height="3" color="red"></v-progress-linear>
             <v-subheader><v-chip label color="red lighten-4">{{ $t('today') }}</v-chip></v-subheader>
@@ -62,7 +62,7 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-flex xs12 md6>
+        <v-flex xs12 md6 sm6>
           <v-card>
             <v-progress-linear v-bind:value="$store.getters.GET_LATER_FINISH_RATE" height="3" color="blue"></v-progress-linear>
             <v-subheader><v-chip label color="blue lighten-4">{{ $t('further') }}</v-chip></v-subheader>
