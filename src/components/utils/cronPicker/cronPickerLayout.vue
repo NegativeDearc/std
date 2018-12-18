@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card flat>
+    <v-card flat v-bind:dark="$store.state.IS_DARK">
       <v-card-text>
         <v-layout align-center justify-center column fill-height>
           <slot name="1"></slot>
