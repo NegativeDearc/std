@@ -59,6 +59,7 @@ module.exports = {
     pass_seven_days_finish_rate: 'Rolling 7 Days Finish Rate',
     no_event: 'No Event',
     holiday_model: 'Holiday Model',
-    holiday_modal_description: 'Run away, run away'
+    holiday_modal_description: 'Run away, run away',
+    delete: 'DELETE'
   }
 }

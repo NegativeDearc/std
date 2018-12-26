@@ -4,6 +4,10 @@ const mutations = {
     state.IF_DRAWER = !state.IF_DRAWER
   },
 
+  UNDRAWER_LEFT: function (state) {
+    state.LEFT_DRAWER = !state.LEFT_DRAWER
+  },
+
   SET_DARK_MODEL: function (state) {
     state.IS_DARK = !state.IS_DARK
     localStorage.setItem('darkModel', state.IS_DARK)

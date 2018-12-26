@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import AppContentToday from '../components/index/headerForToday/AppContentToday'
-import selfIndex from '../components/index/PersonalTask/selfIndex'
+import AppContentToday from '../components/index/Today/AppContentToday'
+import mainIndex from '../components/index/main/mainIndex'
+import selfIndex from '../components/index/Personal/selfIndex'
 import AppIndex from '../components/index/AppIndex'
 import AppFooter from '../components/index/AppFooter'
 import AppSideBar from '../components/index/AppSideBar'
-import AppHeader from '../components/index/headerForToday/AppHeader'
+import AppHeader from '../components/index/Today/AppHeader'
 import AppTask from '../components/task/AppTask'
 import AppLogin from '../components/login/AppLogin'
 import ResetPassword from '../components/utils/ResetPassword'
@@ -33,6 +34,11 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/main',
+      component: mainIndex,
+      meta: { requiresAuth: true }
     },
     {
       path: '/dashboard',

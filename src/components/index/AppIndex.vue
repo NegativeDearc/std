@@ -8,12 +8,9 @@
 </template>
 
 <script>
-import AppHeader from './headerForToday/AppHeader'
-import AppSideBar from '../index/AppSideBar'
 
 export default {
-  name: 'AppIndex',
-  components: { AppSideBar, AppHeader }
+  name: 'AppIndex'
 }
 </script>
 

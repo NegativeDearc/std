@@ -1,6 +1,8 @@
 const state = {
   /* control the navigation drawer */
   IF_DRAWER: false,
+  LEFT_DRAWER: true,
+  RIGHT_DRAWER: true,
   /* control the dark model */
   IS_DARK: localStorage.getItem('darkModel') === 'true',
   /* show completed task */

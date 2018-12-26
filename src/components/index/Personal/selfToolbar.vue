@@ -1,6 +1,7 @@
 <template>
   <v-toolbar
     app
+    prominent
     v-bind:dark="$store.state.IS_DARK"
   >
     <v-toolbar-side-icon></v-toolbar-side-icon>
