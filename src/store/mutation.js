@@ -8,6 +8,10 @@ const mutations = {
     state.LEFT_DRAWER = !state.LEFT_DRAWER
   },
 
+  DRAWER_RIGHT: function (state) {
+    state.RIGHT_DRAWER = !state.RIGHT_DRAWER
+  },
+
   SET_DARK_MODEL: function (state) {
     state.IS_DARK = !state.IS_DARK
     localStorage.setItem('darkModel', state.IS_DARK)
@@ -63,6 +67,9 @@ const mutations = {
   CHANGE_DEFAULT_LANG: function (state, locale) {
     state.DEFAULT_LANG = locale
     localStorage.setItem('LOCALE', locale)
+  },
+  GET_SEPECIFIC_TASK_ID: function (state, id) {
+    state.SPECIFIC_TASK_ID = id
   }
 }
 

@@ -2,7 +2,7 @@ const state = {
   /* control the navigation drawer */
   IF_DRAWER: false,
   LEFT_DRAWER: true,
-  RIGHT_DRAWER: true,
+  RIGHT_DRAWER: false,
   /* control the dark model */
   IS_DARK: localStorage.getItem('darkModel') === 'true',
   /* show completed task */
@@ -56,7 +56,8 @@ const state = {
   LANGUAGE_MENU: [
     { id: 1, locale: 'CN', description: '中文', icon: 'flag-icon flag-icon-cn' },
     { id: 2, locale: 'EN', description: 'English', icon: 'flag-icon flag-icon-us' }
-  ]
+  ],
+  SPECIFIC_TASK_ID: null
 }
 
 export default state

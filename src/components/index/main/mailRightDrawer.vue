@@ -9,8 +9,11 @@
     v-model="$store.state.RIGHT_DRAWER"
   >
     <v-toolbar flat>
-      <v-btn icon v-on:click="">
-        <v-icon color="grey">keyboard_arrow_right</v-icon>
+      <v-btn icon>
+        <v-icon
+          color="grey"
+          v-on:click="$store.commit('DRAWER_RIGHT')"
+        >keyboard_arrow_right</v-icon>
       </v-btn>
     </v-toolbar>
     <div>
@@ -26,12 +29,12 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-text-field
-                v-model="TASK.TASK_TITLE"
+                v-model="TASK.taskTitle"
                 solo
                 flat
                 hide-details
                 required
-                v-bind:disabled="TASK.TASK_IS_DONE"
+                v-bind:disabled="TASK.isDone"
               >
               </v-text-field>
             </v-list-tile-content>
@@ -46,36 +49,27 @@
           </v-list-tile>
           <v-divider></v-divider>
           <v-subheader>{{ $t('loop') }}</v-subheader>
-          <v-list-tile v-bind:disabled="TASK.TASK_IS_DONE">
+          <v-list-tile v-bind:disabled="TASK.isDone">
             <v-text-field
-              v-bind:disabled="TASK.TASK_IS_DONE"
+              v-bind:disabled="TASK.isDone"
               required
-              v-validate="'required'"
-              v-bind:error-messages="errors.collect('loop')"
-              data-vv-name="loop"
               solo
               flat
               hide-details
               readonly
               clearable
               prepend-icon="repeat"
-              v-model="parseCron"
-              v-on:click.native="openCronForm"
+              v-model="loopPicker"
+              v-on:click.native="loopPicker = true"
             ></v-text-field>
             <v-dialog
               full-width
               lazy
               max-width="600px"
-              v-model="cronPicker"
+              v-model="loopPicker"
               persistent
             >
-              <v-card flat>
-                <v-toolbar dark color="green">
-                  <v-btn icon flat v-on:click="cronPicker = !cronPicker"><v-icon>close</v-icon></v-btn>
-                  <v-toolbar-title>{{ $t('choose_date') }}</v-toolbar-title>
-                </v-toolbar>
-                <cronPickerIndex v-on:cron-expression="getCronExpression"></cronPickerIndex>
-              </v-card>
+              <loop-picker></loop-picker>
             </v-dialog>
           </v-list-tile>
 
@@ -86,9 +80,9 @@
               flat
               hide-details
               readonly
-              v-model="TASK.TASK_REMIND_AT"
+              v-model="TASK.remindAt"
               prepend-icon="access_time"
-              v-bind:disabled="TASK.TASK_IS_DONE"
+              v-bind:disabled="TASK.isDone"
               v-on:click.native="timePicker = true"
             ></v-text-field>
             <v-dialog
@@ -111,7 +105,7 @@
           <v-list>
             <v-textarea
               v-bind:placeholder="$t('remark')"
-              v-model="TASK.TASK_REMARK"
+              v-model="TASK.remark"
               auto-grow
               solo
               flat
@@ -136,13 +130,33 @@
 </template>
 
 <script>
+import LoopPicker from '../../utils/rrulePicker/rrulePicker'
+import { eventBus } from '../../../main'
+
 export default {
   name: 'mailRightDrawer',
+  components: {LoopPicker},
   data () {
     return {
       TASK: {},
-      timePicker: null
+      timePicker: null,
+      loopPicker: false
     }
+  },
+  methods: {
+    get_task: function (id) {
+      this.TASK = this.$store.getters.GET_TASK_BY_ID(id)
+    }
+  },
+  mounted: function () {
+    eventBus.$on('show_task_panel', id => {
+      if (!this.$store.state.RIGHT_DRAWER) {
+        this.$store.commit('DRAWER_RIGHT')
+      }
+      console.log(id)
+      this.get_task(id)
+      console.log(this.TASK)
+    })
   }
 }
 </script>
