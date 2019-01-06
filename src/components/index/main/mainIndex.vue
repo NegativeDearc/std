@@ -33,7 +33,7 @@
 
 <script>
 import MainLeftDrawer from './mainLeftDrawer'
-import MailRightDrawer from './mailRightDrawer'
+import MailRightDrawer from './mainRightDrawer'
 import MainItems from './mainItems'
 
 export default {

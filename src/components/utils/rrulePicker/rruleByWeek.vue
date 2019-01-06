@@ -18,7 +18,7 @@
     <v-layout align-end fill-height wrap row>
       <v-flex
         sm1
-        v-for="(item, index) in $store.state.RRULE.weekday"
+        v-for="(item, index) in $store.state.RRULE.weekday.slice(0,5)"
         v-bind:key="item.value"
         v-bind:offset-sm1="index === 0"
       >

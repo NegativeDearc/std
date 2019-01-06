@@ -134,7 +134,7 @@ import LoopPicker from '../../utils/rrulePicker/rrulePicker'
 import { eventBus } from '../../../main'
 
 export default {
-  name: 'mailRightDrawer',
+  name: 'mainRightDrawer',
   components: {LoopPicker},
   data () {
     return {

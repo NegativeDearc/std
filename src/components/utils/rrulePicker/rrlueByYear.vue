@@ -15,7 +15,7 @@
             <v-select
               v-bind:disabled="!select_by_week"
               v-bind:menu-props="{transition:'slide-y-transition'}"
-              v-model="year.BYMONTH"
+              v-model="yearly.BYMONTH"
               hide-details
               solo
               flat
@@ -32,7 +32,7 @@
           <v-select
             v-bind:disabled="!select_by_week"
             v-bind:menu-props="{transition:'slide-y-transition'}"
-            v-model="year.BYMONTHDAY"
+            v-model="yearly.BYMONTHDAY"
             hide-details
             solo
             flat
@@ -58,7 +58,7 @@
           <v-select
             v-bind:disabled="!select_by_day"
             v-bind:menu-props="{transition:'slide-y-transition'}"
-            v-model="year.BYSETPOS"
+            v-model="yearly.BYSETPOS"
             label="nth"
             hide-details
             solo
@@ -73,7 +73,7 @@
           <v-select
             v-bind:disabled="!select_by_day"
             v-bind:menu-props="{transition:'slide-y-transition'}"
-            v-model="year.BYDAY"
+            v-model="yearly.BYDAY"
             label="select weekday"
             hide-details
             solo
@@ -91,7 +91,7 @@
           <v-select
             v-bind:disabled="!select_by_day"
             v-bind:menu-props="{transition:'slide-y-transition'}"
-            v-model="year.BYMONTH"
+            v-model="yearly.BYMONTH"
             label="which month"
             hide-details
             solo
@@ -106,12 +106,15 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   name: 'rrlueByYear',
   data () {
     return {
-      'default_select': false,
-      'year': {
+      default_select: false,
+      yearly: {
+        'FREQ': 'YEARLY',
         'BYSETPOS': '1',
         'BYDAY': 'MO',
         'BYMONTH': '1',
@@ -138,9 +141,15 @@ export default {
     }
   },
   watch: {
-    year: {
+    yearly: {
       handler: function () {
-        if (this.default_select) {} else {}
+        if (this.default_select) {
+          let yearlyRule = _.pick(this.yearly, ['FREQ', 'BYMONTH', 'BYMONTHDAY'])
+          console.log(yearlyRule)
+        } else {
+          let yearlyRule = _.pick(this.yearly, ['FREQ', 'BYMONTH', 'BYSETPOS', 'BYDAY'])
+          console.log(yearlyRule)
+        }
       },
       deep: true,
       immediate: true

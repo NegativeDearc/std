@@ -60,6 +60,8 @@ module.exports = {
     no_event: 'No Event',
     holiday_model: 'Holiday Model',
     holiday_modal_description: 'Run away, run away',
-    delete: 'DELETE'
+    delete: 'DELETE',
+    this_week: 'This Week',
+    expired_task: 'Expired'
   }
 }

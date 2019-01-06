@@ -79,7 +79,10 @@ const state = {
       {'value': 'TH', 'text': 'Thu'},
       {'value': 'FR', 'text': 'Fri'},
       {'value': 'SA', 'text': 'Sat'},
-      {'value': 'SU', 'text': 'Sun'}
+      {'value': 'SU', 'text': 'Sun'},
+      {'value': 'MO,TU,WE,TH,FR,SA,SU', 'text': 'Day'},
+      {'value': 'MO,TU,WE,TH,FR', 'text': 'Weekday'},
+      {'value': 'SA,SU', 'text': 'Weekend day'}
     ],
     day: [
       {'value': '1', 'text': '1'},

@@ -60,6 +60,8 @@ module.exports = {
     no_event: '无事件',
     holiday_model: '假期模式',
     holiday_modal_description: '逃跑吧，懦夫！',
-    delete: '删除'
+    delete: '删除',
+    this_week: '本周',
+    expired_task: '过期'
   }
 }

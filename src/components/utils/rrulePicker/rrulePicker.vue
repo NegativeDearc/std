@@ -8,7 +8,7 @@
         <span class="subheading">Recurrence Rules Picker(RRP)</span>
       </v-toolbar-title>
     </v-toolbar>
-    <v-cart-text>
+    <v-card flat>
       <v-card flat>
         <v-container fluid>
           <v-layout align-center justify-start row fill-height>
@@ -87,7 +87,7 @@
           </v-layout>
         </v-container>
       </v-card>
-    </v-cart-text>
+    </v-card>
     <v-card-actions></v-card-actions>
   </v-card>
 </template>

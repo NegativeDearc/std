@@ -32,9 +32,19 @@
         </v-container>
         <v-list-tile>
           <v-list-tile-action>
+            <v-icon color="red">info</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>{{ $t('expired_task') }}</v-list-tile-title>
+          <v-list-tile-action>
+            <v-subheader>11</v-subheader>
+          </v-list-tile-action>
+        </v-list-tile>
+
+        <v-list-tile>
+          <v-list-tile-action>
             <v-icon color="yellow">wb_sunny</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title>{{ $t('today') }}</v-list-tile-title>
+          <v-list-tile-title>{{ $t('this_week') }}</v-list-tile-title>
           <v-list-tile-action>
             <v-subheader>11</v-subheader>
           </v-list-tile-action>

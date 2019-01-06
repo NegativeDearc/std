@@ -89,6 +89,13 @@ export default {
   name: 'rruleByMonth',
   data () {
     return {
+      monthly: {
+        FREQ: 'MONTHLY',
+        INTERVAL: '1',
+        BYSETPOS: '',
+        BYDAY: '',
+        BYMONTHDAY: ''
+      }
     }
   }
 }
