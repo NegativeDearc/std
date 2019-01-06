@@ -65,15 +65,15 @@
             <v-dialog
               full-width
               lazy
-              max-width="600px"
+              max-width="1024px"
               v-model="loopPicker"
-              persistent
             >
               <loop-picker></loop-picker>
             </v-dialog>
           </v-list-tile>
 
-          <v-list-tile v-bind:disabled="TASK.TASK_IS_DONE">
+          <v-list-tile v-bind:disabled="TASK.isDone"
+          >
             <v-text-field
               clearable
               solo

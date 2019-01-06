@@ -1,6 +1,7 @@
 <template>
   <v-toolbar
     app
+    prominent
   >
     <v-toolbar-side-icon v-on:click.stop="$store.commit('UNDRAWER')"></v-toolbar-side-icon>
     <v-autocomplete
