@@ -7,7 +7,6 @@
             label="On day"
             v-model="select_by_day"
             v-on:change="emitMonthlyRules"
-            v-bind:disabled="select_by_weekday"
           ></v-checkbox>
         </div>
       </v-flex>
@@ -37,7 +36,6 @@
             label="On the"
             v-model="select_by_weekday"
             v-on:change="emitMonthlyRules"
-            v-bind:disabled="select_by_day"
           ></v-checkbox>
         </div>
       </v-flex>
@@ -141,7 +139,8 @@ export default {
       handler: function () {
         this.emitMonthlyRules()
       },
-      immediate: true
+      immediate: true,
+      deep: true
     }
   },
   methods: {
