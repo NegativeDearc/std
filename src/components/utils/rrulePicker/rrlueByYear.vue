@@ -6,6 +6,7 @@
           <v-checkbox
             v-model="select_by_week"
             label="On"
+            v-on:change="emitYearlyRules"
           ></v-checkbox>
         </div>
       </v-flex>
@@ -50,6 +51,7 @@
           <v-checkbox
             v-model="select_by_day"
             label="On the"
+            v-on:change="emitYearlyRules"
           ></v-checkbox>
         </div>
       </v-flex>
@@ -114,11 +116,11 @@ export default {
     return {
       default_select: false,
       yearly: {
-        'FREQ': 'YEARLY',
-        'BYSETPOS': '1',
-        'BYDAY': 'MO',
-        'BYMONTH': '1',
-        'BYMONTHDAY': '1'
+        FREQ: 'YEARLY',
+        BYSETPOS: '1',
+        BYDAY: 'MO',
+        BYMONTH: '1',
+        BYMONTHDAY: '1'
       }
     }
   },
@@ -143,16 +145,21 @@ export default {
   watch: {
     yearly: {
       handler: function () {
-        if (this.default_select) {
-          let yearlyRule = _.pick(this.yearly, ['FREQ', 'BYMONTH', 'BYMONTHDAY'])
-          console.log(yearlyRule)
-        } else {
-          let yearlyRule = _.pick(this.yearly, ['FREQ', 'BYMONTH', 'BYSETPOS', 'BYDAY'])
-          console.log(yearlyRule)
-        }
+        this.emitYearlyRules()
       },
       deep: true,
       immediate: true
+    }
+  },
+  methods: {
+    emitYearlyRules: function () {
+      let yearlyRule
+      if (this.default_select) {
+        yearlyRule = _.pick(this.yearly, ['FREQ', 'BYMONTH', 'BYMONTHDAY'])
+      } else {
+        yearlyRule = _.pick(this.yearly, ['FREQ', 'BYMONTH', 'BYSETPOS', 'BYDAY'])
+      }
+      this.$store.commit('CHANGE_RRULE_STRINGS', yearlyRule)
     }
   }
 }

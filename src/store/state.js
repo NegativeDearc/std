@@ -131,6 +131,10 @@ const state = {
       {'value': '11', 'text': 'November'},
       {'value': '12', 'text': 'December'}
     ]
+  },
+  RRULE_STRING: {
+    LOOP: {},
+    END: {}
   }
 }
 

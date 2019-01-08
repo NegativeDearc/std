@@ -1,3 +1,5 @@
+import { rrulestr } from 'rrule'
+
 const mutations = {
   /* control the drawer by click function */
   UNDRAWER: function (state) {
@@ -70,6 +72,22 @@ const mutations = {
   },
   GET_SEPECIFIC_TASK_ID: function (state, id) {
     state.SPECIFIC_TASK_ID = id
+  },
+  /* rrule */
+  CHANGE_RRULE_STRINGS: function (state, string) {
+    state.RRULE_STRING.LOOP = string
+  },
+  ADD_RRULE_END: function (state, data) {
+    switch (data.type) {
+      case 'count':
+        state.RRULE_STRING.END = { COUNT: data.value }
+        break
+      case 'until':
+        state.RRULE_STRING.END = { UNTIL: data.value }
+    }
+  },
+  REMOVE_RRULE_END: function (state) {
+    state.RRULE_STRING.END = {}
   }
 }
 
