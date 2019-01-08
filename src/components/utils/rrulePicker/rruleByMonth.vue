@@ -5,6 +5,9 @@
         <div>
           <v-checkbox
             label="On day"
+            v-model="select_by_day"
+            v-on:change="emitMonthlyRules"
+            v-bind:disabled="select_by_weekday"
           ></v-checkbox>
         </div>
       </v-flex>
@@ -18,7 +21,10 @@
               solo
               flat
               single-line
+              v-model="monthly.BYMONTHDAY"
               v-bind:items="$store.state.RRULE.day"
+              v-on:change="emitMonthlyRules"
+              v-bind:disabled="select_by_weekday"
             ></v-select>
           </v-list-tile>
         </v-list>
@@ -29,6 +35,9 @@
         <div>
           <v-checkbox
             label="On the"
+            v-model="select_by_weekday"
+            v-on:change="emitMonthlyRules"
+            v-bind:disabled="select_by_day"
           ></v-checkbox>
         </div>
       </v-flex>
@@ -42,7 +51,10 @@
               solo
               flat
               single-line
+              v-model="monthly.BYSETPOS"
               v-bind:items="$store.state.RRULE.week"
+              v-on:change="emitMonthlyRules"
+              v-bind:disabled="select_by_day"
             ></v-select>
           </v-list-tile>
         </v-list>
@@ -57,7 +69,10 @@
               solo
               flat
               single-line
+              v-model="monthly.BYDAY"
               v-bind:items="$store.state.RRULE.weekday"
+              v-on:change="emitMonthlyRules"
+              v-bind:disabled="select_by_day"
             ></v-select>
           </v-list-tile>
         </v-list>
@@ -70,9 +85,11 @@
       </v-flex>
       <v-flex sm2>
         <v-text-field
+          v-model="monthly.INTERVAL"
           mask="##"
           hide-details
           single-line
+          v-on:input="emitMonthlyRules"
         ></v-text-field>
       </v-flex>
       <v-flex sm1>
@@ -85,17 +102,57 @@
 </template>
 
 <script>
+import _ from 'lodash'
+
 export default {
   name: 'rruleByMonth',
+  computed: {
+    select_by_day: {
+      get: function () {
+        return !this.default_select
+      },
+      set: function () {
+        this.default_select = !this.default_select
+      }
+    },
+    select_by_weekday: {
+      get: function () {
+        return this.default_select
+      },
+      set: function () {
+        this.default_select = !this.default_select
+      }
+    }
+  },
   data () {
     return {
+      default_select: false,
       monthly: {
         FREQ: 'MONTHLY',
         INTERVAL: '1',
-        BYSETPOS: '',
-        BYDAY: '',
-        BYMONTHDAY: ''
+        BYSETPOS: '1',
+        BYDAY: 'MO',
+        BYMONTHDAY: '1'
       }
+    }
+  },
+  watch: {
+    monthly: {
+      handler: function () {
+        this.emitMonthlyRules()
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    emitMonthlyRules: function () {
+      let monthlyRule
+      if (!this.default_select) {
+        monthlyRule = _.pick(this.monthly, ['FREQ', 'INTERVAL', 'BYMONTHDAY'])
+      } else {
+        monthlyRule = _.pick(this.monthly, ['FREQ', 'INTERVAL', 'BYSETPOS', 'BYDAY'])
+      }
+      this.$store.commit('CHANGE_RRULE_STRINGS', monthlyRule)
     }
   }
 }
