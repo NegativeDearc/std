@@ -69,7 +69,6 @@ export default {
   },
   methods: {
     show_task_panel: function (id) {
-      console.log(id)
       eventBus.$emit('show_task_panel', id)
     }
   },

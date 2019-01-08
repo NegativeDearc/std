@@ -130,6 +130,9 @@ import rrlueByYear from './rrlueByYear'
 
 export default {
   name: 'rrluePicker',
+  props: {
+    value: ''
+  },
   computed: {
     currentView: function () {
       switch (this.frequency) {
@@ -167,7 +170,11 @@ export default {
             this.$store.commit('ADD_RRULE_END', { type: 'until', value: new Date(this.date).toISOString() })
           }
       }
+      this.$emit('')
     }
+  },
+  mounted: function () {
+
   }
 }
 </script>

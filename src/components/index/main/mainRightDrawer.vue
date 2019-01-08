@@ -59,7 +59,7 @@
               readonly
               clearable
               prepend-icon="repeat"
-              v-model="loopPicker"
+              v-model="rrule"
               v-on:click.native="loopPicker = true"
             ></v-text-field>
             <v-dialog
@@ -68,7 +68,7 @@
               max-width="1024px"
               v-model="loopPicker"
             >
-              <loop-picker></loop-picker>
+              <loop-picker v-model="rrule"></loop-picker>
             </v-dialog>
           </v-list-tile>
 
@@ -138,6 +138,7 @@ export default {
   components: {LoopPicker},
   data () {
     return {
+      rrule: {},
       TASK: {},
       timePicker: null,
       loopPicker: false
@@ -153,9 +154,7 @@ export default {
       if (!this.$store.state.RIGHT_DRAWER) {
         this.$store.commit('DRAWER_RIGHT')
       }
-      console.log(id)
       this.get_task(id)
-      console.log(this.TASK)
     })
   }
 }
