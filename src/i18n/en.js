@@ -62,6 +62,7 @@ module.exports = {
     holiday_modal_description: 'Run away, run away',
     delete: 'DELETE',
     this_week: 'This Week',
-    expired_task: 'Expired'
+    expired_task: 'Expired',
+    finished: 'Finished'
   }
 }

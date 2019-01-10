@@ -13,6 +13,11 @@ import ResetPassword from '../components/utils/ResetPassword'
 import dashboardIndex from '../components/dashboard/dashboardIndex'
 import cronPickerIndex from '../components/experiment/cronPicker/cronPickerIndex'
 import labIndex from '../components/experiment/labIndex'
+import mainLeftDrawer from '../components/index/main/mainLeftDrawer'
+import mainItems from '../components/index/main/mainItems'
+import mainRightDrawer from '../components/index/main/mainRightDrawer'
+import mainSettings from '../components/index/main/mainSettings'
+import mainTeams from '../components/index/main/mainTeams'
 import NProgress from 'nprogress'
 
 NProgress.inc(0.2)
@@ -36,8 +41,20 @@ const router = new Router({
       }
     },
     {
-      path: '/main',
+      path: '/v2',
       component: mainIndex,
+      children: [
+        { path: '/v2', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true, keepAlive: false } },
+        { path: '/v2/expired', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true, keepAlive: false }, name: 'expired' },
+        { path: '/v2/this_week', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true, keepAlive: false }, name: 'thisWeek' },
+        { path: '/v2/later', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true, keepAlive: false }, name: 'later' },
+        { path: '/v2/finished', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true, keepAlive: false }, name: 'finished' },
+        { path: '/v2/private', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true }, name: 'private' },
+        { path: '/v2/favorite', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true }, name: 'favorite' },
+        { path: '/v2/settings', components: { left: mainLeftDrawer, main: mainSettings, right: '' }, meta: { requiresAuth: true } },
+        { path: '/v2/teams', components: { left: mainLeftDrawer, main: mainTeams, right: '' }, meta: { requiresAuth: true } },
+        { path: '/v2/dashboard', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true } }
+      ],
       meta: { requiresAuth: true }
     },
     {

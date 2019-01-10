@@ -25,41 +25,59 @@
         </v-card>
         <v-divider></v-divider>
         <v-container>
-          <v-avatar size="60">
-            <v-img src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairBun&accessoriesType=Wayfarers&hairColor=Red&facialHairType=MoustacheFancy&facialHairColor=BlondeGolden&clotheType=ShirtCrewNeck&clotheColor=PastelYellow&eyeType=Squint&eyebrowType=UnibrowNatural&mouthType=Grimace&skinColor=Tanned"></v-img>
-          </v-avatar>
-          <div class="body-1 pt-1"><p>{{ $store.state.USER.USER_NAME }}</p></div>
+          <v-layout column>
+            <v-flex>
+              <div class="grey--text subheading font-weight-thin">{{ new Date() | moment('YYYY') }}</div>
+            </v-flex>
+            <v-flex>
+              <div class="blue--text display-3 font-weight-black">{{ new Date()| moment('DD') }}</div>
+            </v-flex>
+            <v-flex>
+              <div class="grey--text body-2">{{ new Date()| moment('MMMM, ddd, WW') }}</div>
+            </v-flex>
+          </v-layout>
         </v-container>
-        <v-list-tile>
+        <v-list-tile
+          to="/v2/expired"
+          v-if="$store.getters.GET_EXPIRED_TASKS_COUNT"
+        >
           <v-list-tile-action>
             <v-icon color="red">info</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>{{ $t('expired_task') }}</v-list-tile-title>
           <v-list-tile-action>
-            <v-subheader>11</v-subheader>
+            <v-subheader>{{ $store.getters.GET_EXPIRED_TASKS_COUNT }}</v-subheader>
           </v-list-tile-action>
         </v-list-tile>
 
-        <v-list-tile>
+        <v-list-tile to="/v2/this_week">
           <v-list-tile-action>
             <v-icon color="yellow">wb_sunny</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>{{ $t('this_week') }}</v-list-tile-title>
           <v-list-tile-action>
-            <v-subheader>11</v-subheader>
+            <v-subheader>{{ $store.getters.GET_THIS_WEEK_TASKS_COUNT }}</v-subheader>
           </v-list-tile-action>
         </v-list-tile>
-
-        <v-list-tile>
+        <v-list-tile to="/v2/later">
           <v-list-tile-action>
             <v-icon color="orange">watch_later</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>{{ $t('further') }}</v-list-tile-title>
           <v-list-tile-action>
-            <v-subheader>22</v-subheader>
+            <v-subheader>{{ $store.getters.GET_TASKS_LATER_COUNT }}</v-subheader>
           </v-list-tile-action>
         </v-list-tile>
-        <v-list-tile>
+        <v-list-tile to="/v2/finished">
+          <v-list-tile-action>
+            <v-icon color="cyan">assignment_turned_in</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>{{ $t('finished') }}</v-list-tile-title>
+          <v-list-tile-action>
+            <v-subheader>{{ $store.getters.GET_TASKS_LATER_COUNT }}</v-subheader>
+          </v-list-tile-action>
+        </v-list-tile>
+        <v-list-tile to="/v2/private">
           <v-list-tile-action>
             <v-icon color="grey">lock</v-icon>
           </v-list-tile-action>
@@ -69,7 +87,7 @@
           </v-list-tile-action>
         </v-list-tile>
         <v-divider></v-divider>
-        <v-list-tile v-on:click="console.log(111)">
+        <v-list-tile to="/v2/favorite">
           <v-list-tile-action>
             <v-icon color="pink">favorite</v-icon>
           </v-list-tile-action>
@@ -79,19 +97,19 @@
           </v-list-tile-action>
         </v-list-tile>
         <v-divider></v-divider>
-        <v-list-tile v-on:click="console.log(111)">
-          <v-list-tile-action>
-            <v-icon color="green">dashboard</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>{{ $t('dashboard') }}</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-on:click="console.log(111)">
+        <v-list-tile to="/v2/teams">
           <v-list-tile-action>
             <v-icon color="purple">mdi-account-multiple</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>{{ $t('team_status') }}</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile v-on:click="console.log(111)">
+        <v-list-tile to="/v2/dashboard">
+          <v-list-tile-action>
+            <v-icon color="green">dashboard</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-title>{{ $t('dashboard') }}</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile to="/v2/settings">
           <v-list-tile-action>
             <v-icon color="indigo">settings</v-icon>
           </v-list-tile-action>

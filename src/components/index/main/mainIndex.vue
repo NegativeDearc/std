@@ -9,6 +9,9 @@
         v-on:click="$store.commit('UNDRAWER_LEFT')"
       ></v-toolbar-side-icon>
       <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>add</v-icon>
+      </v-btn>
       <v-menu v-bind:nudge-width="100">
         <v-btn icon slot="activator">
           <v-icon>more_vert</v-icon>
@@ -23,11 +26,9 @@
         </v-list>
       </v-menu>
     </v-toolbar>
-    <main-left-drawer></main-left-drawer>
-    <mail-right-drawer></mail-right-drawer>
-    <v-content app>
-      <main-items></main-items>
-    </v-content>
+    <router-view name="left"></router-view>
+    <router-view name="main"></router-view>
+    <router-view name="right"></router-view>
   </v-app>
 </template>
 

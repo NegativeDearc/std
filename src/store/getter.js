@@ -1,3 +1,6 @@
+import _ from 'lodash'
+import moment from 'moment'
+
 const getters = {
   /**
    * @return {string}
@@ -81,6 +84,45 @@ const getters = {
 
   GET_DEFAULT_LANG: function (state) {
     return state.DEFAULT_LANG
+  },
+  GET_EXPIRED_TASKS: function (state) {
+    return state.TASKS.filter(todo => todo.isDone === false && new Date(todo.nextLoopAt).getTime() < _.now())
+  },
+  /**
+   * @return {number/null}
+   */
+  GET_EXPIRED_TASKS_COUNT: function (state, getters) {
+    let task = getters.GET_EXPIRED_TASKS
+    if (task.length !== 0) { return task.length } else { return null }
+  },
+  GET_THIS_WEEK_TASKS: function (state) {
+    let thisWeekStartDate = moment().startOf('isoWeek')
+    let thisWeekStopDate = moment().endOf('isoWeek')
+    return state.TASKS.filter(todo => moment(todo.nextLoopAt).isBetween(thisWeekStartDate, thisWeekStopDate) && todo.isDone === false)
+  },
+  /**
+   * @return {number}
+   */
+  GET_THIS_WEEK_TASKS_COUNT: function (state, getters) {
+    let count
+    (getters.GET_THIS_WEEK_TASKS.length === 0)
+      ? count = null
+      : count = getters.GET_THIS_WEEK_TASKS.length
+    return count
+  },
+  GET_TASKS_LATER: function (state) {
+    let thisWeekStopDate = moment().endOf('isoWeek')
+    return state.TASKS.filter(todo => moment(todo.nextLoopAt) > thisWeekStopDate && todo.isDone === false)
+  },
+  /**
+   * @return {number}
+   */
+  GET_TASKS_LATER_COUNT: function (state, getters) {
+    let count
+    (getters.GET_TASKS_LATER.length === 0)
+      ? count = null
+      : count = getters.GET_TASKS_LATER.length
+    return count
   }
 }
 

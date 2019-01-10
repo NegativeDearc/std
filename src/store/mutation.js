@@ -1,5 +1,3 @@
-import { rrulestr } from 'rrule'
-
 const mutations = {
   /* control the drawer by click function */
   UNDRAWER: function (state) {

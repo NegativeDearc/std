@@ -62,6 +62,7 @@ module.exports = {
     holiday_modal_description: '逃跑吧，懦夫！',
     delete: '删除',
     this_week: '本周',
-    expired_task: '过期'
+    expired_task: '过期',
+    finished: '已完成'
   }
 }

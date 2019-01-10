@@ -87,13 +87,13 @@
             ></v-text-field>
             <v-dialog
               v-model="timePicker"
-              v-bind:return-value="TASK.TASK_REMIND_AT"
+              v-bind:return-value="TASK.remindAt"
               full-width
               lazy
               width="470px"
             >
               <v-time-picker
-                v-model="TASK.TASK_REMIND_AT"
+                v-model="TASK.remindAt"
                 color="green"
                 scrollable
                 full-width
