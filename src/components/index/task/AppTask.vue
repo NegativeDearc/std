@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import AppTaskContent from '../task/AppTaskContent'
-import AppTaskFooter from '../task/AppTaskFooter'
+import AppTaskContent from './AppTaskContent'
+import AppTaskFooter from './AppTaskFooter'
 
 export default {
   name: 'AppTask',

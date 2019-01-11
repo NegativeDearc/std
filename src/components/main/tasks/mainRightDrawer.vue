@@ -11,9 +11,17 @@
     <v-toolbar flat>
       <v-btn icon>
         <v-icon
-          color="grey"
           v-on:click="$store.commit('DRAWER_RIGHT')"
         >keyboard_arrow_right</v-icon>
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn
+        flat
+        outline
+        color="green"
+        depressed
+      >
+        {{ $t('update') }}
       </v-btn>
     </v-toolbar>
     <div>
@@ -21,15 +29,10 @@
         <v-list>
           <v-subheader>{{ $t('task') }}</v-subheader>
           <v-list-tile>
-            <v-list-tile-action>
-              <v-checkbox
-                on-icon="check_circle_outline"
-                off-icon="panorama_fish_eye"
-              ></v-checkbox>
-            </v-list-tile-action>
             <v-list-tile-content>
               <v-text-field
                 v-model="TASK.taskTitle"
+                v-bind:placeholder="$t('task')"
                 solo
                 flat
                 hide-details
@@ -45,6 +48,22 @@
                 off-icon="star_border"
               >
               </v-checkbox>
+            </v-list-tile-action>
+          </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-content>
+              <v-text-field
+                v-model="TASK.taskDescription"
+                v-bind:placeholder="$t('task_description')"
+                solo
+                flat
+                hide-details
+                required
+                v-bind:disabled="TASK.isDone"
+              >
+              </v-text-field>
+            </v-list-tile-content>
+            <v-list-tile-action>
             </v-list-tile-action>
           </v-list-tile>
           <v-divider></v-divider>
@@ -75,6 +94,7 @@
           <v-list-tile v-bind:disabled="TASK.isDone"
           >
             <v-text-field
+              type="time"
               clearable
               solo
               flat
@@ -130,7 +150,8 @@
 </template>
 
 <script>
-import LoopPicker from '../../utils/rrulePicker/rrulePicker'
+// import LoopPicker from '../../utils/rrulePicker/rrulePicker'
+import LoopPicker from '../../utils/cronPicker/cronPickerIndex'
 import { eventBus } from '../../../main'
 
 export default {

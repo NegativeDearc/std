@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import AppTaskDelete from '../task/AppTaskDelete'
+import AppTaskDelete from './AppTaskDelete'
 
 export default {
   name: 'AppTaskFooter',

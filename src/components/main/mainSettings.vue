@@ -51,24 +51,6 @@
         <v-divider flat></v-divider>
         <v-list-tile>
           <v-list-tile-action>
-            <v-icon color="green">visibility</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>{{ $t('show_finish') }}</v-list-tile-title>
-            <v-list-tile-sub-title>{{ $t('show_finish_description') }}</v-list-tile-sub-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-switch
-              color="green"
-              v-bind:input-value="$store.state.SHOW_ALL"
-              v-on:change="showAll"
-            ></v-switch>
-          </v-list-tile-action>
-
-        </v-list-tile>
-        <v-divider flat></v-divider>
-        <v-list-tile>
-          <v-list-tile-action>
             <v-icon color="blue">looks_one</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
@@ -103,13 +85,8 @@
             <v-list-tile-sub-title>{{ $t('holiday_modal_description') }}</v-list-tile-sub-title>
           </v-list-tile-content>
           <v-list-tile-action>
-            <v-switch
-              color="red"
-              v-on:change="changeHolidayModel"
-            ></v-switch>
           </v-list-tile-action>
         </v-list-tile>
-
       </v-list>
     </v-container>
   </v-content>
@@ -118,6 +95,11 @@
 <script>
 export default {
   name: 'mainSettings',
+  data () {
+    return {
+
+    }
+  },
   methods: {
     showAll: function () {
       this.$store.commit('HIDE_NOT_DONE_TASK')

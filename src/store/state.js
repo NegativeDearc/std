@@ -13,8 +13,10 @@ const state = {
     USER_NAME: null || localStorage.getItem('userName'),
     USER_GROUP: null || localStorage.getItem('userName')
   },
-  /* tasks for specific user when entered today */
+  // the whole task collections
   TASKS: [],
+  // the specific task collections
+  TASK: [],
   USER_DASH: [],
   EMPLOYEE_DASH: [],
   TASK_TAGS: ['质量', '成本', '交付', '效率', '安全', '员工', '其他'],
@@ -41,16 +43,6 @@ const state = {
     DAY_OF_MONTH: '',
     MONTH: '',
     DAY_OF_WEEK: []
-  },
-  TASK: {
-    TASK_TITLE: null,
-    TASK_DESCRIPTION: null,
-    TASK_CRON_EXPRESSION: null,
-    TASK_CRON_EXPRESSION_DESCRIPTION: null,
-    TASK_NEXT_LOOP_AT: null,
-    TASK_REMIND_AT: null,
-    TASK_IS_DONE: null,
-    TASK_IS_LOOP: null
   },
   DEFAULT_LANG: localStorage.getItem('LOCALE') || 'CN',
   LANGUAGE_MENU: [

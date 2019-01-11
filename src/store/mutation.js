@@ -71,6 +71,9 @@ const mutations = {
   GET_SEPECIFIC_TASK_ID: function (state, id) {
     state.SPECIFIC_TASK_ID = id
   },
+  CHANGE_TASK: function (state, task) {
+    state.TASK = task
+  },
   /* rrule */
   CHANGE_RRULE_STRINGS: function (state, string) {
     state.RRULE_STRING.LOOP = string

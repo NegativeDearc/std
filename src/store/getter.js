@@ -112,7 +112,7 @@ const getters = {
   },
   GET_TASKS_LATER: function (state) {
     let thisWeekStopDate = moment().endOf('isoWeek')
-    return state.TASKS.filter(todo => moment(todo.nextLoopAt) > thisWeekStopDate && todo.isDone === false)
+    return state.TASKS.filter(todo => moment(todo.nextLoopAt) >= thisWeekStopDate && todo.isDone === false)
   },
   /**
    * @return {number}
@@ -122,6 +122,19 @@ const getters = {
     (getters.GET_TASKS_LATER.length === 0)
       ? count = null
       : count = getters.GET_TASKS_LATER.length
+    return count
+  },
+  GET_TASKS_FINISHED: function (state) {
+    return state.TASKS.filter(todo => todo.isDone === true).reverse()
+  },
+  /**
+   * @return {number}
+   */
+  GET_TASKS_FINISHED_COUNT: function (state, getters) {
+    let count
+    (getters.GET_TASKS_FINISHED.length === 0)
+      ? count = null
+      : count = getters.GET_TASKS_FINISHED.length
     return count
   }
 }

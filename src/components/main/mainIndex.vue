@@ -33,9 +33,9 @@
 </template>
 
 <script>
-import MainLeftDrawer from './mainLeftDrawer'
-import MailRightDrawer from './mainRightDrawer'
-import MainItems from './mainItems'
+import MainLeftDrawer from './tasks/mainLeftDrawer'
+import MailRightDrawer from './tasks/mainRightDrawer'
+import MainItems from './tasks/mainItems'
 
 export default {
   name: 'mainContent',

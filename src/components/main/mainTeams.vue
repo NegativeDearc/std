@@ -102,8 +102,14 @@
         </v-layout>
       </v-card-text>
       <div style="flex: 1 1 auto;"></div>
-      <v-footer>
-        <v-btn block depressed dark v-on:click="logout">
+      <v-footer
+        card
+        inset
+        fixed
+        height="auto"
+      >
+        <v-spacer></v-spacer>
+        <v-btn round flat v-on:click="logout">
           <v-icon>power_settings_new</v-icon>
           &nbsp;{{ $t('logout') }}
         </v-btn>
@@ -138,6 +144,9 @@ export default {
         return new Date(date).getTime() - 480 * 60000
       }
     }
+  },
+  mounted: function () {
+    this.getUserDash()
   }
 }
 </script>
