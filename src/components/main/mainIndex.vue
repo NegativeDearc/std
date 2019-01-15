@@ -8,10 +8,17 @@
       <v-toolbar-side-icon
         v-on:click="$store.commit('UNDRAWER_LEFT')"
       ></v-toolbar-side-icon>
-      <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>add</v-icon>
-      </v-btn>
+      <v-text-field
+        append-icon="keyboard_return"
+        solo
+        flat
+        single-line
+        hide-details
+        v-model="taskTitle"
+        placeholder="Type anything to do..."
+        v-on:keyup.enter="newTask"
+      >
+      </v-text-field>
       <v-menu v-bind:nudge-width="100">
         <v-btn icon slot="activator">
           <v-icon>more_vert</v-icon>
@@ -39,7 +46,19 @@ import MainItems from './tasks/mainItems'
 
 export default {
   name: 'mainContent',
-  components: {MainItems, MailRightDrawer, MainLeftDrawer}
+  components: {MainItems, MailRightDrawer, MainLeftDrawer},
+  data () {
+    return {
+      taskTitle: null
+    }
+  },
+  methods: {
+    newTask: function () {
+      console.log(this.taskTitle)
+      this.$store.dispatch('CREATE_NEW_TASK', { taskTitle: this.taskTitle })
+        .then(() => Object.assign(this.$data, this.$options.data()))
+    }
+  }
 }
 </script>
 

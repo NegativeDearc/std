@@ -94,7 +94,7 @@
           <v-list-tile v-bind:disabled="TASK.isDone"
           >
             <v-text-field
-              type="time"
+              type="time-with-seconds"
               clearable
               solo
               flat
@@ -141,7 +141,13 @@
       height="auto"
     >
       <v-spacer></v-spacer>
-      <v-btn flat depressed round color="error">
+      <v-btn
+        flat
+        depressed
+        round
+        color="error"
+        v-on:click="deleteTask"
+      >
         {{ $t('delete') }}
       </v-btn>
       <v-spacer></v-spacer>
@@ -168,11 +174,19 @@ export default {
   methods: {
     get_task: function (id) {
       this.TASK = this.$store.getters.GET_TASK_BY_ID(id)
+    },
+    deleteTask: function () {
+      this.$store.dispatch('UPDATE_AFTER_DELETE', this.TASK.id)
+        .then(() => {
+          if (this.$store.state.RIGHT_DRAWER === true) {
+            this.$store.commit('DRAWER_RIGHT')
+          }
+        })
     }
   },
   mounted: function () {
     eventBus.$on('show_task_panel', id => {
-      if (!this.$store.state.RIGHT_DRAWER) {
+      if (this.$store.state.RIGHT_DRAWER === false) {
         this.$store.commit('DRAWER_RIGHT')
       }
       this.get_task(id)

@@ -7,6 +7,7 @@
       v-model="selected_date"
       reactive
       color="primary"
+      show-week
       v-bind:events="custom_events"
     >
       <v-btn

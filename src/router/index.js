@@ -15,6 +15,8 @@ import cronPickerIndex from '../components/experiment/cronPicker/cronPickerIndex
 import labIndex from '../components/experiment/labIndex'
 import mainLeftDrawer from '../components/main/tasks/mainLeftDrawer'
 import mainItems from '../components/main/tasks/mainItems'
+import VSelfIndex from '../components/main/private/selfIndex'
+import V2Dashboard from '../components/main/dash/dashboardIndex'
 import mainRightDrawer from '../components/main/tasks/mainRightDrawer'
 import mainSettings from '../components/main/mainSettings'
 import mainTeams from '../components/main/mainTeams'
@@ -44,16 +46,16 @@ const router = new Router({
       path: '/v2',
       component: mainIndex,
       children: [
-        { path: '/v2', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true, keepAlive: false } },
+        { path: '/v2', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true, keepAlive: false }, name: 'root' },
         { path: '/v2/expired', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true, keepAlive: false }, name: 'expired' },
         { path: '/v2/this_week', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true, keepAlive: false }, name: 'thisWeek' },
         { path: '/v2/later', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true, keepAlive: false }, name: 'later' },
         { path: '/v2/finished', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true, keepAlive: false }, name: 'finished' },
-        { path: '/v2/private', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true }, name: 'private' },
+        { path: '/v2/private', components: { left: mainLeftDrawer, main: VSelfIndex, right: '' }, meta: { requiresAuth: true }, name: 'private' },
         { path: '/v2/favorite', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true }, name: 'favorite' },
         { path: '/v2/settings', components: { left: mainLeftDrawer, main: mainSettings, right: '' }, meta: { requiresAuth: true } },
         { path: '/v2/teams', components: { left: mainLeftDrawer, main: mainTeams, right: '' }, meta: { requiresAuth: true } },
-        { path: '/v2/dashboard', components: { left: mainLeftDrawer, main: mainItems, right: mainRightDrawer }, meta: { requiresAuth: true } }
+        { path: '/v2/dashboard', components: { left: mainLeftDrawer, main: V2Dashboard, right: '' }, meta: { requiresAuth: true } }
       ],
       meta: { requiresAuth: true }
     },

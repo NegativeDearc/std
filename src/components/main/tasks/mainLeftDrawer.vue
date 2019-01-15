@@ -39,7 +39,6 @@
         </v-container>
         <v-list-tile
           to="/v2/expired"
-          v-if="$store.getters.GET_EXPIRED_TASKS_COUNT"
         >
           <v-list-tile-action>
             <v-icon color="red">info</v-icon>
@@ -52,7 +51,6 @@
 
         <v-list-tile
           to="/v2/this_week"
-          v-if="$store.getters.GET_THIS_WEEK_TASKS_COUNT"
         >
           <v-list-tile-action>
             <v-icon color="yellow">wb_sunny</v-icon>
@@ -86,7 +84,7 @@
           </v-list-tile-action>
           <v-list-tile-title>私人空间</v-list-tile-title>
           <v-list-tile-action>
-            <v-subheader>22</v-subheader>
+            <v-subheader></v-subheader>
           </v-list-tile-action>
         </v-list-tile>
         <v-divider></v-divider>

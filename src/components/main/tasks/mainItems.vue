@@ -3,10 +3,17 @@
     <div ref="wrapper" class="wrapper">
       <v-card class="content transparent" flat>
         <v-card-text>
-          <v-list subheader two-line dense class="transparent">
+          <v-list
+            v-if="getTasks.length > 0"
+            subheader
+            two-line
+            dense
+            class="transparent">
             <transition-group name="todo-list">
-              <template v-for="todo in getTasks">
+              <template
+                v-for="todo in getTasks">
                 <v-list-tile
+                  ripple
                   v-on:click.self.prevent="show_task_panel(todo.id)"
                   v-bind:key="todo.id"
                 >
@@ -48,6 +55,19 @@
               </template>
             </transition-group>
           </v-list>
+          <div
+            v-else
+          >
+            <v-container>
+              <v-layout row wrap align-center justify-center>
+                <v-flex>
+                  <v-icon size=320 color="blue">done</v-icon>
+                  <div class="display-2">Nothing in Done</div>
+                  <div class="grey--text font-weight-bold">Anything you mark done will be safely stored here.</div>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </div>
         </v-card-text>
       </v-card>
     </div>
@@ -89,7 +109,7 @@ export default {
     }),
     getTasks: function () {
       switch (this.$route.name) {
-        case 'thisWeek':
+        case 'thisWeek' || 'root':
           return this.thisWeek
         case 'later':
           return this.later
@@ -121,5 +141,11 @@ export default {
 </script>
 
 <style scoped>
-
+  .todo-list-move {
+    transition: transform 1s;
+  }
+  .todo-list-leave-to {
+    opacity: 0;
+    transform: translateY(30px);
+  }
 </style>

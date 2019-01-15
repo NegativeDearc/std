@@ -85,6 +85,12 @@
             <v-list-tile-sub-title>{{ $t('holiday_modal_description') }}</v-list-tile-sub-title>
           </v-list-tile-content>
           <v-list-tile-action>
+            <v-switch
+              color="red"
+              v-model="holidayModel"
+              v-on:change="changeHolidayModel"
+            >
+            </v-switch>
           </v-list-tile-action>
         </v-list-tile>
       </v-list>
@@ -97,7 +103,7 @@ export default {
   name: 'mainSettings',
   data () {
     return {
-
+      holidayModel: false
     }
   },
   methods: {
@@ -111,9 +117,7 @@ export default {
       this.$store.commit('CHANGE_DEFAULT_LANG', locale)
       this.$i18n.locale = locale
     },
-    changeHolidayModel: function () {
-      console.log('change holiday model')
-    }
+    changeHolidayModel: function () {}
   }
 }
 </script>
