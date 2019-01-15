@@ -4,7 +4,7 @@
       <v-card class="content transparent" flat>
         <v-card-text>
           <v-list
-            v-if="getTasks.length > 0"
+            v-if="(getTasks.length > 0)"
             subheader
             two-line
             dense
@@ -108,8 +108,9 @@ export default {
       expired: 'GET_EXPIRED_TASKS'
     }),
     getTasks: function () {
+      console.log(this.$route.name)
       switch (this.$route.name) {
-        case 'thisWeek' || 'root':
+        case 'thisWeek':
           return this.thisWeek
         case 'later':
           return this.later

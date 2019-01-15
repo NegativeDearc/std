@@ -156,8 +156,7 @@
 </template>
 
 <script>
-// import LoopPicker from '../../utils/rrulePicker/rrulePicker'
-import LoopPicker from '../../utils/cronPicker/cronPickerIndex'
+import LoopPicker from '../../utils/rrulePicker/rrulePicker'
 import { eventBus } from '../../../main'
 
 export default {

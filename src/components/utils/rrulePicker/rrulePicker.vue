@@ -1,43 +1,45 @@
 <template>
-  <v-card>
+  <div>
     <v-toolbar
-      dense
-      card
+      extended
+      color="primary"
+      dark
     >
       <v-toolbar-title>
-        <span class="subheading">Recurrence Rules Picker(RRP)</span>
+        <span>Recurrence Rules Picker(RRP)</span>
       </v-toolbar-title>
+      <v-tabs
+        slot="extension"
+        centered
+        color="primary"
+        slider-color="yellow"
+        v-model="frequency"
+      >
+        <v-tab
+          v-for="item in tabNames"
+          v-bind:key="item.id"
+          v-bind:value="`#tab-${item.id}`"
+        >
+          By {{ item.name }}
+        </v-tab>
+      </v-tabs>
     </v-toolbar>
-    <v-card flat>
-      <v-card flat>
-        <v-container fluid>
-          <v-layout align-center justify-start row fill-height>
-            <v-flex sm2>
-              <div class="font-weight-black">Repeat</div>
-            </v-flex>
-            <v-flex sm10>
-              <v-list>
-                <v-list-tile>
-                  <v-select
-                    v-bind:menu-props="{transition:'slide-y-transition'}"
-                    hide-details
-                    solo
-                    flat
-                    single-line
-                    label="select frequency"
-                    v-bind:items="$store.state.RRULE.frequency"
-                    v-model="frequency"
-                  >
-                  </v-select>
-                </v-list-tile>
-              </v-list>
-            </v-flex>
-          </v-layout>
 
-          <component v-bind:is="currentView"></component>
-        </v-container>
-      </v-card>
-      <v-divider></v-divider>
+    <v-tabs-items
+      v-model="frequency"
+    >
+      <v-tab-item
+        v-bind:value="frequency"
+        v-bind:key="frequency"
+      >
+        <v-card>
+          <v-card-text>
+            <component v-bind:is="currentView"></component>
+          </v-card-text>
+        </v-card>
+      </v-tab-item>
+    </v-tabs-items>
+    <v-card flat>
       <v-card flat class="font-weight-bold">
         <v-container fluid>
           <v-layout align-center justify-start row fill-height>
@@ -114,12 +116,12 @@
           </v-layout>
         </v-container>
       </v-card>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn flat outline>Confirm</v-btn>
+      </v-card-actions>
     </v-card>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn flat outline>Confirm</v-btn>
-    </v-card-actions>
-  </v-card>
+  </div>
 </template>
 
 <script>
@@ -135,24 +137,31 @@ export default {
   },
   computed: {
     currentView: function () {
+      console.log(this.frequency)
       switch (this.frequency) {
-        case '1':
+        case 0:
           return rruleByDay
-        case '2':
+        case 1:
           return rruleByWeek
-        case '3':
+        case 2:
           return rruleByMonth
-        case '4':
+        case 3:
           return rrlueByYear
       }
     }
   },
   data () {
     return {
+      tabNames: [
+        {id: '1', name: 'Day'},
+        {id: '2', name: 'Week'},
+        {id: '3', name: 'Month'},
+        {id: '4', name: 'Year'}
+      ],
       date_pick_menu: false,
       date: null,
       count: null,
-      frequency: '2',
+      frequency: 0,
       until: 'Never'
     }
   },
@@ -173,9 +182,7 @@ export default {
       this.$emit('')
     }
   },
-  mounted: function () {
-
-  }
+  mounted: function () {}
 }
 </script>
 

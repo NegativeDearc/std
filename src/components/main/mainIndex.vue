@@ -17,6 +17,7 @@
         v-model="taskTitle"
         placeholder="Type anything to do..."
         v-on:keyup.enter="newTask"
+        v-on:keyup.esc="emptyTask"
       >
       </v-text-field>
       <v-menu v-bind:nudge-width="100">
@@ -57,6 +58,9 @@ export default {
       console.log(this.taskTitle)
       this.$store.dispatch('CREATE_NEW_TASK', { taskTitle: this.taskTitle })
         .then(() => Object.assign(this.$data, this.$options.data()))
+    },
+    emptyTask: function () {
+      this.taskTitle = null
     }
   }
 }
