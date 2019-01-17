@@ -6,7 +6,7 @@
       </v-flex>
       <v-flex sm2>
         <v-text-field
-          v-model="weekly.INTERVAL"
+          v-model="interval"
           mask="##"
           single-line
           hide-details
@@ -19,14 +19,14 @@
     </v-layout>
     <v-layout align-end fill-height wrap row>
       <v-flex
-        v-for="(item, index) in $store.state.RRULE.weekday.slice(0,5)"
+        v-for="(item, index) in $store.state.CRON_RULE.weekday.slice(0,5)"
         v-bind:key="item.value"
         v-bind:offset-sm1="index === 0"
       >
         <v-checkbox
           v-bind:label="item.text"
           v-bind:value="item.value"
-          v-model="weekly.BYDAY"
+          v-model="weekly.DAY_OF_WEEK"
           on-icon="check_circle_outline"
           off-icon="panorama_fish_eye"
         ></v-checkbox>
@@ -36,16 +36,15 @@
 </template>
 
 <script>
-import _ from 'lodash'
-
 export default {
-  name: 'rruleByWeek',
+  name: 'cronByWeek',
   data () {
     return {
+      interval: '1',
       weekly: {
-        'FREQ': 'WEEKLY',
-        'INTERVAL': '1',
-        'BYDAY': ['MO']
+        'DAY_OF_MONTH': '*',
+        'MONTH': '*',
+        'DAY_OF_WEEK': ['MON']
       }
     }
   },
@@ -56,14 +55,24 @@ export default {
       },
       immediate: true,
       deep: true
+    },
+    interval: function () {
+      this.emitWeeklyRules()
     }
   },
   methods: {
     emitWeeklyRules: function () {
-      let weeklyRules = _.pick(this.weekly, ['FREQ', 'INTERVAL'])
-      // todo: sort by weekday order
-      weeklyRules.BYDAY = this.weekly.BYDAY.toString()
-      this.$store.commit('CHANGE_RRULE_STRINGS', weeklyRules)
+      let dayOfMonth
+      this.interval === ''
+        ? dayOfMonth = '*'
+        : dayOfMonth = '*/' + this.interval
+
+      let _dict = {
+        'DAY_OF_MONTH': dayOfMonth,
+        'MONTH': '*',
+        'DAY_OF_WEEK': this.weekly.DAY_OF_WEEK.toString()
+      }
+      this.$store.commit('CHANGE_CRON_DICT', _dict)
     }
   }
 }

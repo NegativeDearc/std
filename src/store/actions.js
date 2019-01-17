@@ -27,6 +27,28 @@ const actions = {
       })
   },
 
+  UPDATE_ONE_TASK_ASYNC: function (context, [id, updateValue]) {
+    return new Promise((resolve) => {
+      resolve(
+        axios.post('/task/' + id, updateValue)
+          .then(() => {
+            console.log('=> UPDATE DATA TO..', updateValue)
+          }).catch(err => {
+            console.log(('=> ENCOUNTER ERR WHEN TRYING UPDATE TO ', err))
+          })
+      )
+    })
+  },
+
+  async UPDATE_AFTER_UPDATE (context, [id, updateValue]) {
+    /*
+     combine two asynchronous actions together MUST use async/await to control sequence
+     first delete task then update data in stores
+      */
+    await context.dispatch('UPDATE_ONE_TASK_ASYNC', [id, updateValue])
+    context.dispatch('GET_TASKS_OF_ALL')
+  },
+
   /**
    * @return {boolean}
    */

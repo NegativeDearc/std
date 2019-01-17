@@ -85,10 +85,18 @@ const mutations = {
         break
       case 'until':
         state.RRULE_STRING.END = { UNTIL: data.value }
+        break
     }
   },
   REMOVE_RRULE_END: function (state) {
     state.RRULE_STRING.END = {}
+  },
+  /* CRON V2 */
+  CHANGE_CRON_DICT: function (state, dict) {
+    for (let key in dict) {
+      state.CRON_EXPRESSION[key] = dict[key]
+    }
+    console.log(state.CRON_EXPRESSION)
   }
 }
 

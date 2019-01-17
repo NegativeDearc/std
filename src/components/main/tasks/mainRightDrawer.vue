@@ -17,9 +17,9 @@
       <v-spacer></v-spacer>
       <v-btn
         flat
-        outline
         color="green"
         depressed
+        v-on:click="updateTask"
       >
         {{ $t('update') }}
       </v-btn>
@@ -78,7 +78,7 @@
               readonly
               clearable
               prepend-icon="repeat"
-              v-model="rrule"
+              v-model="cronToText"
               v-on:click.native="loopPicker = true"
             ></v-text-field>
             <v-dialog
@@ -87,7 +87,7 @@
               max-width="1024px"
               v-model="loopPicker"
             >
-              <loop-picker v-model="rrule"></loop-picker>
+              <cronPickerV2 v-on:cronChange="getRRules"></cronPickerV2>
             </v-dialog>
           </v-list-tile>
 
@@ -156,18 +156,26 @@
 </template>
 
 <script>
-import LoopPicker from '../../utils/rrulePicker/rrulePicker'
+import cronPickerV2 from '../../utils/cronPickerV2/cronPicker'
+import cronstrue from 'cronstrue'
 import { eventBus } from '../../../main'
 
 export default {
   name: 'mainRightDrawer',
-  components: {LoopPicker},
+  components: {cronPickerV2},
   data () {
     return {
-      rrule: {},
       TASK: {},
       timePicker: null,
-      loopPicker: false
+      loopPicker: false,
+      enableUpdate: true
+    }
+  },
+  computed: {
+    cronToText: function () {
+      if (this.TASK.frequency !== undefined && this.TASK.frequency !== '' && this.TASK.frequency !== null) {
+        return cronstrue.toString(this.TASK.frequency).split(',')[1]
+      }
     }
   },
   methods: {
@@ -181,6 +189,13 @@ export default {
             this.$store.commit('DRAWER_RIGHT')
           }
         })
+    },
+    getRRules: function (rules) {
+      this.TASK.frequency = rules
+    },
+    updateTask: function () {
+      this.$store.dispatch('UPDATE_AFTER_UPDATE', [this.TASK.id, this.TASK])
+        .then(() => { this.$store.commit('DRAWER_RIGHT') })
     }
   },
   mounted: function () {

@@ -24,7 +24,6 @@
         </v-tab>
       </v-tabs>
     </v-toolbar>
-
     <v-tabs-items
       v-model="frequency"
     >
@@ -32,10 +31,10 @@
         v-bind:value="frequency"
         v-bind:key="frequency"
       >
-        <v-card>
-          <v-card-text>
+        <v-card flat tile>
+          <v-container>
             <component v-bind:is="currentView"></component>
-          </v-card-text>
+          </v-container>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
@@ -54,8 +53,7 @@
                   flat
                   single-line
                   v-bind:menu-props="{transition:'slide-y-transition'}"
-                  v-bind:items="['Never', 'After', 'On Date']"
-                  v-on:change="end"
+                  v-bind:items="endState"
                   v-model="until"
                 ></v-select>
               </v-list-tile>
@@ -63,9 +61,10 @@
             <transition>
               <v-flex sm4 v-if="until === 'After'">
                 <v-text-field
-                  v-on:input="end"
-                  label="executions"
-                  outline
+                  suffix="executions"
+                  single-line
+                  solo
+                  flat
                   v-model="count"
                   hide-details
                 ></v-text-field>
@@ -84,6 +83,7 @@
                   min-width="290px"
                 >
                   <v-text-field
+                    readonly
                     v-model="date"
                     slot="activator"
                     hint="select end date"
@@ -93,7 +93,6 @@
                   <v-date-picker
                     v-model="date"
                     no-title @input="date_pick_menu = false"
-                    v-on:change="end"
                   ></v-date-picker>
                 </v-menu>
               </v-flex>
@@ -103,23 +102,36 @@
       </v-card>
       <v-divider></v-divider>
       <v-card flat>
-        <v-toolbar card dense>
+        <v-toolbar
+          dark
+          card
+          dense
+          tile
+          color="primary"
+        >
           <v-toolbar-title>
-            <span class="subheading">Rules</span>
+            <span>Rules</span>
           </v-toolbar-title>
         </v-toolbar>
         <v-container fluid>
           <v-layout>
             <v-flex>
               <div>{{ $store.state.RRULE_STRING }}</div>
+              <div>{{ $store.getters.RRULE_TO_STRING }}</div>
             </v-flex>
           </v-layout>
         </v-container>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            v-on:click="emitRules"
+            color="primary"
+            round
+            flat
+            outline
+          >Confirm</v-btn>
+        </v-card-actions>
       </v-card>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn flat outline>Confirm</v-btn>
-      </v-card-actions>
     </v-card>
   </div>
 </template>
@@ -129,15 +141,12 @@ import rruleByDay from './rrlueByDay'
 import rruleByWeek from './rruleByWeek'
 import rruleByMonth from './rruleByMonth'
 import rrlueByYear from './rrlueByYear'
+import { RRule } from 'rrule'
 
 export default {
   name: 'rrluePicker',
-  props: {
-    value: ''
-  },
   computed: {
     currentView: function () {
-      console.log(this.frequency)
       switch (this.frequency) {
         case 0:
           return rruleByDay
@@ -148,6 +157,12 @@ export default {
         case 3:
           return rrlueByYear
       }
+    },
+    fiveOccurrence: function () {
+      if (this.$store.getters.RRULE_TO_STRING) {
+        let rule = RRule.fromString(this.$store.getters.RRULE_TO_STRING)
+        return rule.all().slice(0, 5)
+      } return null
     }
   },
   data () {
@@ -162,11 +177,12 @@ export default {
       date: null,
       count: null,
       frequency: 0,
-      until: 'Never'
+      until: null,
+      endState: ['Never', 'After', 'On Date']
     }
   },
-  methods: {
-    end: function () {
+  watch: {
+    until: function () {
       switch (this.until) {
         case 'Never':
           this.$store.commit('REMOVE_RRULE_END')
@@ -176,10 +192,23 @@ export default {
           break
         case 'On Date':
           if (this.date) {
-            this.$store.commit('ADD_RRULE_END', { type: 'until', value: new Date(this.date).toISOString() })
+            this.$store.commit('ADD_RRULE_END', { type: 'until', value: this.$moment(new Date(this.date)).format('YYYYMMDDTHHmmss') })
           }
       }
-      this.$emit('')
+    },
+    count: function () {
+      this.$store.commit('ADD_RRULE_END', { type: 'count', value: this.count })
+    },
+    date: function () {
+      if (this.date) {
+        this.$store.commit('ADD_RRULE_END', { type: 'until', value: this.$moment(new Date(this.date)).format('YYYYMMDDTHHmmss') })
+      }
+    }
+  },
+  methods: {
+    emitRules: function () {
+      console.log('emitting rrules changing', this.$store.getters.RRULE_TO_STRING)
+      this.$emit('rrulesChange', this.$store.getters.RRULE_TO_STRING)
     }
   },
   mounted: function () {}

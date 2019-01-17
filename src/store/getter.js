@@ -136,6 +136,27 @@ const getters = {
       ? count = null
       : count = getters.GET_TASKS_FINISHED.length
     return count
+  },
+  /**
+   * @return {null}
+   */
+  RRULE_TO_STRING: function (state) {
+    let loop
+    let end
+    if (state.RRULE_STRING.LOOP !== {}) {
+      loop = _.join(_.toPairs(state.RRULE_STRING.LOOP).map(item => item.join('=')), ';')
+    }
+    if (state.RRULE_STRING.END !== {}) {
+      end = _.join(_.toPairs(state.RRULE_STRING.END).map(item => item.join('=')), ';')
+    }
+    if (_.size(loop) > 0) {
+      if (end === '') {
+        return 'RRULE:' + loop
+      } return 'RRULE:' + _.join([loop, end], ';')
+    } return null
+  },
+  CRON_TO_STRING: function (state) {
+    return _.values(state.CRON_EXPRESSION).join(' ')
   }
 }
 

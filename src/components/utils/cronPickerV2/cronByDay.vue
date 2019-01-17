@@ -9,7 +9,7 @@
           mask="##"
           hide-details
           single-line
-          v-model="daily.INTERVAL"
+          v-model="interval"
         ></v-text-field>
       </v-flex>
       <v-flex sm1>
@@ -23,17 +23,14 @@
 
 <script>
 export default {
-  name: 'rrlueByDay',
+  name: 'cronByDay',
   data () {
     return {
-      daily: {
-        FREQ: 'DAILY',
-        INTERVAL: '1'
-      }
+      interval: '1'
     }
   },
   watch: {
-    daily: {
+    interval: {
       handler: function () {
         this.emitDailyRules()
       },
@@ -43,7 +40,16 @@ export default {
   },
   methods: {
     emitDailyRules: function () {
-      this.$store.commit('CHANGE_RRULE_STRINGS', this.daily)
+      let dayInterval
+      this.interval === ''
+        ? dayInterval = '*'
+        : dayInterval = '*/' + this.interval
+      let _dict = {
+        'DAY_OF_MONTH': dayInterval,
+        'MONTH': '*',
+        'DAY_OF_WEEK': '*'
+      }
+      this.$store.commit('CHANGE_CRON_DICT', _dict)
     }
   }
 }
