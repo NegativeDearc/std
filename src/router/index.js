@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import AppLogin from '../components/login/AppLogin'
 import mainIndex from '../components/main/mainIndex'
 import mainLeftDrawer from '../components/main/tasks/mainLeftDrawer'
 import mainItems from '../components/main/tasks/mainItems'
@@ -34,7 +35,14 @@ const router = new Router({
         { path: '/v2/dashboard', components: { left: mainLeftDrawer, main: V2Dashboard, right: '' }, meta: { requiresAuth: true } }
       ],
       meta: { requiresAuth: true }
-    }
+    },
+    {
+      path: '/login',
+      component: AppLogin,
+      meta: {
+        requiresAuth: false
+      }
+    },
   ]
 })
 

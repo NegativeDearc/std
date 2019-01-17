@@ -1,7 +1,7 @@
 module.exports = {
   message: {
     punchCard: '习惯',
-    personalTask: '事件',
+    personalTask: '日历',
     today: '今日摘要',
     further: '晚些时候',
     back: '返回',
@@ -63,6 +63,7 @@ module.exports = {
     delete: '删除',
     this_week: '本周',
     expired_task: '过期',
-    finished: '已完成'
+    finished: '完成',
+    favorite: '收藏'
   }
 }

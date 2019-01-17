@@ -1,5 +1,6 @@
 <template>
   <v-navigation-drawer
+    id="left"
     mobile-break-point="960"
     left
     fixed
@@ -82,7 +83,7 @@
           <v-list-tile-action>
             <v-icon color="grey">lock</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title>私人空间</v-list-tile-title>
+          <v-list-tile-title>{{ $t('personalTask') }}</v-list-tile-title>
           <v-list-tile-action>
             <v-subheader></v-subheader>
           </v-list-tile-action>
@@ -92,9 +93,9 @@
           <v-list-tile-action>
             <v-icon color="pink">favorite</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title>我的收藏</v-list-tile-title>
+          <v-list-tile-title>{{ $t('favorite') }}</v-list-tile-title>
           <v-list-tile-action>
-            <v-subheader>33</v-subheader>
+            <v-subheader></v-subheader>
           </v-list-tile-action>
         </v-list-tile>
         <v-divider></v-divider>
@@ -128,5 +129,7 @@ export default {
 </script>
 
 <style scoped>
-
+#left {
+  font-family:  "Noto Sans", "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+}
 </style>

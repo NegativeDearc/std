@@ -1,7 +1,7 @@
 module.exports = {
   message: {
     punchCard: 'Habits',
-    personalTask: 'Events',
+    personalTask: 'Calendar',
     today: 'Today',
     further: 'Later',
     back: 'Back',
@@ -63,6 +63,7 @@ module.exports = {
     delete: 'DELETE',
     this_week: 'This Week',
     expired_task: 'Expired',
-    finished: 'Finished'
+    finished: 'Finished',
+    favorite: 'Favorite'
   }
 }

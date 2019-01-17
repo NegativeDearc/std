@@ -1,5 +1,5 @@
 <template>
-  <v-content app>
+  <v-content app id="item">
     <div ref="wrapper" class="wrapper">
       <v-card class="content transparent" flat>
         <v-card-text>
@@ -142,6 +142,9 @@ export default {
 </script>
 
 <style scoped>
+  #item {
+    font-family:  "Noto Sans", "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Source Han Sans CN", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+  }
   .todo-list-move {
     transition: transform 1s;
   }

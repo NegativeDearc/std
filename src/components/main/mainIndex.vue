@@ -9,6 +9,7 @@
         v-on:click="$store.commit('UNDRAWER_LEFT')"
       ></v-toolbar-side-icon>
       <v-text-field
+        class="pl-2 pr-3"
         append-icon="keyboard_return"
         solo
         flat
