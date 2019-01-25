@@ -54,7 +54,7 @@
         <v-container fluid>
           <v-layout>
             <v-flex>
-              <div>{{ $store.state.CRON_EXPRESSION }}</div>
+              <!--<div>{{ $store.state.CRON_EXPRESSION }}</div>-->
               <div>{{ $store.getters.CRON_TO_STRING }}</div>
             </v-flex>
           </v-layout>
@@ -66,7 +66,10 @@
             color="primary"
             flat
             outline
-          >Confirm</v-btn>
+            round
+          >
+            <v-icon>mdi-check</v-icon>
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-card>
@@ -113,8 +116,10 @@ export default {
   watch: {},
   methods: {
     emitRules: function () {
-      console.log('emitting cron changing', this.$store.getters.CRON_TO_STRING)
+      // console.log('emitting cron changing', this.$store.getters.CRON_TO_STRING)
       this.$emit('cronChange', this.$store.getters.CRON_TO_STRING)
+      // console.log('emitting closing')
+      this.$emit('onClose')
     }
   },
   mounted: function () {}

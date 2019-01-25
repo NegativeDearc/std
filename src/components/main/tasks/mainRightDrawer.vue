@@ -5,7 +5,7 @@
     right
     fixed
     app
-    width="360"
+    v-bind:width="$vuetify.breakpoint.xl ? 480 : 360"
     v-bind:value="$store.state.RIGHT_DRAWER"
     v-model="$store.state.RIGHT_DRAWER"
   >
@@ -91,7 +91,7 @@
               max-width="1024px"
               v-model="loopPicker"
             >
-              <cronPickerV2 v-on:cronChange="getRRules"></cronPickerV2>
+              <cronPickerV2 v-on:cronChange="getRRules" v-on:onClose="loopPicker = false"></cronPickerV2>
             </v-dialog>
           </v-list-tile>
 
@@ -178,7 +178,8 @@ export default {
   computed: {
     cronToText: function () {
       if (this.TASK.frequency !== undefined && this.TASK.frequency !== '' && this.TASK.frequency !== null) {
-        return cronstrue.toString(this.TASK.frequency).split(',')[1]
+        let wholeCronString = cronstrue.toString(this.TASK.frequency).split(',')
+        return wholeCronString.splice(1, wholeCronString.length)
       }
     }
   },
@@ -202,8 +203,12 @@ export default {
         .then(() => { this.$store.commit('DRAWER_RIGHT') })
     },
     favoriteIt: async function () {
-      await this.$store.dispatch('UPDATE_AFTER_UPDATE', [this.TASK.id, { 'isFavorite': this.TASK.isFavorite }])
-      this.get_task(this.TASK.id)
+      await this.$store.dispatch('UPDATE_AFTER_UPDATE', [this.TASK.id, { 'isFavorite': !this.TASK.isFavorite }])
+        .then(() => {
+          if (this.$store.state.RIGHT_DRAWER === true) {
+            this.$store.commit('DRAWER_RIGHT')
+          }
+        })
     }
   },
   mounted: function () {

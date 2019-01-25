@@ -22,6 +22,7 @@ const getters = {
   },
 
   GET_TASK_BY_ID: (state) => (id) => {
+    console.log('=> GETTING TASK id=', id)
     return state.TASKS.find(task => task.id === id)
   },
 
