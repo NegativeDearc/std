@@ -76,7 +76,7 @@
           </v-list-tile-action>
           <v-list-tile-title>{{ $t('finished') }}</v-list-tile-title>
           <v-list-tile-action>
-            <v-subheader>{{ $store.getters.GET_TASKS_FINISHED_COUNT > 100 ? '100+' : $store.getters.GET_TASKS_FINISHED_COUNT }}</v-subheader>
+            <v-subheader>{{ $store.getters.GET_TASKS_FINISHED_COUNT > 5000 ? '5000+' : $store.getters.GET_TASKS_FINISHED_COUNT }}</v-subheader>
           </v-list-tile-action>
         </v-list-tile>
         <v-list-tile to="/v2/private">
@@ -95,7 +95,7 @@
           </v-list-tile-action>
           <v-list-tile-title>{{ $t('favorite') }}</v-list-tile-title>
           <v-list-tile-action>
-            <v-subheader></v-subheader>
+            <v-subheader>{{ $store.getters.GET_TASKS_FAVORITE_COUNT }}</v-subheader>
           </v-list-tile-action>
         </v-list-tile>
         <v-divider></v-divider>

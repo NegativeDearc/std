@@ -44,9 +44,12 @@
             </v-list-tile-content>
             <v-list-tile-action>
               <v-checkbox
+                v-bind:key="TASK.id"
+                v-bind:input-value="TASK.isFavorite"
                 color="yellow"
                 on-icon="star"
                 off-icon="star_border"
+                v-on:change="favoriteIt"
               >
               </v-checkbox>
             </v-list-tile-action>
@@ -197,6 +200,10 @@ export default {
     updateTask: function () {
       this.$store.dispatch('UPDATE_AFTER_UPDATE', [this.TASK.id, this.TASK])
         .then(() => { this.$store.commit('DRAWER_RIGHT') })
+    },
+    favoriteIt: async function () {
+      await this.$store.dispatch('UPDATE_AFTER_UPDATE', [this.TASK.id, { 'isFavorite': this.TASK.isFavorite }])
+      this.get_task(this.TASK.id)
     }
   },
   mounted: function () {

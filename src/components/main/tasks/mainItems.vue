@@ -55,6 +55,20 @@
               </template>
             </transition-group>
           </v-list>
+          <!-- favorite will show different -->
+          <div
+            v-else-if="this.$route.name === 'favorite'"
+          >
+            <v-container>
+              <v-layout row wrap align-center justify-center>
+                <v-flex>
+                  <v-icon size=320 color="pink">mdi-folder-star</v-icon>
+                  <div class="display-2">Nothing in Favorite</div>
+                  <div class="grey--text font-weight-bold">Anything you mark favorite will be safely stored here.</div>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </div>
           <div
             v-else
           >
@@ -105,7 +119,8 @@ export default {
       thisWeek: 'GET_THIS_WEEK_TASKS',
       later: 'GET_TASKS_LATER',
       finished: 'GET_TASKS_FINISHED',
-      expired: 'GET_EXPIRED_TASKS'
+      expired: 'GET_EXPIRED_TASKS',
+      favorite: 'GET_TASKS_FAVORITE'
     }),
     getTasks: function () {
       console.log(this.$route.name)
@@ -118,6 +133,8 @@ export default {
           return this.finished
         case 'expired':
           return this.expired
+        case 'favorite':
+          return this.favorite
       }
     }
   },

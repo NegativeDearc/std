@@ -32,7 +32,7 @@
         <v-divider flat></v-divider>
         <v-list-tile>
           <v-list-tile-action>
-            <v-icon color="black">brightness_4</v-icon>
+            <v-icon color="grey">brightness_4</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('dark_model') }}</v-list-tile-title>
@@ -41,7 +41,7 @@
           <v-list-tile-action>
             <v-switch
               v-bind:input-value="$store.state.IS_DARK"
-              color="black"
+              color="grey"
               v-on:change="changeDarkModel"
               hide-details
             ></v-switch>
