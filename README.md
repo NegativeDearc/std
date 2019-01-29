@@ -3,7 +3,7 @@ STD means *standard*, it's developed for promoting **Leader Standard Work**, ins
 
 It's developed by `vue.js` & `vuetify` framework and pack by `electron` which require **vue-cli3** & **electron-vuetify** boilerplate.
 ## Gallery(desktop version)
-![screenshot](Capture.png)
+![screenshot](Capture.PNG)
 ## Project setup
 install necessary packages
 ```
