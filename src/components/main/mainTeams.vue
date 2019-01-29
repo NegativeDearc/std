@@ -101,19 +101,6 @@
           </v-flex>
         </v-layout>
       </v-card-text>
-      <div style="flex: 1 1 auto;"></div>
-      <v-footer
-        card
-        inset
-        fixed
-        height="auto"
-      >
-        <v-spacer></v-spacer>
-        <v-btn round flat v-on:click="logout">
-          <v-icon>power_settings_new</v-icon>
-          &nbsp;{{ $t('logout') }}
-        </v-btn>
-      </v-footer>
     </v-card>
   </v-content>
 </template>
@@ -130,10 +117,6 @@ export default {
     }
   },
   methods: {
-    logout: function () {
-      this.$store.dispatch('LOGOUT')
-      this.$router.push('/login')
-    },
     getUserDash: function () {
       this.dialog = true
       this.$store.dispatch('GET_USER_DASH')

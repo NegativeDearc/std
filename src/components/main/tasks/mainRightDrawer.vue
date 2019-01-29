@@ -140,6 +140,7 @@
       </v-form>
     </div>
     <v-footer
+      class="transparent"
       inset
       fixed
       height="auto"

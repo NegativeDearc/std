@@ -48,6 +48,7 @@ module.exports = {
     week: '星期',
     date: '日期',
     logout: '登出',
+    logout_description: '登出将重定向到登陆页面',
     finished_at: '完成于:',
     expired_at: '过期于:',
     notify: '通知',

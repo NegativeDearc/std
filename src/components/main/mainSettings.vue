@@ -93,6 +93,22 @@
             </v-switch>
           </v-list-tile-action>
         </v-list-tile>
+        <v-divider></v-divider>
+        <v-list-tile>
+          <v-list-tile-action>
+            <v-icon color="orange">power_settings_new</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ $t('logout') }}</v-list-tile-title>
+            <v-list-tile-sub-title>{{ $t('logout_description') }}</v-list-tile-sub-title>
+          </v-list-tile-content>
+          <v-list-tile-action>
+            <v-btn round flat v-on:click="logout" color="orange">
+              &nbsp;{{ $t('logout') }}
+            </v-btn>
+          </v-list-tile-action>
+        </v-list-tile>
+        <v-divider></v-divider>
       </v-list>
     </v-container>
   </v-content>
@@ -107,8 +123,9 @@ export default {
     }
   },
   methods: {
-    showAll: function () {
-      this.$store.commit('HIDE_NOT_DONE_TASK')
+    logout: function () {
+      this.$store.dispatch('LOGOUT')
+      this.$router.push('/login')
     },
     changeDarkModel: function () {
       this.$store.commit('SET_DARK_MODEL')
@@ -117,7 +134,9 @@ export default {
       this.$store.commit('CHANGE_DEFAULT_LANG', locale)
       this.$i18n.locale = locale
     },
-    changeHolidayModel: function () {}
+    changeHolidayModel: function () {
+      alert('Not Available Right Now')
+    }
   }
 }
 </script>

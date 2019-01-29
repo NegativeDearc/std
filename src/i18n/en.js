@@ -48,6 +48,7 @@ module.exports = {
     week: 'Week',
     date: 'Date',
     logout: 'Logout',
+    logout_description: 'Logout will bring you to login page',
     finished_at: 'finished at:',
     expired_at: 'expired at:',
     notify: 'Notify',
