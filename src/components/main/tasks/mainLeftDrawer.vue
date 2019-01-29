@@ -121,11 +121,6 @@
           </v-list-tile>
         </v-list>
       </v-card-text>
-      <v-divider></v-divider>
-      <v-footer
-        class="transparent"
-      >
-      </v-footer>
     </v-card>
   </v-navigation-drawer>
 </template>

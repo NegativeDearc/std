@@ -28,7 +28,16 @@
     <div>
       <v-form ref="newTask" v-on:submit.prevent>
         <v-list>
-          <v-subheader>{{ $t('task') }}</v-subheader>
+          <v-subheader
+            v-if="TASK.punchTime">
+            {{ $t('task') }}
+            <span class="red--text">({{ $t('finished_at') }}{{ TASK.punchTime }})</span>
+          </v-subheader>
+          <v-subheader
+            v-else>
+            {{ $t('task') }}
+            <span class="blue--text">({{ $t('expired_at') }}{{ TASK.nextLoopAt }})</span>
+          </v-subheader>
           <v-list-tile>
             <v-list-tile-content>
               <v-text-field
