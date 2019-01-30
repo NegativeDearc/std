@@ -11,11 +11,13 @@
             class="transparent">
             <transition-group name="todo-list">
               <template
-                v-for="todo in getTasks">
+                v-for="todo in getTasks"
+              >
                 <v-list-tile
                   ripple
                   v-on:click.self.prevent="show_task_panel(todo.id)"
                   v-bind:key="todo.id"
+                  v-bind:style="highlight(choose === todo.id && $store.state.RIGHT_DRAWER)"
                 >
                   <v-list-tile-action>
                     <v-checkbox
@@ -46,8 +48,8 @@
                       </v-tooltip>
                       <v-btn icon v-if="todo.frequency"><v-icon color="blue">restore</v-icon></v-btn>
                       <span v-if="todo.remindAt">
-                          <span>{{ todo.remindAt}}</span>
-                        </span>
+                        <span>{{ todo.remindAt}}</span>
+                      </span>
                     </div>
                   </v-list-tile-action>
                 </v-list-tile>
@@ -97,6 +99,7 @@ export default {
   data () {
     return {
       task: [],
+      choose: null,
       completedTaskStyle: {
         'color': 'grey',
         'text-decoration': 'line-through'
@@ -105,11 +108,17 @@ export default {
   },
   watch: {
     $route: {
-      handler: function (from, to) {
+      handler: function () {
         if (this.$store.state.RIGHT_DRAWER) {
           this.$store.commit('DRAWER_RIGHT')
         }
         return this.getTasks
+      },
+      immediate: true
+    },
+    choose: {
+      handler: function () {
+        console.log('=> CHOOSE ITEM', this.choose)
       },
       immediate: true
     }
@@ -123,7 +132,6 @@ export default {
       favorite: 'GET_TASKS_FAVORITE'
     }),
     getTasks: function () {
-      console.log(this.$route.name)
       switch (this.$route.name) {
         case 'thisWeek':
           return this.thisWeek
@@ -141,6 +149,8 @@ export default {
   methods: {
     show_task_panel: function (id) {
       eventBus.$emit('show_task_panel', id)
+      this.choose = id
+      // this.$refs[id].style.background = 'hsla(0,0%,100%,.12)'
     },
     changeTaskStatus: function (_id) {
       this.$store.dispatch('CHANGE_DONE_STATUS', _id)
@@ -149,6 +159,11 @@ export default {
             this.$store.commit('DRAWER_RIGHT')
           }
         })
+    },
+    highlight: function (choose) {
+      if (choose) {
+        return { background: 'hsla(0,0%,100%,.12)' }
+      } return null
     }
   },
   created: function () {
