@@ -17,7 +17,7 @@
                   ripple
                   v-on:click.self.prevent="show_task_panel(todo.id)"
                   v-bind:key="todo.id"
-                  v-bind:style="highlight(choose === todo.id && $store.state.RIGHT_DRAWER)"
+                  v-bind:class="highlight(choose === todo.id && $store.state.RIGHT_DRAWER)"
                 >
                   <v-list-tile-action>
                     <v-checkbox
@@ -162,7 +162,8 @@ export default {
     },
     highlight: function (choose) {
       if (choose) {
-        return { background: 'hsla(0,0%,100%,.12)' }
+        return 'highlight'
+        // return { border: 'dashed #03A9F4 2px' }
       } return null
     }
   },
@@ -183,5 +184,9 @@ export default {
   .todo-list-leave-to {
     opacity: 0;
     transform: translateY(30px);
+  }
+  .highlight {
+    box-shadow: -6px 0 0 #69ca62;
+    background-color: rgba(0, 172, 40,0.1);
   }
 </style>
