@@ -40,7 +40,11 @@
                   </v-list-tile-content>
 
                   <v-list-tile-action>
-                    <v-list-tile-action-text>{{ todo.nextLoopAt| moment('YYYY/MM/DD') }}</v-list-tile-action-text>
+                    <v-list-tile-action-text>
+                      <div>
+                        {{ todo.nextLoopAt| moment('YYYY/MM/DD') }}
+                      </div>
+                    </v-list-tile-action-text>
                     <div style="display: inline-block">
                       <v-tooltip v-if="todo.remark" top>
                         <v-btn icon slot="activator"><v-icon color="yellow">comment</v-icon></v-btn>
@@ -187,6 +191,6 @@ export default {
   }
   .highlight {
     box-shadow: -6px 0 0 #69ca62;
-    background-color: rgba(0, 172, 40,0.1);
+    background-color: rgba(0, 172, 40, 0.1);
   }
 </style>

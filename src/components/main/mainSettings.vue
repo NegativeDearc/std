@@ -115,6 +115,8 @@
 </template>
 
 <script>
+import 'flag-icon-css/css/flag-icon.css'
+
 export default {
   name: 'mainSettings',
   data () {

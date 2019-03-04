@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import AppLogin from '../components/login/AppLogin'
-import mainIndex from '../components/main/mainIndex'
-import mainLeftDrawer from '../components/main/tasks/mainLeftDrawer'
-import mainItems from '../components/main/tasks/mainItems'
-import VSelfIndex from '../components/main/private/selfIndex'
-import V2Dashboard from '../components/main/dash/dashboardIndex'
-import mainRightDrawer from '../components/main/tasks/mainRightDrawer'
-import mainSettings from '../components/main/mainSettings'
-import mainTeams from '../components/main/mainTeams'
 import NProgress from 'nprogress'
+
+const AppLogin = () => import('../components/login/AppLogin')
+const mainIndex = () => import('../components/main/mainIndex')
+const mainLeftDrawer = () => import('../components/main/tasks/mainLeftDrawer')
+const mainItems = () => import('../components/main/tasks/mainItems')
+const VSelfIndex = () => import('../components/main/private/selfIndex')
+const V2Dashboard = () => import('../components/main/dash/dashboardIndex')
+const mainRightDrawer = () => import('../components/main/tasks/mainRightDrawer')
+const mainSettings = () => import('../components/main/mainSettings')
+const mainTeams = () => import('../components/main/mainTeams')
 
 NProgress.inc(0.2)
 NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })

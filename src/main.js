@@ -16,7 +16,6 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
 import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
-import 'flag-icon-css/css/flag-icon.css'
 import localForge from 'localforage'
 
 Vue.config.productionTip = false
