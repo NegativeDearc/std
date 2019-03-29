@@ -65,6 +65,7 @@ module.exports = {
     this_week: '本周',
     expired_task: '过期',
     finished: '完成',
-    favorite: '收藏'
+    favorite: '收藏',
+    connection_error: '与服务器的连接断开..'
   }
 }

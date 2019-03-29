@@ -97,6 +97,10 @@ const mutations = {
       state.CRON_EXPRESSION[key] = dict[key]
     }
     console.log(state.CRON_EXPRESSION)
+  },
+  /* change connection status */
+  CHANGE_SERVER_CONNECTION_STATUS: function (state, status) {
+    state.CONNECTION_STATUS = status
   }
 }
 

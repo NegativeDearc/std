@@ -200,7 +200,9 @@ const state = {
       {'value': '11', 'text': 'November'},
       {'value': '12', 'text': 'December'}
     ]
-  }
+  },
+  /* connection status with sever */
+  CONNECTION_STATUS: true
 }
 
 export default state

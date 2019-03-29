@@ -1,12 +1,26 @@
 <template>
   <div id="app">
+    <ConnectionStatus></ConnectionStatus>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import ConnectionStatus from './components/utils/ConnectionStatus'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: { ConnectionStatus },
+  sockets: {
+    connect () {
+      console.log('=> SERVER CONNECTED')
+      this.$store.commit('CHANGE_SERVER_CONNECTION_STATUS', true)
+    },
+    disconnect () {
+      console.log('=> SERVER DISCONNECTED')
+      this.$store.commit('CHANGE_SERVER_CONNECTION_STATUS', false)
+    }
+  }
 }
 </script>
 

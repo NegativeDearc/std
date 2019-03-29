@@ -17,6 +17,9 @@ import '@mdi/font/css/materialdesignicons.css'
 import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
 import localForge from 'localforage'
+import VueSocketIO from 'vue-socket.io'
+
+axios.defaults.baseURL = 'http://localhost:7659/api/'
 
 Vue.config.productionTip = false
 Vue.use(Vuetify)
@@ -25,6 +28,10 @@ Vue.use(VueAxios, axios)
 Vue.use(VueMoment)
 Vue.use(VeeValidate)
 Vue.use(VueI18n)
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: axios.defaults.baseURL + 'connection'
+}))
 
 localForge.config({
   name: 'Personal_task',
@@ -32,8 +39,6 @@ localForge.config({
   description: 'made for personal task',
   version: 1
 })
-
-axios.defaults.baseURL = 'http://localhost:7659/api/'
 
 // 添加一个请求拦截器，用于设置请求过渡状态
 axios.interceptors.request.use((config) => {
