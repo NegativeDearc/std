@@ -29,7 +29,7 @@ Vue.use(VueMoment)
 Vue.use(VeeValidate)
 Vue.use(VueI18n)
 Vue.use(new VueSocketIO({
-  debug: true,
+  debug: false,
   connection: axios.defaults.baseURL + 'connection'
 }))
 
