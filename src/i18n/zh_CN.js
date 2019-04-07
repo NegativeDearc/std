@@ -66,6 +66,8 @@ module.exports = {
     expired_task: '过期',
     finished: '完成',
     favorite: '收藏',
-    connection_error: '与服务器的连接断开..'
+    connection_error: '与服务器的连接断开..',
+    load_more_data: '加载更多数据...',
+    close: '关闭'
   }
 }

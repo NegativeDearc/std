@@ -11,7 +11,7 @@
             class="transparent">
             <transition-group name="todo-list">
               <template
-                v-for="todo in getTasks"
+                v-for="todo in getTasks.slice(0, page)"
               >
                 <v-list-tile
                   ripple
@@ -89,6 +89,16 @@
             </v-container>
           </div>
         </v-card-text>
+        <v-snackbar
+          v-model="loading"
+          bottom
+          right
+          v-bind:timeout=1000
+        >
+          {{ $t('load_more_data') }}
+          <v-progress-circular indeterminate color="primary" size="16"></v-progress-circular>
+          <v-btn color="red" flat v-on:click="loading = false">{{ $t('close') }}</v-btn>
+        </v-snackbar>
       </v-card>
     </div>
   </v-content>
@@ -102,8 +112,9 @@ export default {
   name: 'mainItems',
   data () {
     return {
-      task: [],
+      page: 20,
       choose: null,
+      loading: false,
       completedTaskStyle: {
         'color': 'grey',
         'text-decoration': 'line-through'
@@ -113,6 +124,8 @@ export default {
   watch: {
     $route: {
       handler: function () {
+        Object.assign(this.$data, this.$options.data())
+
         if (this.$store.state.RIGHT_DRAWER) {
           this.$store.commit('DRAWER_RIGHT')
         }
@@ -125,6 +138,12 @@ export default {
         console.log('=> CHOOSE ITEM', this.choose)
       },
       immediate: true
+    },
+    page: {
+      handler: function () {
+        console.log('=> LOAD MORE LIST TO', this.page)
+        return this.getTasks
+      }
     }
   },
   computed: {
@@ -169,11 +188,33 @@ export default {
         return 'highlight'
         // return { border: 'dashed #03A9F4 2px' }
       } return null
+    },
+    loadMoreList: function () {
+      if (this.page < this.getTasks.length) {
+        this.loading = true
+        this.page += 20
+      } else {
+
+      }
     }
   },
-  created: function () {
+  beforeMount: function () {
     this.$store.dispatch('GET_TASKS_OF_ALL')
     return this.getTasks
+  },
+  created: function () {
+    let _this = this
+
+    function isScrollToBottom () {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+      return scrollTop + window.innerHeight >= document.body.clientHeight
+    }
+
+    window.addEventListener('scroll', function () {
+      if (isScrollToBottom()) {
+        _this.loadMoreList()
+      }
+    })
   }
 }
 </script>

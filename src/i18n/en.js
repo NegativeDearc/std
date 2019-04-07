@@ -66,6 +66,8 @@ module.exports = {
     expired_task: 'Expired',
     finished: 'Finished',
     favorite: 'Favorite',
-    connection_error: 'Connection To Server Encountered Problems..'
+    connection_error: 'Connection To Server Encountered Problems..',
+    load_more_data: 'Loading More Data..',
+    close: 'close'
   }
 }

@@ -228,6 +228,9 @@ export default {
       }
       this.get_task(id)
     })
+  },
+  created: function () {
+    console.log('created')
   }
 }
 </script>
