@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pa-2 pb-2 pt-2 pl-2">
     <v-date-picker
       full-width
       no-title
@@ -28,6 +28,7 @@
       v-model="snackbar"
       color="red"
       top
+      right
       v-bind:timeout="3000"
     >
       必需先指定日期

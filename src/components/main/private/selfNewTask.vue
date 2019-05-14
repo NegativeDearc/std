@@ -34,11 +34,11 @@
                 </v-list-tile-avatar>
                 <v-list-tile-content>
                   <v-text-field
+                    single-line hide-details
                     v-bind:style="{ width: '100%' }"
                     placeholder="enter description"
                     solo
                     flat
-                    full-width
                     v-bind:value="date"
                     readonly
                     disabled
@@ -57,8 +57,7 @@
                     v-model="self_task_description"
                     solo
                     flat
-                    single-line
-                    full-width
+                    single-line hide-details
                   ></v-text-field>
                 </v-list-tile-content>
               </v-list-tile>

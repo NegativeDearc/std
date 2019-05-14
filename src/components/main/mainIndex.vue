@@ -28,7 +28,7 @@
       <v-spacer v-else></v-spacer>
       <v-menu v-bind:nudge-width="100">
         <v-btn icon slot="activator">
-          <v-icon>more_vert</v-icon>
+          <v-icon>notifications</v-icon>
         </v-btn>
         <v-list>
           <v-list-tile

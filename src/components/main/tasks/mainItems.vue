@@ -1,6 +1,6 @@
 <template>
   <v-content app id="item">
-    <div ref="wrapper" class="wrapper">
+    <div>
       <v-card class="content transparent" flat>
         <v-card-text>
           <v-list

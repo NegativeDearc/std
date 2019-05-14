@@ -30,7 +30,7 @@
           <v-container>
             <v-layout column>
               <v-flex>
-                <div class="grey--text subheading font-weight-thin">{{ new Date() | moment('YYYY') }}</div>
+                <div class="grey--text subheading">{{ new Date() | moment('YYYY') }}</div>
               </v-flex>
               <v-flex>
                 <div class="blue--text display-3 font-weight-black">{{ new Date()| moment('DD') }}</div>
