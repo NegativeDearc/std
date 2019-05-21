@@ -68,6 +68,13 @@ module.exports = {
     favorite: 'Favorite',
     connection_error: 'Connection To Server Encountered Problems..',
     load_more_data: 'Loading More Data..',
-    close: 'close'
+    close: 'close',
+    confirm: 'confirm',
+    one_time_task: 'One time task',
+    recurrence_task: 'Recurrence task',
+    choose_end_time: 'Choose due date',
+    type_new_task_title: 'Type anything to do...',
+    cycle: 'loop',
+    once: 'once'
   }
 }

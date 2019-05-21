@@ -36,6 +36,7 @@
                     <v-list-tile-title>{{ todo.taskTitle }}</v-list-tile-title>
                     <v-list-tile-sub-title>
                       {{ todo.taskDescription }}
+                      <span v-if="todo.remark" class="light-green--text">({{ todo.remark }})</span>
                     </v-list-tile-sub-title>
                   </v-list-tile-content>
 
@@ -45,12 +46,9 @@
                         {{ todo.nextLoopAt| moment('YYYY/MM/DD') }}
                       </div>
                     </v-list-tile-action-text>
-                    <div style="display: inline-block">
-                      <v-tooltip v-if="todo.remark" top>
-                        <v-btn icon slot="activator"><v-icon color="yellow">comment</v-icon></v-btn>
-                        <span>{{ '备注:' + todo.remark}}</span>
-                      </v-tooltip>
-                      <v-btn icon v-if="todo.frequency"><v-icon color="blue">restore</v-icon></v-btn>
+                    <div>
+                      <v-icon v-if="todo.frequency" color="blue" dark small>loop</v-icon>
+                      <v-icon v-else color="green" dark small>mdi-circle-medium</v-icon>
                       <span v-if="todo.remindAt">
                         <span>{{ todo.remindAt}}</span>
                       </span>

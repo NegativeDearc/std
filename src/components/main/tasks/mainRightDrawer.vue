@@ -31,11 +31,15 @@
           <v-subheader
             v-if="TASK.punchTime">
             {{ $t('task') }}
+            <v-chip label v-if="TASK.frequency">{{ $t('cycle') }}</v-chip>
+            <v-chip label v-else>{{ $t('once') }}</v-chip>
             <span class="red--text">({{ $t('finished_at') }}{{ TASK.punchTime }})</span>
           </v-subheader>
           <v-subheader
             v-else>
             {{ $t('task') }}
+            <v-chip label v-if="TASK.frequency">{{ $t('cycle') }}</v-chip>
+            <v-chip label v-else>{{ $t('once') }}</v-chip>
             <span class="blue--text">({{ $t('expired_at') }}{{ TASK.nextLoopAt }})</span>
           </v-subheader>
           <v-list-tile>
@@ -190,6 +194,8 @@ export default {
       if (this.TASK.frequency !== undefined && this.TASK.frequency !== '' && this.TASK.frequency !== null) {
         let wholeCronString = cronstrue.toString(this.TASK.frequency).split(',')
         return wholeCronString.splice(1, wholeCronString.length)
+      } else {
+        return 'NA'
       }
     }
   },
@@ -228,9 +234,6 @@ export default {
       }
       this.get_task(id)
     })
-  },
-  created: function () {
-    console.log('created')
   }
 }
 </script>

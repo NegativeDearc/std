@@ -19,7 +19,7 @@
         single-line
         hide-details
         v-model="taskTitle"
-        placeholder="Type anything to do..."
+        v-bind:placeholder="$t('type_new_task_title')"
         v-on:keyup.enter="newTask"
         v-on:keyup.esc="emptyTask"
         v-if="this.$route.name in {favorite: '', thisWeek: '', expired: '', later: '', finished: ''}"
@@ -40,6 +40,10 @@
         </v-list>
       </v-menu>
     </v-toolbar>
+    <mainNewTask
+      v-bind:task-title="taskTitle"
+      v-on:clear-input="emptyTask"
+    ></mainNewTask>
     <router-view name="left"></router-view>
     <router-view name="main"></router-view>
     <router-view name="right"></router-view>
@@ -50,19 +54,23 @@
 import MainLeftDrawer from './tasks/mainLeftDrawer'
 import MailRightDrawer from './tasks/mainRightDrawer'
 import MainItems from './tasks/mainItems'
+import mainNewTask from './mainNewTask'
 
 export default {
   name: 'mainContent',
-  components: {MainItems, MailRightDrawer, MainLeftDrawer},
+  components: {MainItems, MailRightDrawer, MainLeftDrawer, mainNewTask},
   data () {
     return {
       taskTitle: null
     }
   },
   methods: {
-    newTask: function () {
-      this.$store.dispatch('CREATE_NEW_TASK', { taskTitle: this.taskTitle })
-        .then(() => Object.assign(this.$data, this.$options.data()))
+    async newTask () {
+      if (this.taskTitle) {
+        await this.$store.commit('CHANGE_NEW_TASK_DIALOG')
+      }
+      // this.$store.dispatch('CREATE_NEW_TASK', { taskTitle: this.taskTitle })
+      //   .then(() => Object.assign(this.$data, this.$options.data()))
     },
     emptyTask: function () {
       this.taskTitle = null

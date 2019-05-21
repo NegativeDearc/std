@@ -11,15 +11,21 @@ import VeeValidate from 'vee-validate'
 import VueI18n from 'vue-i18n'
 import store from './store/index'
 import router from './router'
-import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
+import 'vuetify/dist/vuetify.min.css'
 import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
 import localForge from 'localforage'
 import VueSocketIO from 'vue-socket.io'
 
-axios.defaults.baseURL = 'http://localhost:7659/api/'
+const isDev = process.env.NODE_ENV !== 'production'
+
+if (isDev) {
+  axios.defaults.baseURL = 'http://localhost:7659/api/'
+} else {
+  axios.defaults.baseURL = 'http://p01142572:7659/api/'
+}
 
 Vue.config.productionTip = false
 Vue.use(Vuetify)

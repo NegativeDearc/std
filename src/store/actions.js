@@ -100,6 +100,16 @@ const actions = {
       }).catch(err => { console.log(err); alert(err) })
   },
 
+  CREATE_NEW_TASK_ONCE: function (context, form) {
+    axios.post('/task/user/once/' + localStorage.getItem('userId'), form)
+      .then(data => {
+        if (data.status === 201) {
+          console.log('==> TASK CREATED')
+          context.dispatch('GET_TASKS_OF_ALL')
+        }
+      }).catch(err => { console.log(err); alert(err) })
+  },
+
   GET_USER_DASH: function (context) {
     axios.get('/dash/' + localStorage.getItem('userId'))
       .then(data => {

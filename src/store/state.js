@@ -202,7 +202,9 @@ const state = {
     ]
   },
   /* connection status with sever */
-  CONNECTION_STATUS: true
+  CONNECTION_STATUS: true,
+  /* new task dialog state */
+  NEW_TASK_DIALOG: false
 }
 
 export default state

@@ -101,6 +101,10 @@ const mutations = {
   /* change connection status */
   CHANGE_SERVER_CONNECTION_STATUS: function (state, status) {
     state.CONNECTION_STATUS = status
+  },
+  /* change new task dialog state */
+  CHANGE_NEW_TASK_DIALOG: function (state) {
+    state.NEW_TASK_DIALOG = !state.NEW_TASK_DIALOG
   }
 }
 

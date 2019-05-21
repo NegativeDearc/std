@@ -37,7 +37,7 @@
     <v-footer class="pa-3" app>
       <div class="body-2">CHENXEI@SCN MOVE</div>
       <v-spacer></v-spacer>
-      <div class="body-2">&copy; 2018 - {{ new Date().getFullYear() }} STD Version V0.5.64</div>
+      <div class="body-2">&copy; 2018 - {{ new Date().getFullYear() }} STD Version V0.6.0</div>
     </v-footer>
   </v-app>
 

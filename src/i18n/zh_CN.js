@@ -68,6 +68,13 @@ module.exports = {
     favorite: '收藏',
     connection_error: '与服务器的连接断开..',
     load_more_data: '加载更多数据...',
-    close: '关闭'
+    close: '关闭',
+    confirm: '确定',
+    one_time_task: '一次性任务',
+    recurrence_task: '循环任务',
+    choose_end_time: '选择截止日期',
+    type_new_task_title: '输入任务名称...',
+    cycle: '循环',
+    once: '单次'
   }
 }
