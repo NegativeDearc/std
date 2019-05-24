@@ -32,14 +32,14 @@
                         <v-list-tile-sub-title>{{ item.taskDescription }}</v-list-tile-sub-title>
                       </v-list-tile-content>
                       <v-list-tile-action>
-                        <v-list-tile-action-text v-if="item.needFinishBefore">{{ $t('expired_at') }}{{ item.needFinishBefore }}</v-list-tile-action-text>
-                        <v-list-tile-action-text v-if="item.punchTime">{{ $t('finished_at') }}{{ item.punchTime }}</v-list-tile-action-text>
+                        <v-list-tile-action-text v-if="item.needFinishBefore">{{ $t('expired_at') }}{{ transferUTCTime(item.needFinishBefore) | moment('YYYY/MM/DD HH:mm:ss') }}</v-list-tile-action-text>
+                        <v-list-tile-action-text v-if="item.punchTime">{{ $t('finished_at') }}{{ transferUTCTime(item.punchTime) | moment('YYYY/MM/DD HH:mm:ss') }}</v-list-tile-action-text>
                       </v-list-tile-action>
                     </v-list-tile>
                   </v-list>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" flat @click="menu = false" outline disabled>{{ $t('notify') }}</v-btn>
+                    <v-btn flat @click="menu = false" outline disabled>{{ $t('notify') }}</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-menu>
@@ -57,7 +57,15 @@ export default {
     segment: { type: String },
     task_detail: { type: Object }
   },
-  name: 'dashList'
+  name: 'dashList',
+
+  methods: {
+    transferUTCTime: function (date) {
+      if (!date) { return null } else {
+        return new Date(date).getTime() - 480 * 60000
+      }
+    }
+  }
 }
 </script>
 

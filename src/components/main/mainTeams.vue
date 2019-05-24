@@ -85,7 +85,7 @@
                           <v-list-tile-sub-title>{{ item.taskDescription }}</v-list-tile-sub-title>
                         </v-list-tile-content>
                         <v-list-tile-action>
-                          <v-list-tile-action-text v-if="item.needFinishBefore">{{ $t('expired_at') }}{{ transferUTCTime(item.needFinishBefore)| moment('from') }}</v-list-tile-action-text>
+                          <v-list-tile-action-text v-if="item.needFinishBefore">{{ $t('expired_at') }}{{ transferUTCTime(item.needFinishBefore)| moment('YYYY/MM/DD HH:mm:ss') }}</v-list-tile-action-text>
                           <v-list-tile-action-text v-if="item.punchTime">{{ $t('finished_at') }}{{ transferUTCTime(item.punchTime) | moment('YYYY/MM/DD HH:mm:ss') }}</v-list-tile-action-text>
                         </v-list-tile-action>
                       </v-list-tile>

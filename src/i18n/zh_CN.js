@@ -48,6 +48,7 @@ module.exports = {
     week: '星期',
     date: '日期',
     logout: '登出',
+    login: '登陆',
     logout_description: '登出将重定向到登陆页面',
     finished_at: '完成于:',
     expired_at: '过期于:',
@@ -75,6 +76,8 @@ module.exports = {
     choose_end_time: '选择截止日期',
     type_new_task_title: '输入任务名称...',
     cycle: '循环',
-    once: '单次'
+    once: '单次',
+    employee_id: '工号',
+    password: '密码'
   }
 }

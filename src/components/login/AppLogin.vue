@@ -5,6 +5,7 @@
         <div class="display-3 grey--text">
           <span class="green--text">STD</span>
         </div>
+        <span class="grey--text body-1">Standard Work App</span>
         <v-flex xs8 md8 sm8>
           <v-card flat color="transparent" width="400px">
             <v-card-text>
@@ -12,22 +13,33 @@
                 <v-text-field
                   v-model="userId"
                   :counter="8"
-                  label="工号"
+                  v-bind:label="$t('employee_id')"
                   :rules="[v => v.length <= 8 || 'Max 8 characters']"
                   required
-                  outline
-                  clearable
+                  flat
+                  solo
                 ></v-text-field>
                 <v-text-field
                   v-model="password"
-                  type="password"
-                  label="密码"
-                  outline
+                  v-bind:type="show ? 'text': 'password'"
+                  v-bind:label="$t('password')"
+                  flat
+                  solo
                   required
-                  clearable
                   v-on:keypress.enter="login"
+                  v-bind:append-icon="show ? 'visibility' : 'visibility_off'"
+                  v-on:click:append="showPassword"
                 ></v-text-field>
-                <v-btn block depressed big round color="info" v-on:click="login" large>登陆</v-btn>
+
+                <div>
+                  <v-btn flat small color="green" v-on:click="changeLang('EN')">EN</v-btn>
+                  <v-btn flat small color="green" v-on:click="changeLang('CN')">中文</v-btn>
+                </div>
+
+                <v-btn block depressed big round color="info" v-on:click="login" large>
+                  {{ $t('login') }}
+                  <v-icon>trending_flat</v-icon>
+                </v-btn>
               </v-form>
             </v-card-text>
           </v-card>
@@ -37,7 +49,7 @@
     <v-footer class="pa-3" app>
       <div class="body-2">CHENXEI@SCN MOVE</div>
       <v-spacer></v-spacer>
-      <div class="body-2">&copy; 2018 - {{ new Date().getFullYear() }} STD Version V0.6.0</div>
+      <div class="body-2">&copy; 2018 - {{ new Date().getFullYear() }} STD Version V0.6.1</div>
     </v-footer>
   </v-app>
 
@@ -49,9 +61,11 @@ export default {
   data () {
     return {
       userId: '',
-      password: null
+      password: null,
+      show: false
     }
   },
+
   methods: {
     login: function () {
       let _data = new URLSearchParams({ userId: this.userId, password: this.password })
@@ -69,6 +83,15 @@ export default {
             alert(err)
           })
       }
+    },
+
+    showPassword () {
+      this.show = !this.show
+    },
+
+    changeLang (locale) {
+      this.$store.commit('CHANGE_DEFAULT_LANG', locale)
+      this.$i18n.locale = locale
     }
   },
   mounted: function () {

@@ -39,7 +39,7 @@ module.exports = {
     lab: 'Lab',
     language: '中文',
     translate: '选择语言',
-    translate_description: '哈？英文不太好吗',
+    translate_description: '选择中文',
     update_success: 'update success',
     old_password: 'Old Password',
     new_password: 'New Password',
@@ -48,6 +48,7 @@ module.exports = {
     week: 'Week',
     date: 'Date',
     logout: 'Logout',
+    login: 'Login',
     logout_description: 'Logout will bring you to login page',
     finished_at: 'finished at:',
     expired_at: 'expired at:',
@@ -75,6 +76,8 @@ module.exports = {
     choose_end_time: 'Choose due date',
     type_new_task_title: 'Type anything to do...',
     cycle: 'loop',
-    once: 'once'
+    once: 'once',
+    employee_id: 'id',
+    password: 'password'
   }
 }

@@ -2,7 +2,7 @@
   <div>
     <v-toolbar
       extended
-      color="primary"
+      color="green"
       dark
     >
       <v-toolbar-title>
@@ -11,7 +11,7 @@
       <v-tabs
         slot="extension"
         centered
-        color="primary"
+        color="green"
         slider-color="yellow"
         v-model="frequency"
       >
@@ -45,7 +45,7 @@
           card
           dense
           tile
-          color="primary"
+          color="green"
         >
           <v-toolbar-title>
             <span>Rules</span>
@@ -63,7 +63,7 @@
           <v-spacer></v-spacer>
           <v-btn
             v-on:click="emitRules"
-            color="primary"
+            color="green"
             flat
             outline
             round

@@ -80,11 +80,10 @@
               >
               </v-text-field>
             </v-list-tile-content>
-            <v-list-tile-action>
-            </v-list-tile-action>
           </v-list-tile>
           <v-divider></v-divider>
           <v-subheader>{{ $t('loop') }}</v-subheader>
+
           <v-list-tile v-bind:disabled="TASK.isDone">
             <v-text-field
               v-bind:disabled="TASK.isDone"
@@ -93,7 +92,6 @@
               flat
               hide-details
               readonly
-              clearable
               prepend-icon="repeat"
               v-model="cronToText"
               v-on:click.native="loopPicker = true"
@@ -108,11 +106,37 @@
             </v-dialog>
           </v-list-tile>
 
+          <v-list-tile>
+            <v-text-field
+              v-model="formatDate"
+              solo
+              flat
+              hide-details
+              required
+              readonly
+              v-bind:disabled="TASK.isDone || !TASK.isLoop"
+              prepend-icon="date_range"
+              v-on:click="date_dialog = true"
+            >
+            </v-text-field>
+            <v-dialog
+              ref="date_dialog"
+              v-model="date_dialog"
+              lazy
+              full-width
+              width="290px"
+            >
+              <v-date-picker v-model="formatDate" scrollable color="green">
+                <v-spacer></v-spacer>
+                <v-btn flat color="primary" @click="date_dialog = false">Cancel</v-btn>
+                <v-btn flat color="primary" @click="$refs.date_dialog.save(date)">OK</v-btn>
+              </v-date-picker>
+            </v-dialog>
+          </v-list-tile>
           <v-list-tile v-bind:disabled="TASK.isDone"
           >
             <v-text-field
               type="time-with-seconds"
-              clearable
               solo
               flat
               hide-details
@@ -186,9 +210,12 @@ export default {
       TASK: {},
       timePicker: null,
       loopPicker: false,
-      enableUpdate: true
+      enableUpdate: true,
+      date_dialog: null,
+      date: null
     }
   },
+
   computed: {
     cronToText: function () {
       if (this.TASK.frequency !== undefined && this.TASK.frequency !== '' && this.TASK.frequency !== null) {
@@ -197,8 +224,18 @@ export default {
       } else {
         return 'NA'
       }
+    },
+
+    formatDate: {
+      get () {
+        return this.$moment(this.TASK.nextLoopAt).format('YYYY-MM-DD')
+      },
+      set (date) {
+        this.TASK.nextLoopAt = date
+      }
     }
   },
+
   methods: {
     get_task: function (id) {
       this.TASK = this.$store.getters.GET_TASK_BY_ID(id)
